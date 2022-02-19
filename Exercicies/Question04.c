@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE 3
+#define SIZE 4
 
 int * getNumbers();
 
