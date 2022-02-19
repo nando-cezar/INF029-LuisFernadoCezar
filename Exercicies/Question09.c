@@ -18,6 +18,10 @@ typedef struct {
 } Client;
 
 Client registerClient();
+int validateName(char name[]);
+int validateBirthDate(int day, int month, int year);
+int validateCPF(char CPF[]);
+int validateGender(char gender);
 
 int main(){
 
@@ -50,4 +54,50 @@ Client registerClient(){
     scanf(" %c", &client.gender);
     
     return client;
+}
+
+int validateName(char name[]){ // name.lenght()
+
+    if(stringLenght(name) > 19)
+        return -1;
+    
+    return 0;
+}
+
+int validateBirthDate(int day, int month, int year){ // basic validation
+
+    if(day < 0 && day > 32)
+        return -1;
+    if(month < 0 && month > 12)
+        return -1;
+    if(year < 0)
+        return -1;
+
+    return 0;
+}
+
+int validateCPF(char CPF[]){ // xxx.xxx.xxx-xx | basic validate
+
+    if(stringLenght(CPF) > 14 || stringLenght(CPF) < 14)
+        return -1;
+
+    return 0;
+}
+
+int validateGender(char gender){
+
+    if(gender == 'M' || gender == 'F' || gender == 'O')
+        return 0;
+    
+    return -1;
+}
+
+int stringLenght(char string){
+
+    int count = 0;
+
+    for(int i = 0; string[i] != '\0'; i++){
+        count++;
+
+    return count;
 }
