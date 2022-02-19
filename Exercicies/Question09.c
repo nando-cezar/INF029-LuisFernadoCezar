@@ -18,6 +18,7 @@ typedef struct {
 } Client;
 
 Client registerClient();
+int stringLenght(char string[]);
 int validateName(char name[]);
 int validateBirthDate(int day, int month, int year);
 int validateCPF(char CPF[]);
@@ -26,6 +27,20 @@ int validateGender(char gender);
 int main(){
 
     Client client = registerClient();
+    
+    if(
+    validateName(client.name) 
+    || validateBirthDate(
+        client.birthDate.day, 
+        client.birthDate.month, 
+        client.birthDate.year) 
+    || validateCPF(client.CPF)
+    || validateGender(client.gender)
+    ){
+        printf("Dados invalidos! ");
+        return 0;
+    }
+    
     printf("\n%s\n%d/%d/%d\n%s\n%c", 
     client.name, 
     client.birthDate.day, 
@@ -43,13 +58,13 @@ Client registerClient(){
 
     printf("Informe nome: ");
     fgets(client.name, MAX_NAME_LEN, stdin);
+    printf("Informe CPF: ");
+    fgets(client.CPF, MAX_CPF_LEN, stdin);
     printf("Informe data de nascimento: ");
     scanf("%d %d %d", 
     &client.birthDate.day, 
     &client.birthDate.month, 
-    &client.birthDate.year);
-    printf("Informe CPF: ");
-    fgets(client.CPF, MAX_CPF_LEN, stdin);   
+    &client.birthDate.year);   
     printf("Informe sexo (M/F): ");
     scanf(" %c", &client.gender);
     
@@ -86,17 +101,24 @@ int validateCPF(char CPF[]){ // xxx.xxx.xxx-xx | basic validate
 
 int validateGender(char gender){
 
-    if(gender == 'M' || gender == 'F' || gender == 'O')
+    if(
+    gender == 'M' || 
+    gender == 'm' || 
+    gender == 'F' || 
+    gender == 'f' || 
+    gender == 'O' || 
+    gender == 'o'
+    )
         return 0;
     
     return -1;
 }
 
-int stringLenght(char string){
+int stringLenght(char string[]){
 
     int count = 0;
 
-    for(int i = 0; string[i] != '\0'; i++){
+    for(int i = 0; string[i] != '\0'; i++)
         count++;
 
     return count;
