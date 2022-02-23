@@ -6,14 +6,14 @@ int main(){
 
     int n1, n2, n3;
  
-    printf("Informe primeiro valor: ");
+    printf("Insert first value: ");
     scanf("%d", &n1);
-    printf("Informe segundo valor: ");
+    printf("Insert second value: ");
     scanf("%d", &n2);
-    printf("Informe segundo valor: ");
+    printf("Insert third value: ");
     scanf("%d", &n3);
 
-    printf("Resultado: %d", subtract(n1, n2, n3));
+    printf("Result: %d", subtract(n1, n2, n3));
 
     return 0;
 }

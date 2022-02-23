@@ -12,7 +12,7 @@ int main(){
     array = getChars();
 
     for(char i = 0; i < SIZE; i++)
-        printf("Resultado posicao %d: %c\n", i, array[i]);  
+        printf("Position result %d: %c\n", i, array[i]);  
 
     return 0;
 }
@@ -22,7 +22,7 @@ char * getChars() {
    char * chars = (char *) calloc (SIZE, sizeof (char));
     
     for(char i = 0; i < SIZE; i++){
-        printf("Informe letra %d: ", i);
+        printf("Insert char %d: ", i);
         scanf(" %c", &chars[i]);
     }
 

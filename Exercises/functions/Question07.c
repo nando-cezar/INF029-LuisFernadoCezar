@@ -15,7 +15,7 @@ int main(){
     array = getPhrases();
 
     for(int i = 0; i < ROW; i++)
-        printf("Resultado posicao %d: %s\n", i, array[i]);  
+        printf("Position result %d: %s\n", i, array[i]);  
 
     return 0;
 }
@@ -25,7 +25,7 @@ char ** getPhrases(){
    char ** phrases = allocateBoard(ROW, COLUMNS);
     
     for(int i = 0; i < ROW; i++){
-        printf("Informe frase %d: ", i);
+        printf("Insert phrase %d: ", i);
         fgets(phrases[i], COLUMNS, stdin);
     }
 
@@ -34,10 +34,9 @@ char ** getPhrases(){
 
 char ** allocateBoard(int rows, int columns){
 
-    char **board = (char **)malloc(rows * sizeof(char *)); 
-    int row;
+    char **board = (char **)malloc(rows * sizeof(char *));
 
-    for (row = 0; row < rows; row++) {
+    for (int row = 0; row < rows; row++) {
         board[row] = (char *)malloc(columns * sizeof(char));
     }
 

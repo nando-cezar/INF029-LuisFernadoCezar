@@ -37,16 +37,16 @@ Client registerClient(){
 
     Client client;
 
-    printf("Informe nome: ");
+    printf("Insert name: ");
     fgets(client.name, MAX_NAME_LEN, stdin);
-    printf("Informe data de nascimento: ");
+    printf("Insert birth date: ");
     scanf("%d %d %d", 
     &client.birthDate.day, 
     &client.birthDate.month, 
     &client.birthDate.year);
-    printf("Informe CPF: ");
+    printf("Insert CPF: ");
     fgets(client.CPF, MAX_CPF_LEN, stdin);   
-    printf("Informe sexo (M/F): ");
+    printf("Insert gender (M/F): ");
     scanf(" %c", &client.gender);
     
     return client;

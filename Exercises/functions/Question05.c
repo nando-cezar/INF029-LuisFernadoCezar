@@ -27,12 +27,12 @@ NumberInfo setValue(){
 
     NumberInfo number;
 
-    printf("Informe valor: ");
+    printf("Insert value: ");
     scanf("%d", &number.value);
     
     return number;
 }
 
 void getValue(NumberInfo number){
-    printf("Valor: %d\n", number.value);
+    printf("Value: %d\n", number.value);
 }
