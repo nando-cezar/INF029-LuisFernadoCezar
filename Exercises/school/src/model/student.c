@@ -3,7 +3,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "student.h"
+#include "../school/src/util/utility.h"
+#include "../school/src/model/interface/student.h"
 
 Student registerStudent(){
 

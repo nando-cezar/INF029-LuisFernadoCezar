@@ -3,7 +3,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "teacher.h"
+#include "../school/src/util/utility.h"
+#include "../school/src/model/interface/teacher.h"
 
 Teacher registerTeacher(){
 
