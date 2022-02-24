@@ -1,47 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
+#include <unistd.h>
 
-#define MAX_NAME_LEN 255
-#define MAX_CPF_LEN 15
-#define MAX_REGISTER_LEN 255
-
-typedef struct {
-    int year;
-    int month;
-    int day;
-} Date;
-
-typedef struct {
-    int enrollment;
-    char name[MAX_NAME_LEN];
-    Date birthDate;
-    char CPF[MAX_CPF_LEN];
-    char gender;
-} Student;
-
-typedef struct {
-    int enrollment;
-    char name[MAX_NAME_LEN];
-    Date birthDate;
-    char CPF[MAX_CPF_LEN];
-    char gender;
-} Teacher;
-
-typedef struct {
-    long int code;
-    char name[MAX_NAME_LEN];
-    int semester;
-    Teacher teacher;
-} Discipline;
-
-Student registerStudent();
-Student menuStudent();
-Teacher registerTeacher();
-Teacher menuTeacher();
-Discipline registerDiscipline();
-Discipline menuDiscipline();
+#include "../school/src/util/utility.h"
+#include "../school/src/model/interface/student.h"
+#include "../school/src/model/interface/teacher.h"
+#include "../school/src/model/interface/discipline.h"
 
 void logo();
 void menu();
@@ -51,22 +16,6 @@ int main(){
     logo();
 
     return 0;
-}
-
-Student registerStudent(){
-
-    Student student;
-    student = menuStudent();
-    
-    return student;
-}
-
-Teacher registerTeacher(){
-
-    Teacher teacher;
-    teacher = menuTeacher();
-    
-    return teacher;
 }
 
 void logo(){
@@ -102,7 +51,7 @@ void logo(){
         printf("  ");
 
         printf ("%c", 2);
-        sleep(3);
+        sleep(1);
       }
    }
       
@@ -134,69 +83,4 @@ void menu(){
         case 4:sair_sistema(); break;
     }*/
 
-}
-
-
-Student menuStudent(){
-
-    size_t ln;
-    Student student;
-
-    printf("Inserir matricula: ");
-    scanf("%d", &student.enrollment);
-
-    printf("Inserir nome: ");
-    fgets(student.name, MAX_NAME_LEN, stdin);
-    ln = strlen(student.name) - 1;
-    if (student.name[ln] == '\n')
-      student.name[ln] = '\0';
-
-    printf("Inserir CPF: ");
-    fgets(student.CPF, MAX_CPF_LEN, stdin);
-    ln = strlen(student.CPF) - 1;
-    if (student.CPF[ln] == '\n')
-      student.CPF[ln] = '\0';
-
-    printf("Inserir data de nascimento: ");
-    scanf("%d %d %d", 
-    &student.birthDate.day, 
-    &student.birthDate.month, 
-    &student.birthDate.year);   
-
-    printf("Inserir genero (M/F): ");
-    scanf(" %c", &student.gender);
-
-    return student;
-}
-
-Teacher menuTeacher(){
-
-    size_t ln;
-    Teacher teacher;
-    
-    printf("Inserir matricula: ");
-    scanf("%d", &teacher.enrollment);
-
-    printf("Inserir nome: ");
-    fgets(teacher.name, MAX_NAME_LEN, stdin);
-    ln = strlen(teacher.name) - 1;
-    if (teacher.name[ln] == '\n')
-      teacher.name[ln] = '\0';
-
-    printf("Inserir CPF: ");
-    fgets(teacher.CPF, MAX_CPF_LEN, stdin);
-    ln = strlen(teacher.CPF) - 1;
-    if (teacher.CPF[ln] == '\n')
-      teacher.CPF[ln] = '\0';
-
-    printf("Inserir data de nascimento: ");
-    scanf("%d %d %d", 
-    &teacher.birthDate.day, 
-    &teacher.birthDate.month, 
-    &teacher.birthDate.year);   
-
-    printf("Inserir genero (M/F): ");
-    scanf(" %c", &teacher.gender);
-
-    return teacher;
 }
