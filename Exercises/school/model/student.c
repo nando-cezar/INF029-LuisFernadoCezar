@@ -1,5 +1,5 @@
-#include "utility.h"
-#include "student.h"
+#include "../util/utility.h"
+#include "interface/student.h"
 
 #include <stdio.h>
 #include <stdlib.h>

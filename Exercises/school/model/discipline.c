@@ -1,5 +1,5 @@
-#include "utility.h"
-#include "discipline.h"
+#include "../util/utility.h"
+#include "interface/discipline.h"
 
 #include <stdio.h>
 #include <stdlib.h>

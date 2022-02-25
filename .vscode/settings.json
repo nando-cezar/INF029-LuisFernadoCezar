@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "teacher.h": "c",
+        "discipline.h": "c",
+        "student.h": "c",
+        "utility.h": "c"
+    }
+}

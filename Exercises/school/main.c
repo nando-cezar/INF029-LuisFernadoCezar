@@ -1,7 +1,7 @@
-#include "utility.h"
-#include "student.h"
-//#include "teacher.h"
-//#include "discipline.h"
+#include "util/utility.h"
+#include "model/interface/student.h"
+#include "model/interface/teacher.h"
+#include "model/interface/discipline.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,8 +78,8 @@ void menu(){
 
     switch (opcao){
         case 1:registerStudent();break;    
-        //case 2:registerTeacher();break;    
-        //case 3:registerDiscipline();break;
+        case 2:registerTeacher();break;    
+        case 3:registerDiscipline();break;
         //case 4:sair_sistema(); break;
         default: break;
     }

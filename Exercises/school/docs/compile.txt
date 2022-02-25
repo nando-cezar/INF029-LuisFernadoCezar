@@ -1,0 +1,5 @@
+cd Exercises/school
+
+gcc -o main main.c model/student.c model/teacher.c model/discipline.c
+
+./main
