@@ -1,0 +1,11 @@
+{
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "cxdate.h": "c",
+        "utility.h": "c",
+        "discipline.h": "c",
+        "student.h": "c",
+        "teacher.h": "c",
+        
+    }
+}

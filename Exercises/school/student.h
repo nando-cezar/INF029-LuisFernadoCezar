@@ -1,3 +1,6 @@
+#ifndef STUDENT_H // include guard
+#define STUDENT_H
+
 typedef struct detailsStudent{
     int enrollment;
     char name[MAX_NAME_LEN];
@@ -7,3 +10,5 @@ typedef struct detailsStudent{
 } Student;
 
 Student registerStudent();
+
+#endif

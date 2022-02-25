@@ -1,9 +1,12 @@
-#include <stdio.h>
+#include "utility.h"
+#include "student.h"
+//#include "teacher.h"
+//#include "discipline.h"
 
-#include "../school/src/util/utility.h"
-#include "../school/src/model/interface/student.h"
-#include "../school/src/model/interface/teacher.h"
-#include "../school/src/model/interface/discipline.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 void logo();
 void menu();
@@ -73,11 +76,12 @@ void menu(){
         fflush(stdin);
     }while((opcao<1 ) || (opcao>4) );
 
-    /*switch (opcao){
-        case 1:validacao_prof();break;    
-        case 2:validacao_aluno();break;    
-        case 3:validacao_adm();break;
-        case 4:sair_sistema(); break;
-    }*/
+    switch (opcao){
+        case 1:registerStudent();break;    
+        //case 2:registerTeacher();break;    
+        //case 3:registerDiscipline();break;
+        //case 4:sair_sistema(); break;
+        default: break;
+    }
 
 }

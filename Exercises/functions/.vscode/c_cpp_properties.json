@@ -4,9 +4,6 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/Exercises/school",
-                "${workspaceFolder}/Exercises/functions",
-                "${workspaceFolder}/Exercises",
                 "${workspaceFolder}"
             ],
             "defines": [

@@ -1,10 +1,10 @@
+#include "utility.h"
+#include "student.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
-#include "../school/src/util/utility.h"
-#include "../school/src/model/interface/student.h"
 
 Student registerStudent(){
 
