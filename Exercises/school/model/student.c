@@ -220,6 +220,81 @@ void birthdaysOfTheMonth(){
   getch();
 }
 
+void updateStudent(){
+
+  FILE * file;
+  size_t ln;
+  Student student;
+  int id, i = 1;
+
+  file = fopen("db/student.txt","rb+");
+
+  if(file == NULL){
+    printf("Error opening file!");
+
+  }else{
+    header();    
+    printf("\n\n\tLista de alunos!\n");
+    printf ("------------------------------------------------\n\n");
+
+    while(fread(&student, sizeof(Student), 1, file) == 1){ 
+      printf("ID: %d\n", i);
+      printf("Matricula: %s\n", student.enrollment);
+      printf("Nome: %s\n", student.name);
+      printf("CPF: %s\n", student.CPF);
+      printf("Data de nascimento: %d/%d/%d\n", 
+      student.birthDate.day,
+      student.birthDate.month,
+      student.birthDate.year
+      );
+      printf("Gênero: %c\n", student.gender);
+      printf ("***********************************************\n\n");
+      i++;
+    }
+
+    printf("Informe o ID do aluno que deseja alterar: ");
+    scanf("%d", &id);
+    getchar();
+    id--;
+
+    if(id >= 0 && id < i-1) {
+      printf("Inserir matricula: ");
+      fgets(student.enrollment, MAX_ENR_LEN, stdin);
+      ln = strlen(student.enrollment) - 1;
+      if (student.enrollment[ln] == '\n')
+        student.enrollment[ln] = '\0';
+
+      printf("Inserir nome: ");
+      fgets(student.name, MAX_NAME_LEN, stdin);
+      ln = strlen(student.name) - 1;
+      if (student.name[ln] == '\n')
+        student.name[ln] = '\0';
+
+      printf("Inserir CPF: ");
+      fgets(student.CPF, MAX_CPF_LEN, stdin);
+      ln = strlen(student.CPF) - 1;
+      if (student.CPF[ln] == '\n')
+        student.CPF[ln] = '\0';
+
+      printf("Inserir data de nascimento: ");
+      scanf("%d %d %d", 
+      &student.birthDate.day, 
+      &student.birthDate.month, 
+      &student.birthDate.year);
+      getchar();
+
+      printf("Inserir gênero (M/F): ");
+      scanf(" %c", &student.gender);
+      getchar();
+
+      fseek(file, id * sizeof(Student), SEEK_SET);
+      fwrite(&student, sizeof(Student), 1, file);
+    }
+
+  }
+  fclose(file);
+  getch();
+}
 
 void mainStudent(){
 
@@ -245,10 +320,10 @@ void mainStudent(){
       case 1:createStudent();break;
       case 2:retrieveStudent();break;
       case 3:retrieveStudentByGender();break;
-      case 4:sortStudentByName();break;
-      case 5:sortStudentByBirthDate();break;
+      case 4:sortStudentByName();break; //implementing
+      case 5:sortStudentByBirthDate();break; //implementing
       case 6:birthdaysOfTheMonth();break;
-      case 7: break;
+      case 7:updateStudent();break;
       case 8: break;
       case 9: break;
       default: 
