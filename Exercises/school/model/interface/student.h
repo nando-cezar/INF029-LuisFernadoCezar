@@ -2,13 +2,21 @@
 #define STUDENT_H
 
 typedef struct detailsStudent{
-    int enrollment;
+    char enrollment[MAX_ENR_LEN];
     char name[MAX_NAME_LEN];
     Date birthDate;
     char CPF[MAX_CPF_LEN];
     char gender;
 } Student;
-
-Student registerStudent();
+ 
+void createStudent();
+void retrieveStudent();
+void retrieveStudentByGender();
+void sortStudentByName();
+void sortStudentByBirthDate();
+void birthdaysOfTheMonth();
+void updateStudent();
+void deleteStudent();
+void mainStudent();
 
 #endif

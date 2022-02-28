@@ -3,6 +3,8 @@
         "teacher.h": "c",
         "discipline.h": "c",
         "student.h": "c",
-        "utility.h": "c"
-    }
+        "utility.h": "c",
+        "string.h": "c"
+    },
+    "files.encoding": "utf8"
 }

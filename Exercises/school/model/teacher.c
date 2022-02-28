@@ -1,12 +1,7 @@
 #include "../util/utility.h"
 #include "interface/teacher.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-Teacher registerTeacher(){
+void createTeacher(){
 
     size_t ln;
     Teacher teacher;
@@ -35,5 +30,12 @@ Teacher registerTeacher(){
     printf("Inserir genero (M/F): ");
     scanf(" %c", &teacher.gender);
 
-    return teacher;
+    //return teacher;
+}
+
+void mainTeacher(){
+
+  //header();
+  //setlocale(LC_ALL, "Portuguese");
+
 }

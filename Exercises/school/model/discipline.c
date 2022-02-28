@@ -1,12 +1,7 @@
 #include "../util/utility.h"
 #include "interface/discipline.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-Discipline registerDiscipline(){
+void createDiscipline(){
 
     size_t ln;
     Discipline discipline;
@@ -26,5 +21,12 @@ Discipline registerDiscipline(){
     printf("Inserir professor: ");
     // find teacher
 
-    return discipline;
+    //return discipline;
+}
+
+void mainDiscipline(){
+
+  //header();
+
+  //setlocale(LC_ALL, "Portuguese");
 }

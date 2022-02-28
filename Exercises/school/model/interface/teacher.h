@@ -2,13 +2,17 @@
 #define TEACHER_H
 
 typedef struct detailsTeacher{
-    int enrollment;
+    char enrollment[MAX_ENR_LEN];
     char name[MAX_NAME_LEN];
     Date birthDate;
     char CPF[MAX_CPF_LEN];
     char gender;
 } Teacher;
 
-Teacher registerTeacher();
+void createTeacher();
+void retrieveTeacher();
+void updateTeacher();
+void deleteTeacher();
+void mainTeacher();
 
 #endif

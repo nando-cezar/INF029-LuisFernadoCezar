@@ -2,6 +2,7 @@
 #define MENU_H
 
 void logo();
+void header();
 void menu();
 
 #endif
