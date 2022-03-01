@@ -18,5 +18,7 @@ void birthdaysOfTheMonth();
 void updateStudent();
 void deleteStudent();
 void mainStudent();
+void printStudent(Student student);
+Student insertStudent();
 
 #endif

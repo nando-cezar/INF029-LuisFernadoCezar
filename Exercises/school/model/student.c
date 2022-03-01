@@ -5,7 +5,6 @@
 void createStudent(){
 
   FILE * file;
-  size_t ln;
   Student student;
 
   file = fopen("db/student.txt","ab");
@@ -15,34 +14,7 @@ void createStudent(){
   }else{
     do{
       header();
-      printf("Inserir matricula: ");
-      fgets(student.enrollment, MAX_ENR_LEN, stdin);
-      ln = strlen(student.enrollment) - 1;
-      if (student.enrollment[ln] == '\n')
-        student.enrollment[ln] = '\0';
-
-      printf("Inserir nome: ");
-      fgets(student.name, MAX_NAME_LEN, stdin);
-      ln = strlen(student.name) - 1;
-      if (student.name[ln] == '\n')
-        student.name[ln] = '\0';
-
-      printf("Inserir CPF: ");
-      fgets(student.CPF, MAX_CPF_LEN, stdin);
-      ln = strlen(student.CPF) - 1;
-      if (student.CPF[ln] == '\n')
-        student.CPF[ln] = '\0';
-
-      printf("Inserir data de nascimento: ");
-      scanf("%d %d %d", 
-      &student.birthDate.day, 
-      &student.birthDate.month, 
-      &student.birthDate.year);
-      getchar();
-
-      printf("Inserir gênero (M/F): ");
-      scanf(" %c", &student.gender);
-      getchar();
+      student = insertStudent(student);
 
       fwrite(&student, sizeof(Student), 1, file);
       printf("\n\nDeseja continuar(s/n)? \n");
@@ -65,16 +37,7 @@ void retrieveStudent(){
   }else{
     header();
     while(fread(&student, sizeof(Student), 1, file) == 1){   
-      printf("Matricula: %s\n", student.enrollment);
-      printf("Nome: %s\n", student.name);
-      printf("CPF: %s\n", student.CPF);
-      printf("Data de nascimento: %d/%d/%d\n", 
-      student.birthDate.day,
-      student.birthDate.month,
-      student.birthDate.year
-      );
-      printf("Inserir gênero (M/F): %c\n", student.gender);
-      printf ("***********************************************\n\n");
+      printStudent(student);
     }
   }
   fclose(file);
@@ -102,16 +65,7 @@ void retrieveStudentByGender(){
     while(fread(&student, sizeof(Student), 1, file) == 1){ 
 
       if(student.gender == gender){
-        printf("Matricula: %s\n", student.enrollment);
-        printf("Nome: %s\n", student.name);
-        printf("CPF: %s\n", student.CPF);
-        printf("Data de nascimento: %d/%d/%d\n", 
-        student.birthDate.day,
-        student.birthDate.month,
-        student.birthDate.year
-        );
-        printf("Inserir gênero (M/F): %c\n", student.gender);
-        printf ("***********************************************\n\n");
+        printStudent(student);
       }
     }
   }
@@ -131,21 +85,7 @@ void sortStudentByName(){
 
   }else{
     header();
-    /*while(fread(&student, sizeof(Student), 1, file) == 1){
- 
-      printf("Matricula: %s\n", student.enrollment);
-      printf("Nome: %s\n", student.name);
-      printf("CPF: %s\n", student.CPF);
-      printf("Data de nascimento: %d/%d/%d\n", 
-      student.birthDate.day,
-      student.birthDate.month,
-      student.birthDate.year
-      );
-      printf("Inserir gênero (M/F): %c\n", student.gender);
-      printf ("***********************************************\n\n");
-    
-    }
-    */
+    /* implementing */
   }
   fclose(file);
   getch();
@@ -163,21 +103,7 @@ void sortStudentByBirthDate(){
 
   }else{
     header();
-    /*while(fread(&student, sizeof(Student), 1, file) == 1){
- 
-      printf("Matricula: %s\n", student.enrollment);
-      printf("Nome: %s\n", student.name);
-      printf("CPF: %s\n", student.CPF);
-      printf("Data de nascimento: %d/%d/%d\n", 
-      student.birthDate.day,
-      student.birthDate.month,
-      student.birthDate.year
-      );
-      printf("Inserir gênero (M/F): %c\n", student.gender);
-      printf ("***********************************************\n\n");
-    
-    }
-    */
+    /* implementing */
   }
   fclose(file);
   getch();
@@ -203,16 +129,7 @@ void birthdaysOfTheMonth(){
     while(fread(&student, sizeof(Student), 1, file) == 1){ 
 
       if(student.birthDate.month == month){
-        printf("Matricula: %s\n", student.enrollment);
-        printf("Nome: %s\n", student.name);
-        printf("CPF: %s\n", student.CPF);
-        printf("Data de nascimento: %d/%d/%d\n", 
-        student.birthDate.day,
-        student.birthDate.month,
-        student.birthDate.year
-        );
-        printf("Inserir gênero (M/F): %c\n", student.gender);
-        printf ("***********************************************\n\n");
+        printStudent(student);
       }
     }
   }
@@ -223,7 +140,6 @@ void birthdaysOfTheMonth(){
 void updateStudent(){
 
   FILE * file;
-  size_t ln;
   Student student;
   int id, i = 1;
 
@@ -233,22 +149,11 @@ void updateStudent(){
     printf("Error opening file!");
 
   }else{
-    header();    
-    printf("\n\n\tLista de alunos!\n");
-    printf ("------------------------------------------------\n\n");
+    header();
 
     while(fread(&student, sizeof(Student), 1, file) == 1){ 
       printf("ID: %d\n", i);
-      printf("Matricula: %s\n", student.enrollment);
-      printf("Nome: %s\n", student.name);
-      printf("CPF: %s\n", student.CPF);
-      printf("Data de nascimento: %d/%d/%d\n", 
-      student.birthDate.day,
-      student.birthDate.month,
-      student.birthDate.year
-      );
-      printf("Gênero: %c\n", student.gender);
-      printf ("***********************************************\n\n");
+      printStudent(student);
       i++;
     }
 
@@ -258,35 +163,7 @@ void updateStudent(){
     id--;
 
     if(id >= 0 && id < i-1) {
-      printf("Inserir matricula: ");
-      fgets(student.enrollment, MAX_ENR_LEN, stdin);
-      ln = strlen(student.enrollment) - 1;
-      if (student.enrollment[ln] == '\n')
-        student.enrollment[ln] = '\0';
-
-      printf("Inserir nome: ");
-      fgets(student.name, MAX_NAME_LEN, stdin);
-      ln = strlen(student.name) - 1;
-      if (student.name[ln] == '\n')
-        student.name[ln] = '\0';
-
-      printf("Inserir CPF: ");
-      fgets(student.CPF, MAX_CPF_LEN, stdin);
-      ln = strlen(student.CPF) - 1;
-      if (student.CPF[ln] == '\n')
-        student.CPF[ln] = '\0';
-
-      printf("Inserir data de nascimento: ");
-      scanf("%d %d %d", 
-      &student.birthDate.day, 
-      &student.birthDate.month, 
-      &student.birthDate.year);
-      getchar();
-
-      printf("Inserir gênero (M/F): ");
-      scanf(" %c", &student.gender);
-      getchar();
-
+      student = insertStudent(student);
       fseek(file, id * sizeof(Student), SEEK_SET);
       fwrite(&student, sizeof(Student), 1, file);
     }
@@ -299,11 +176,11 @@ void updateStudent(){
 void deleteStudent(){
 
   FILE * file;
-  size_t ln, fSize, nReg;
+  size_t fSize, nReg;
   Student student;
   Student * ptrStudent;
-  int id, i = 1;
-  int n = 0;
+  int idSelected, sizeArray = 1;
+  int indexPtrStudent = 0;
 
   file = fopen("db/student.txt","rb");
 
@@ -321,39 +198,25 @@ void deleteStudent(){
       printf("Error opening array!");
     }else{
 
-      header();    
-      printf("\n\n\tLista de alunos!\n");
-      printf ("------------------------------------------------\n\n");
-
+      header();
       fseek(file, 0L, SEEK_SET);
       while(fread(&student, sizeof(Student), 1, file) == 1){ 
-        printf("ID: %d\n", i);
-        printf("Matricula: %s\n", student.enrollment);
-        printf("Nome: %s\n", student.name);
-        printf("CPF: %s\n", student.CPF);
-        printf("Data de nascimento: %d/%d/%d\n", 
-        student.birthDate.day,
-        student.birthDate.month,
-        student.birthDate.year
-        );
-        printf("Gênero: %c\n", student.gender);
-        printf ("***********************************************\n\n");
-        ptrStudent[n] = student;
-        n++;
-        i++;
+        printf("ID: %d\n", sizeArray);
+        printStudent(student);
+        ptrStudent[indexPtrStudent] = student;
+        indexPtrStudent++;
+        sizeArray++;
       }
 
       printf("Informe o ID do aluno que deseja excluir: ");
-      scanf("%d", &id);
+      scanf("%d", &idSelected);
       getchar();
-      id--;
+      idSelected--;
 
-      if(id >= 0 && id < i-1) {
+      if(idSelected >= 0 && idSelected < sizeArray-1) {
 
-        ptrStudent[id] = ptrStudent[nReg-1];
-        ptrStudent = (Student*) realloc(ptrStudent, --i * sizeof(Student)); 
-        
-        //implementing function free();  
+        ptrStudent[idSelected] = ptrStudent[nReg-1];
+        ptrStudent = (Student*) realloc(ptrStudent, --sizeArray * sizeof(Student)); 
       
         fclose(file);
         remove("db/student.txt");
@@ -378,6 +241,57 @@ void deleteStudent(){
   }
   fclose(file);
   getch();
+}
+
+void printStudent(Student student){
+
+  printf("Matricula: %s\n", student.enrollment);
+  printf("Nome: %s\n", student.name);
+  printf("CPF: %s\n", student.CPF);
+  printf("Data de nascimento: %d/%d/%d\n", 
+  student.birthDate.day,
+  student.birthDate.month,
+  student.birthDate.year
+  );
+  printf("Gênero: %c\n", student.gender);
+  printf ("***********************************************\n\n");
+
+}
+
+Student insertStudent(Student student){
+
+  size_t ln;
+
+  printf("Inserir matricula: ");
+  fgets(student.enrollment, MAX_ENR_LEN, stdin);
+  ln = strlen(student.enrollment) - 1;
+  if (student.enrollment[ln] == '\n')
+    student.enrollment[ln] = '\0';
+
+  printf("Inserir nome: ");
+  fgets(student.name, MAX_NAME_LEN, stdin);
+  ln = strlen(student.name) - 1;
+  if (student.name[ln] == '\n')
+    student.name[ln] = '\0';
+
+  printf("Inserir CPF: ");
+  fgets(student.CPF, MAX_CPF_LEN, stdin);
+  ln = strlen(student.CPF) - 1;
+  if (student.CPF[ln] == '\n')
+    student.CPF[ln] = '\0';
+
+  printf("Inserir data de nascimento: ");
+  scanf("%d %d %d", 
+  &student.birthDate.day, 
+  &student.birthDate.month, 
+  &student.birthDate.year);
+  getchar();
+
+  printf("Inserir gênero (M/F): ");
+  scanf(" %c", &student.gender);
+  getchar();
+
+  return student;
 }
 
 void mainStudent(){
