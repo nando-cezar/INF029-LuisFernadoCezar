@@ -296,6 +296,90 @@ void updateStudent(){
   getch();
 }
 
+void deleteStudent(){
+
+  FILE * file;
+  size_t ln, fSize, nReg;
+  Student student;
+  Student * ptrStudent;
+  int id, i = 1;
+  int n = 0;
+
+  file = fopen("db/student.txt","rb");
+
+  if(file == NULL){
+    printf("Error opening file!");
+
+  }else{
+
+    fseek(file, 0L, SEEK_END);
+    fSize = ftell(file);
+    nReg = fSize/sizeof(Student);
+    ptrStudent = (Student *) malloc(fSize);
+
+    if(ptrStudent == NULL){
+      printf("Error opening array!");
+    }else{
+
+      header();    
+      printf("\n\n\tLista de alunos!\n");
+      printf ("------------------------------------------------\n\n");
+
+      fseek(file, 0L, SEEK_SET);
+      while(fread(&student, sizeof(Student), 1, file) == 1){ 
+        printf("ID: %d\n", i);
+        printf("Matricula: %s\n", student.enrollment);
+        printf("Nome: %s\n", student.name);
+        printf("CPF: %s\n", student.CPF);
+        printf("Data de nascimento: %d/%d/%d\n", 
+        student.birthDate.day,
+        student.birthDate.month,
+        student.birthDate.year
+        );
+        printf("Gênero: %c\n", student.gender);
+        printf ("***********************************************\n\n");
+        ptrStudent[n] = student;
+        n++;
+        i++;
+      }
+
+      printf("Informe o ID do aluno que deseja excluir: ");
+      scanf("%d", &id);
+      getchar();
+      id--;
+
+      if(id >= 0 && id < i-1) {
+
+        ptrStudent[id] = ptrStudent[nReg-1];
+        ptrStudent = (Student*) realloc(ptrStudent, --i * sizeof(Student)); 
+        
+        //implementing function free();  
+      
+        fclose(file);
+        remove("db/student.txt");
+        file = fopen("db/student.txt","ab");
+
+        for(int j = 0; j < nReg-1; j++){
+          strcpy(student.enrollment, ptrStudent[j].enrollment);
+          strcpy(student.name, ptrStudent[j].name);
+          strcpy(student.CPF, ptrStudent[j].CPF);
+          student.birthDate.day = ptrStudent[j].birthDate.day;
+          student.birthDate.month = ptrStudent[j].birthDate.month;
+          student.birthDate.year = ptrStudent[j].birthDate.year;
+          student.gender = ptrStudent[j].gender;
+
+          fwrite(&student, sizeof(Student), 1, file);
+        }
+      }else{
+        printf("Invalide code!");
+      }
+
+    }
+  }
+  fclose(file);
+  getch();
+}
+
 void mainStudent(){
 
   //setlocale(LC_ALL, "Portuguese");
@@ -324,7 +408,7 @@ void mainStudent(){
       case 5:sortStudentByBirthDate();break; //implementing
       case 6:birthdaysOfTheMonth();break;
       case 7:updateStudent();break;
-      case 8: break;
+      case 8:deleteStudent();break;
       case 9: break;
       default: 
         printf("Opção inválida!\n"); 
