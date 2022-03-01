@@ -1,5 +1,5 @@
 cd Exercises/school
 
-gcc -o main main.c model/student.c model/teacher.c model/discipline.c view/menu.c
+gcc -o main main.c controller/student.c controller/teacher.c controller/discipline.c view/menu.c view/student.c view/teacher.c view/discipline.c
 
 ./main

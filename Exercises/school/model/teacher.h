@@ -11,8 +11,14 @@ typedef struct detailsTeacher{
 
 void createTeacher();
 void retrieveTeacher();
+void retrieveTeacherByGender();
+void sortTeacherByName();
+void sortTeacherByBirthDate();
+void birthdaysOfTheMonth();
 void updateTeacher();
 void deleteTeacher();
 void mainTeacher();
+void printTeacher(Teacher teacher);
+Teacher insertTeacher();
 
 #endif

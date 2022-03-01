@@ -1,8 +1,8 @@
-#include "menu.h"
 #include "../util/utility.h"
-#include "../model/interface/discipline.h"
-#include "../model/interface/student.h"
-#include "../model/interface/teacher.h"
+#include "../model/menu.h"
+#include "../model/discipline.h"
+#include "../model/student.h"
+#include "../model/teacher.h"
 
 void logo(){
 
@@ -57,8 +57,6 @@ void header(){
 }
 
 void menu(){
-
-    //setlocale(LC_ALL, "Portuguese");
 
     int option;
 

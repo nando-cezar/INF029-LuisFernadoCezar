@@ -4,7 +4,8 @@
         "discipline.h": "c",
         "student.h": "c",
         "utility.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "menu.h": "c"
     },
     "files.encoding": "utf8"
 }

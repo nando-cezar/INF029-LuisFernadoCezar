@@ -1,5 +1,5 @@
 #include "../util/utility.h"
-#include "interface/discipline.h"
+#include "../model/discipline.h"
 
 void createDiscipline(){
 
