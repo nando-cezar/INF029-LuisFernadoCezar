@@ -3,7 +3,7 @@
 
 void createDiscipline(){
 
-    size_t ln;
+  /*  size_t ln;
     Discipline discipline;
 
     printf("Inserir codigo: ");
@@ -22,6 +22,7 @@ void createDiscipline(){
     // find teacher
 
     //return discipline;
+    */
 }
 
 void mainDiscipline(){
