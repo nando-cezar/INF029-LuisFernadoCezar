@@ -55,11 +55,11 @@ int validateDate(Date date){
     else return 1;
 }
 
-int validateDay(int day, int month, int ano){
+int validateDay(int day, int month, int year){
 
     int isLeapYear;
 
-    if(ano%400 == 0 || (ano%4 == 0 && ano%100 != 0)) isLeapYear = 1;
+    if(year%400 == 0 || (year%4 == 0 && year%100 != 0)) isLeapYear = 1;
     else isLeapYear = 0;
 
     if(

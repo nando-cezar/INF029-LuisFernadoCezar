@@ -72,6 +72,7 @@ void retrieveStudentByGender(){
     header();
     printf("Informe qual o gênero deseja buscar(M/F): ");
     scanf(" %c", &gender);
+    getchar();
     printf("\n\n");
 
     while(fread(&student, sizeof(Student), 1, file) == 1){ 
@@ -88,7 +89,9 @@ void retrieveStudentByGender(){
 void sortStudentByName(){
 
   FILE * file;
-  Student student;
+  Student * student;
+  Student auxiliaryStudent;
+  int counter = 0, auxiliary = 0;
 
   file = fopen("db/student.txt","rb");
 
@@ -96,9 +99,39 @@ void sortStudentByName(){
     printf("Error opening file!");
 
   }else{
+
+    counter =  structAmount(file);   
+    student = (Student*)malloc(counter*sizeof(Student));
+   
+    while(fread(&student[auxiliary++],sizeof(student[auxiliary]), 1, file) == 1);
+
+    for(int i = 0 ; i < counter ; i++){
+      for(int j = i+1; j < counter; j++ ){
+        if(strcmp(student[i].name, student[j].name) > 0){
+          auxiliaryStudent = student[i];
+          student[i] = student[j];
+          student[j] = auxiliaryStudent;
+        }
+      }
+    }
+
     header();
-    /* implementing */
+    for(int i = 0; i < counter; i++){ 
+      printf("Matricula: %s\n", student[i].enrollment);
+      printf("Nome: %s\n", student[i].name);
+      printf("CPF: %s\n", student[i].CPF);
+      printf("Data de nascimento: %d/%d/%d\n", 
+      student[i].birthDate.day,
+      student[i].birthDate.month,
+      student[i].birthDate.year
+      );
+      printf("gênero: %c\n", student[i].gender);
+      printf ("***********************************************\n\n");
+
+    }
+    
   }
+  free(student);
   fclose(file);
   getchar();
 }
@@ -106,7 +139,10 @@ void sortStudentByName(){
 void sortStudentByBirthDate(){
 
   FILE * file;
-  Student student;
+  Student *student;
+  Student auxiliaryStudent;
+  int counter = 0, auxiliary = 0;
+  int checkerYear, checkerMonth, checkerDay;
 
   file = fopen("db/student.txt","rb");
 
@@ -114,11 +150,51 @@ void sortStudentByBirthDate(){
     printf("Error opening file!");
 
   }else{
-    header();
-    /* implementing */
+
+    counter = structAmount(file);   
+    student = (Student*)malloc(counter*sizeof(Student));
+
+    while(fread(&student[auxiliary++], sizeof(student[auxiliary]), 1, file) == 1);
+
+    for(int i = 0; i < counter; i++){
+      for(int j = i+1; j < counter; j++ ){
+
+        checkerYear = isLarger(student[i].birthDate.year, student[j].birthDate.year);
+        checkerMonth = isLarger(student[i].birthDate.month, student[j].birthDate.month); 
+        checkerDay = isLarger(student[i].birthDate.day, student[j].birthDate.day);
+
+        if(checkerYear == 1 ||
+          (checkerYear == 0 && checkerMonth == 1) ||
+          (checkerYear == 0 && checkerMonth == 0 && checkerDay==0))
+          {
+            auxiliaryStudent = student[i];
+            student[i] = student[j];
+            student[j] = auxiliaryStudent;
+        }
+
+      }
+    }
+
+  header();
+  for(int i = 0;i<counter;i++){ 
+    printf("Matricula: %s\n", student[i].enrollment);
+    printf("Nome: %s\n", student[i].name);
+    printf("CPF: %s\n", student[i].CPF);
+    printf("Data de nascimento: %d/%d/%d\n", 
+    student[i].birthDate.day,
+    student[i].birthDate.month,
+    student[i].birthDate.year
+    );
+      printf("gênero: %c\n", student[i].gender);
+      printf ("***********************************************\n\n");
+
   }
+    
+  }
+  free(student);
   fclose(file);
   getchar();
+ 
 }
 
 void birthdaysOfTheMonth(){
@@ -136,6 +212,7 @@ void birthdaysOfTheMonth(){
     header();
     printf("Informe qual o número do mês deseja buscar: ");
     scanf("%d", &month);
+    getchar();
     printf("\n\n");
 
     while(fread(&student, sizeof(Student), 1, file) == 1){ 
@@ -253,6 +330,29 @@ void deleteStudent(){
   }
   fclose(file);
   getchar();
+}
+
+int structAmount( FILE * file){
+
+  Student auxiliaryStudent;
+  int counter = 0;
+
+  while(fread(&auxiliaryStudent, sizeof(auxiliaryStudent), 1, file) == 1){
+      counter++;
+  }
+  rewind(file);
+
+  return counter;
+}
+
+
+int isLarger(int numberOne, int numberTwo){
+
+  if(numberOne == numberTwo) return 0;
+
+  else if(numberOne > numberTwo) return 1;
+  
+  else return -1;
 }
 
 void mainStudent(){

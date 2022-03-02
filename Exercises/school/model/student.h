@@ -21,4 +21,7 @@ void mainStudent();
 void printStudent(Student student);
 Student insertStudent();
 
+int structAmount(FILE * file);
+int isLarger(int numberOne, int numberTwo);
+
 #endif
