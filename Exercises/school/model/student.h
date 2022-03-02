@@ -7,7 +7,7 @@ typedef struct detailsStudent{
     Date birthDate;
     char CPF[MAX_CPF_LEN];
     char gender;
-} Student;
+} Student; 
  
 void createStudent();
 void retrieveStudent();

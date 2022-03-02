@@ -1,5 +1,6 @@
 #include "../util/utility.h"
 #include "../util/validation.h"
+#include "../model/menu.h"
 #include "../model/student.h"
 
 void printStudent(Student student){
@@ -78,7 +79,7 @@ Student insertStudent(Student student){
     &student.birthDate.year);   
 
     getchar();
-
+ 
     verification = validateDate(student.birthDate);
 
     if(!verification){
@@ -101,4 +102,41 @@ Student insertStudent(Student student){
     }while(!verification);
 
   return student;
+}
+
+void mainStudent(){
+
+  int option;
+
+  do{
+    header();
+    printf("1. Inserir estudante;\n");
+    printf("2. Listar estudantes;\n");
+    printf("3. Listar estudantes por sexo (M/F);\n");
+    printf("4. Listar estudantes ordenados por nome;\n");
+    printf("5. Listar estudantes ordenados data de nascimento;\n");
+    printf("6. Aniversariantes do mês;\n");
+    printf("7. Atualizar estudante;\n");
+    printf("8. Excluir estudante;\n");
+    printf("9. Retornar ao menu principal;\n\n");
+    printf("\nEscolha uma opção: ");
+    scanf("%d", &option);
+    getchar();
+    switch(option){
+      case 1:createStudent();break;
+      case 2:retrieveStudent();break;
+      case 3:retrieveStudentByGender();break;
+      case 4:sortStudentByName();break; //implementing
+      case 5:sortStudentByBirthDate();break; //implementing
+      case 6:birthdaysOfTheMonth();break;
+      case 7:updateStudent();break;
+      case 8:deleteStudent();break;
+      case 9: break;
+      default: 
+        printf("Opção inválida!\n"); 
+        getchar();
+        break;
+    }
+  }while(option != 9);
+
 }

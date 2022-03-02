@@ -117,17 +117,7 @@ void sortStudentByName(){
 
     header();
     for(int i = 0; i < counter; i++){ 
-      printf("Matricula: %s\n", student[i].enrollment);
-      printf("Nome: %s\n", student[i].name);
-      printf("CPF: %s\n", student[i].CPF);
-      printf("Data de nascimento: %d/%d/%d\n", 
-      student[i].birthDate.day,
-      student[i].birthDate.month,
-      student[i].birthDate.year
-      );
-      printf("gênero: %c\n", student[i].gender);
-      printf ("***********************************************\n\n");
-
+      printStudent(student[i]);
     }
     
   }
@@ -176,18 +166,8 @@ void sortStudentByBirthDate(){
     }
 
   header();
-  for(int i = 0;i<counter;i++){ 
-    printf("Matricula: %s\n", student[i].enrollment);
-    printf("Nome: %s\n", student[i].name);
-    printf("CPF: %s\n", student[i].CPF);
-    printf("Data de nascimento: %d/%d/%d\n", 
-    student[i].birthDate.day,
-    student[i].birthDate.month,
-    student[i].birthDate.year
-    );
-      printf("gênero: %c\n", student[i].gender);
-      printf ("***********************************************\n\n");
-
+  for(int i = 0; i < counter;i++){ 
+    printStudent(student[i]);
   }
     
   }
@@ -353,41 +333,4 @@ int isLarger(int numberOne, int numberTwo){
   else if(numberOne > numberTwo) return 1;
   
   else return -1;
-}
-
-void mainStudent(){
-
-  int option;
-
-  do{
-    header();
-    printf("1. Inserir estudante;\n");
-    printf("2. Listar estudantes;\n");
-    printf("3. Listar estudantes por sexo (M/F);\n");
-    printf("4. Listar estudantes ordenados por nome;\n");
-    printf("5. Listar estudantes ordenados data de nascimento;\n");
-    printf("6. Aniversariantes do mês;\n");
-    printf("7. Atualizar estudante;\n");
-    printf("8. Excluir estudante;\n");
-    printf("9. Retornar ao menu principal;\n\n");
-    printf("\nEscolha uma opção: ");
-    scanf("%d", &option);
-    getchar();
-    switch(option){
-      case 1:createStudent();break;
-      case 2:retrieveStudent();break;
-      case 3:retrieveStudentByGender();break;
-      case 4:sortStudentByName();break; //implementing
-      case 5:sortStudentByBirthDate();break; //implementing
-      case 6:birthdaysOfTheMonth();break;
-      case 7:updateStudent();break;
-      case 8:deleteStudent();break;
-      case 9: break;
-      default: 
-        printf("Opção inválida!\n"); 
-        getchar();
-        break;
-    }
-  }while(option != 9);
-
 }
