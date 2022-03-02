@@ -1,4 +1,5 @@
 #include "../util/utility.h"
+#include "../util/validation.h"
 #include "../model/menu.h"
 #include "../model/student.h"
 
@@ -6,6 +7,8 @@ void createStudent(){
 
   FILE * file;
   Student student;
+  char c;
+  int verification;
 
   file = fopen("db/student.txt","ab");
 
@@ -15,11 +18,20 @@ void createStudent(){
     do{
       header();
       student = insertStudent(student);
-
       fwrite(&student, sizeof(Student), 1, file);
-      printf("\n\nDeseja continuar(s/n)? ");
 
-    } while(getche() == 's');
+      do{
+        printf("\n\nDeseja continuar(s/n)? ");
+        scanf(" %c", &c);
+        getchar();
+        
+        verification = validateAlternative(c);
+
+        if(!verification)
+          printf("\nInforme alternativa valida!\n\n");
+      }while (!verification);
+
+    } while(c == 's');
     fclose(file);
   }
 }
@@ -41,7 +53,7 @@ void retrieveStudent(){
     }
   }
   fclose(file);
-  getch();
+  getchar();
 }
 
 void retrieveStudentByGender(){
@@ -70,7 +82,7 @@ void retrieveStudentByGender(){
     }
   }
   fclose(file);
-  getch();
+  getchar();
 }
 
 void sortStudentByName(){
@@ -88,7 +100,7 @@ void sortStudentByName(){
     /* implementing */
   }
   fclose(file);
-  getch();
+  getchar();
 }
 
 void sortStudentByBirthDate(){
@@ -106,7 +118,7 @@ void sortStudentByBirthDate(){
     /* implementing */
   }
   fclose(file);
-  getch();
+  getchar();
 }
 
 void birthdaysOfTheMonth(){
@@ -134,7 +146,7 @@ void birthdaysOfTheMonth(){
     }
   }
   fclose(file);
-  getch();
+  getchar();
 }
 
 void updateStudent(){
@@ -170,7 +182,7 @@ void updateStudent(){
 
   }
   fclose(file);
-  getch();
+  getchar();
 }
 
 void deleteStudent(){
@@ -240,7 +252,7 @@ void deleteStudent(){
     }
   }
   fclose(file);
-  getch();
+  getchar();
 }
 
 void mainStudent(){
@@ -273,7 +285,7 @@ void mainStudent(){
       case 9: break;
       default: 
         printf("Opção inválida!\n"); 
-        getch();
+        getchar();
         break;
     }
   }while(option != 9);

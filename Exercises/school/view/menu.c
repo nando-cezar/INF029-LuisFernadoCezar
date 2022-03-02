@@ -1,4 +1,5 @@
 #include "../util/utility.h"
+#include "../util/validation.h"
 #include "../model/menu.h"
 #include "../model/discipline.h"
 #include "../model/student.h"
@@ -6,9 +7,9 @@
 
 void logo(){
 
-    system("cls");
+    
 
-    printf("  SSSSSSSSSSSSSSS    UUUUUUU     UUUUUUU               AAA                 PPPPPPPPPPPPPPPPP\n");
+    printf("  SSSSSSSSSSSSSSS    UUUUUUU     UUUUUUU validateSystem();              AAA                 PPPPPPPPPPPPPPPPP\n");
     printf(" SS:::::::::::::::S  U:::::U     U:::::U             A:::::A               P::::::::::::::::PP\n");
     printf("S:::::SSSSSS::::::S  U:::::U     U:::::U            A::AAA::A              P::::PPPPPPPPP::::PP\n");
     printf("S:::::S     SSSSSSS  U:::::U     U:::::U           A::A   A::A             P::::P        P::::PP\n");
@@ -43,13 +44,13 @@ void logo(){
       }
    }
 
-   system("cls");
+    system(CLEAR);
       
 }
 
 void header(){
 
-    system("cls");
+    system(CLEAR);
 
     printf ("***********************************************\n");
     printf ("\t GERENCIAMENTO ESCOLAR\n");
@@ -71,15 +72,15 @@ void menu(){
 
         switch (option){
             case 1:mainStudent();break;    
-            //case 2:registerTeacher();break;    
-            //case 3:registerDiscipline();break;
+            //case 2:mainTeacher();break;    
+            //case 3:mainDiscipline();break;
             case 4:
                 printf("Acesso finalizado!");
-                getch();
+                getchar();
                 break;
             default:
                 printf("Opção inválida!");
-                getch();
+                getchar();
                 break;
         }
     }while(option != 4);

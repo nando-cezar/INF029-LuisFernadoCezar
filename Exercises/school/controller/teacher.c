@@ -2,15 +2,9 @@
 #include "../model/menu.h"
 #include "../model/teacher.h"
 
-void createTeacher(){
+/*void createTeacher(){}
 
-  
-}
-
-void retrieveTeacher(){
-
-  
-}
+void retrieveTeacher(){}
 
 void retrieveTeacherByGender(){
 
@@ -72,4 +66,4 @@ void mainTeacher(){
     }
   }while(option != 9);
 
-}
+}*/
