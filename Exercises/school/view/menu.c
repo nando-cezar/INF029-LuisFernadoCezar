@@ -1,5 +1,4 @@
 #include "../util/utility.h"
-#include "../util/validation.h"
 #include "../model/menu.h"
 #include "../model/discipline.h"
 #include "../model/student.h"
@@ -9,7 +8,7 @@ void logo(){
 
     
 
-    printf("  SSSSSSSSSSSSSSS    UUUUUUU     UUUUUUU validateSystem();              AAA                 PPPPPPPPPPPPPPPPP\n");
+    printf("  SSSSSSSSSSSSSSS    UUUUUUU     UUUUUUU              AAAAA                PPPPPPPPPPPPPPPPP\n");
     printf(" SS:::::::::::::::S  U:::::U     U:::::U             A:::::A               P::::::::::::::::PP\n");
     printf("S:::::SSSSSS::::::S  U:::::U     U:::::U            A::AAA::A              P::::PPPPPPPPP::::PP\n");
     printf("S:::::S     SSSSSSS  U:::::U     U:::::U           A::A   A::A             P::::P        P::::PP\n");
@@ -72,7 +71,7 @@ void menu(){
 
         switch (option){
             case 1:mainStudent();break;    
-            //case 2:mainTeacher();break;    
+            case 2:mainTeacher();break;    
             //case 3:mainDiscipline();break;
             case 4:
                 printf("Acesso finalizado!");

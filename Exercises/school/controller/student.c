@@ -1,13 +1,14 @@
 #include "../util/utility.h"
-#include "../util/validation.h"
-#include "../model/menu.h"
+#include "../global/validation/validation.h"
 #include "../model/student.h"
+#include "../model/menu.h"
+#include "../global/function/function.h"
 
 void createStudent(){
 
-  FILE * file;
+  FILE *file;
   Student student;
-  char c;
+  char alternative;
   int verification;
 
   file = fopen("db/student.txt","ab");
@@ -15,6 +16,7 @@ void createStudent(){
   if(file == NULL){
     printf("Error opening file!");
   }else{
+    
     do{
       header();
       student = insertStudent(student);
@@ -22,31 +24,31 @@ void createStudent(){
 
       do{
         printf("\n\nDeseja continuar(s/n)? ");
-        scanf(" %c", &c);
+        scanf(" %c", &alternative);
         getchar();
         
-        verification = validateAlternative(c);
+        verification = validateAlternative(alternative);
 
         if(!verification)
           printf("\nInforme alternativa valida!\n\n");
       }while (!verification);
 
-    } while(c == 's');
+    } while(alternative == 's');
     fclose(file);
   }
 }
 
 void retrieveStudent(){
 
-  FILE * file;
+  FILE *file;
   Student student;
 
   file = fopen("db/student.txt","rb");
 
   if(file == NULL){
     printf("Error opening file!");
-
   }else{
+
     header();
     while(fread(&student, sizeof(Student), 1, file) == 1){   
       printStudent(student);
@@ -58,7 +60,7 @@ void retrieveStudent(){
 
 void retrieveStudentByGender(){
 
-  FILE * file;
+  FILE *file;
   Student student;
   char gender;
 
@@ -88,49 +90,46 @@ void retrieveStudentByGender(){
 
 void sortStudentByName(){
 
-  FILE * file;
-  Student * student;
-  Student auxiliaryStudent;
+  FILE *file;
+  Student student, auxiliaryStudent, *ptrStudent;
   int counter = 0, auxiliary = 0;
 
   file = fopen("db/student.txt","rb");
 
   if(file == NULL){
     printf("Error opening file!");
-
   }else{
 
-    counter =  structAmount(file);   
-    student = (Student*)malloc(counter*sizeof(Student));
+    counter =  structAmount(file, &student, sizeof(Student));   
+    ptrStudent = (Student*)malloc(counter*sizeof(Student));
    
-    while(fread(&student[auxiliary++],sizeof(student[auxiliary]), 1, file) == 1);
+    while(fread(&ptrStudent[auxiliary++],sizeof(ptrStudent[auxiliary]), 1, file) == 1);
 
     for(int i = 0 ; i < counter ; i++){
       for(int j = i+1; j < counter; j++ ){
-        if(strcmp(student[i].name, student[j].name) > 0){
-          auxiliaryStudent = student[i];
-          student[i] = student[j];
-          student[j] = auxiliaryStudent;
+        if(strcmp(ptrStudent[i].name, ptrStudent[j].name) > 0){
+          auxiliaryStudent = ptrStudent[i];
+          ptrStudent[i] = ptrStudent[j];
+          ptrStudent[j] = auxiliaryStudent;
         }
       }
     }
 
     header();
     for(int i = 0; i < counter; i++){ 
-      printStudent(student[i]);
+      printStudent(ptrStudent[i]);
     }
     
   }
-  free(student);
+  free(ptrStudent);
   fclose(file);
   getchar();
 }
 
 void sortStudentByBirthDate(){
 
-  FILE * file;
-  Student *student;
-  Student auxiliaryStudent;
+  FILE *file;
+  Student student, auxiliaryStudent, *ptrStudent;
   int counter = 0, auxiliary = 0;
   int checkerYear, checkerMonth, checkerDay;
 
@@ -141,45 +140,45 @@ void sortStudentByBirthDate(){
 
   }else{
 
-    counter = structAmount(file);   
-    student = (Student*)malloc(counter*sizeof(Student));
+    counter = structAmount(file, &student, sizeof(Student));   
+    ptrStudent = (Student*) malloc(counter * sizeof(Student));
 
-    while(fread(&student[auxiliary++], sizeof(student[auxiliary]), 1, file) == 1);
+    while(fread(&ptrStudent[auxiliary++], sizeof(ptrStudent[auxiliary]), 1, file) == 1);
 
     for(int i = 0; i < counter; i++){
       for(int j = i+1; j < counter; j++ ){
 
-        checkerYear = isLarger(student[i].birthDate.year, student[j].birthDate.year);
-        checkerMonth = isLarger(student[i].birthDate.month, student[j].birthDate.month); 
-        checkerDay = isLarger(student[i].birthDate.day, student[j].birthDate.day);
+        checkerYear = isLarger(ptrStudent[i].birthDate.year, ptrStudent[j].birthDate.year);
+        checkerMonth = isLarger(ptrStudent[i].birthDate.month, ptrStudent[j].birthDate.month); 
+        checkerDay = isLarger(ptrStudent[i].birthDate.day, ptrStudent[j].birthDate.day);
 
         if(checkerYear == 1 ||
           (checkerYear == 0 && checkerMonth == 1) ||
           (checkerYear == 0 && checkerMonth == 0 && checkerDay==0))
           {
-            auxiliaryStudent = student[i];
-            student[i] = student[j];
-            student[j] = auxiliaryStudent;
+            auxiliaryStudent = ptrStudent[i];
+            ptrStudent[i] = ptrStudent[j];
+            ptrStudent[j] = auxiliaryStudent;
         }
 
       }
     }
 
-  header();
-  for(int i = 0; i < counter;i++){ 
-    printStudent(student[i]);
-  }
+    header();
+    for(int i = 0; i < counter;i++){ 
+      printStudent(ptrStudent[i]);
+    }
     
   }
-  free(student);
+  free(ptrStudent);
   fclose(file);
   getchar();
  
 }
 
-void birthdaysOfTheMonth(){
+void birthdaysOfTheMonthStudent(){
 
-  FILE * file;
+  FILE *file;
   Student student;
   int month;
 
@@ -187,8 +186,8 @@ void birthdaysOfTheMonth(){
 
   if(file == NULL){
     printf("Error opening file!");
-
   }else{
+
     header();
     printf("Informe qual o número do mês deseja buscar: ");
     scanf("%d", &month);
@@ -208,9 +207,9 @@ void birthdaysOfTheMonth(){
 
 void updateStudent(){
 
-  FILE * file;
+  FILE *file;
   Student student;
-  int id, i = 1;
+  int id, identity = 1;
 
   file = fopen("db/student.txt","rb+");
 
@@ -221,9 +220,9 @@ void updateStudent(){
     header();
 
     while(fread(&student, sizeof(Student), 1, file) == 1){ 
-      printf("ID: %d\n", i);
+      printf("ID: %d\n", identity);
       printStudent(student);
-      i++;
+      identity++;
     }
 
     printf("Informe o ID do aluno que deseja alterar: ");
@@ -231,7 +230,7 @@ void updateStudent(){
     getchar();
     id--;
 
-    if(id >= 0 && id < i-1) {
+    if(id >= 0 && id < identity-1) {
       student = insertStudent(student);
       fseek(file, id * sizeof(Student), SEEK_SET);
       fwrite(&student, sizeof(Student), 1, file);
@@ -244,12 +243,10 @@ void updateStudent(){
 
 void deleteStudent(){
 
-  FILE * file;
+  FILE *file;
   size_t fSize, nReg;
-  Student student;
-  Student * ptrStudent;
-  int idSelected, sizeArray = 1;
-  int indexPtrStudent = 0;
+  Student student, *ptrStudent;
+  int idSelected, sizeArray = 1, indexPtrStudent = 0;
 
   file = fopen("db/student.txt","rb");
 
@@ -310,27 +307,4 @@ void deleteStudent(){
   }
   fclose(file);
   getchar();
-}
-
-int structAmount( FILE * file){
-
-  Student auxiliaryStudent;
-  int counter = 0;
-
-  while(fread(&auxiliaryStudent, sizeof(auxiliaryStudent), 1, file) == 1){
-      counter++;
-  }
-  rewind(file);
-
-  return counter;
-}
-
-
-int isLarger(int numberOne, int numberTwo){
-
-  if(numberOne == numberTwo) return 0;
-
-  else if(numberOne > numberTwo) return 1;
-  
-  else return -1;
 }

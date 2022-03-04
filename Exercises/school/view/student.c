@@ -1,7 +1,7 @@
 #include "../util/utility.h"
-#include "../util/validation.h"
-#include "../model/menu.h"
+#include "../global/validation/validation.h"
 #include "../model/student.h"
+#include "../model/menu.h"
 
 void printStudent(Student student){
 
@@ -126,9 +126,9 @@ void mainStudent(){
       case 1:createStudent();break;
       case 2:retrieveStudent();break;
       case 3:retrieveStudentByGender();break;
-      case 4:sortStudentByName();break; //implementing
-      case 5:sortStudentByBirthDate();break; //implementing
-      case 6:birthdaysOfTheMonth();break;
+      case 4:sortStudentByName();break;
+      case 5:sortStudentByBirthDate();break; 
+      case 6:birthdaysOfTheMonthStudent();break;
       case 7:updateStudent();break;
       case 8:deleteStudent();break;
       case 9: break;

@@ -1,7 +1,4 @@
 #include "util/utility.h"
-#include "model/student.h"
-#include "model/teacher.h"
-#include "model/discipline.h"
 #include "model/menu.h"
 
 int main(){

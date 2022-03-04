@@ -5,7 +5,8 @@
         "student.h": "c",
         "utility.h": "c",
         "string.h": "c",
-        "menu.h": "c"
+        "menu.h": "c",
+        "validation.h": "c"
     },
     "files.encoding": "utf8"
 }
