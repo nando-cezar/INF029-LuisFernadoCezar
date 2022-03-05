@@ -5,6 +5,7 @@
 
 void printTeacher(Teacher teacher){
 
+  printf("\n");
   printf("Matricula: %s\n", teacher.enrollment);
   printf("Nome: %s\n", teacher.name);
   printf("CPF: %s\n", teacher.CPF);
@@ -24,6 +25,7 @@ Teacher insertTeacher(Teacher teacher){
   int verification;
 
   do{
+    
     printf("Inserir matricula: ");
     fgets(teacher.enrollment, MAX_ENR_LEN, stdin);
     ln = strlen(teacher.enrollment) - 1;
@@ -33,12 +35,10 @@ Teacher insertTeacher(Teacher teacher){
     verification = validateEnrollment(teacher.enrollment);
 
     if(!verification)
-      printf("\nInforme um número de matricula valido!\n\n");
+      printf("\nInforme um número de matricula válido!\n\n");
 
   }while (!verification);
       
-      
-
   do{  
 
     printf("Inserir nome: ");
@@ -50,10 +50,9 @@ Teacher insertTeacher(Teacher teacher){
     verification = validateName(teacher.name);
 
     if(!verification)
-      printf("\nInforme nome valido!\n\n");
+      printf("\nInforme nome válido!\n\n");
   
   }while(!verification);
-
     
   do{
 
@@ -66,7 +65,7 @@ Teacher insertTeacher(Teacher teacher){
     verification = validateCPF(teacher.CPF);
 
     if(!verification)
-      printf("\nInforme CPF valido!\n\n");
+      printf("\nInforme CPF válido!\n\n");
     
   }while(!verification);
    
@@ -83,23 +82,23 @@ Teacher insertTeacher(Teacher teacher){
     verification = validateDate(teacher.birthDate);
 
     if(!verification){
-      printf("\ndigite uma data valida!!!\n\n");
+      printf("\nInforme data válida!\n\n");
     }
 
-    }while (!verification);
+  }while (!verification);
+ 
+  do{
+    printf("Inserir gênero (M/F): ");
+    scanf(" %c", &teacher.gender);
+    getchar();
+    
+    verification = validateGender(teacher.gender);
 
-    do{
-      printf("Inserir gênero (M/F): ");
-      scanf(" %c", &teacher.gender);
-      getchar();
-      
-      verification = validateGender(teacher.gender);
+    if(!verification){
+      printf("\nInforme gênero válido!!!\n\n");
+    }
 
-      if(!verification){
-        printf("\ndigite uma gênero valida!!!\n\n");
-      }
-
-    }while(!verification);
+  }while(!verification);
 
   return teacher;
 }
@@ -112,7 +111,8 @@ void mainTeacher(){
     header();
     printf("1. Inserir professor;\n");
     printf("2. Listar professores;\n");
-    printf("3. Listar professores por sexo (M/F);\n");
+    printf("3. Pesquisar professores por sexo (M/F);\n");
+    printf("4. Pesquisar professores por nome;\n");
     printf("4. Listar professores ordenados por nome;\n");
     printf("5. Listar professores ordenados data de nascimento;\n");
     printf("6. Aniversariantes do mês;\n");
@@ -123,15 +123,16 @@ void mainTeacher(){
     scanf("%d", &option);
     getchar();
     switch(option){
-      case 1:createTeacher();break;
-      case 2:retrieveTeacher();break;
-      case 3:retrieveTeacherByGender();break;
-      case 4:sortTeacherByName();break;
-      case 5:sortTeacherByBirthDate();break;
-      case 6:birthdaysOfTheMonthTeacher();break;
-      case 7:updateTeacher();break;
-      case 8:deleteTeacher();break;
-      case 9: break;
+      case 1:  createTeacher();break;
+      case 2:  retrieveTeacher();break;
+      case 3:  retrieveTeacherByGender();break;
+      case 4:  retrieveStudentByName();break;
+      case 5:  sortTeacherByName();break;
+      case 6:  sortTeacherByBirthDate();break;
+      case 7:  birthdaysOfTheMonthTeacher();break;
+      case 8:  updateTeacher();break;
+      case 9:  deleteTeacher();break;
+      case 10: break;
       default: 
         printf("Opção inválida!\n"); 
         getchar();

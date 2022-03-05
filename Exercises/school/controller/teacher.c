@@ -63,18 +63,29 @@ void retrieveTeacherByGender(){
   FILE *file;
   Teacher teacher;
   char gender;
+  int verification;
 
   file = fopen("db/teacher.txt","rb");
 
   if(file == NULL){
     printf("Error opening file!");
+    
   }else{
 
-    header();
-    printf("Informe qual o gênero deseja buscar(M/F): ");
-    scanf(" %c", &gender);
-    getchar();
-    printf("\n\n");
+    do{
+      header();
+      printf("Informe qual o gênero deseja buscar(M/F): ");
+      scanf(" %c", &gender);
+      getchar();
+      
+      verification = validateGender(gender);
+
+      if(!verification){
+        printf("\nInforme gênero válido!!!");
+        getchar();
+      }
+
+    }while(!verification);
 
     while(fread(&teacher, sizeof(Teacher), 1, file) == 1){ 
 
@@ -83,6 +94,58 @@ void retrieveTeacherByGender(){
       }
     }
   }
+  fclose(file);
+  getchar();
+}
+
+void retrieveTeacherByName(){
+  
+  FILE *file;
+  Teacher teacher, *ptrTeacher; 
+  int counter = 0, auxiliary = 0, verification = 0;
+  char nameSearch[MAX_NAME_LEN], *ret;
+  int sizeNameSearch;
+ 
+ 
+  file = fopen("db/teacher.txt","rb");
+
+  if(file == NULL){
+    printf("Error opening file!");
+
+  }else{
+
+    do{
+      header();
+      printf("Informe qual o nome deseja buscar: ");
+      fgets(nameSearch, MAX_NAME_LEN, stdin);
+      sizeNameSearch = strlen(nameSearch) - 1;
+      if (nameSearch[sizeNameSearch] == '\n')
+        nameSearch[sizeNameSearch] = '\0';
+      printf("\n\n");
+
+      if(sizeNameSearch < 3){
+        printf("\nDigite no mínimo 3 caracteres.");
+        getchar();
+      }
+    }while(sizeNameSearch < 3);
+
+    counter = structAmount(file, &teacher, sizeof(Teacher));
+    ptrTeacher = (Teacher*) malloc(counter * sizeof(Teacher));
+   
+    while(fread(&ptrTeacher[auxiliary],sizeof(ptrTeacher[auxiliary]), 1, file) == 1){
+
+      ret = strstr(ptrTeacher[auxiliary].name, nameSearch);
+      if(ret){
+        printTeacher(ptrTeacher[auxiliary]);
+        verification++;
+      }   
+      auxiliary++;
+    }
+
+    if(verification==0) printf("\n\nNão encontrado!");
+    else verification = 0;  
+  }
+  free(ptrTeacher);
   fclose(file);
   getchar();
 }

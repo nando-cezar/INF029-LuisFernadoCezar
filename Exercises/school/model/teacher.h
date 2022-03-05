@@ -13,6 +13,7 @@
     void createTeacher();
     void retrieveTeacher();
     void retrieveTeacherByGender();
+    void retrieveStudentByName();
     void sortTeacherByName();
     void sortTeacherByBirthDate();
     void birthdaysOfTheMonthTeacher();

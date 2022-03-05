@@ -13,6 +13,7 @@
     void createStudent();
     void retrieveStudent();
     void retrieveStudentByGender();
+    void retrieveStudentByName();
     void sortStudentByName();
     void sortStudentByBirthDate();
     void birthdaysOfTheMonthStudent();

@@ -58,24 +58,36 @@ void retrieveStudent(){
   getchar();
 }
 
-void retrieveStudentByGender(){
+void retrieveStudentByGender(){ 
 
   FILE *file;
   Student student;
   char gender;
+  int verification;
 
   file = fopen("db/student.txt","rb");
 
   if(file == NULL){
     printf("Error opening file!");
-
+    
   }else{
+    
+    do{
+      header();
+      printf("Informe qual o gênero deseja buscar(M/F): ");
+      scanf(" %c", &gender);
+      getchar();
 
-    header();
-    printf("Informe qual o gênero deseja buscar(M/F): ");
-    scanf(" %c", &gender);
-    getchar();
-    printf("\n\n");
+      verification = validateGender(gender);
+
+      if(!verification){
+        printf("\nInforme gênero válido!!!");
+        getchar();
+      }
+
+      
+
+    }while(!verification);
 
     while(fread(&student, sizeof(Student), 1, file) == 1){ 
 
@@ -84,6 +96,57 @@ void retrieveStudentByGender(){
       }
     }
   }
+  fclose(file);
+  getchar();
+}
+
+void retrieveStudentByName(){
+  
+  FILE *file;
+  Student student, *ptrStudent; 
+  int counter = 0, auxiliary = 0, verification = 0;
+  char nameSearch[MAX_NAME_LEN], *ret;
+  int sizeNameSearch;
+ 
+ 
+  file = fopen("db/student.txt","rb");
+
+  if(file == NULL){
+    printf("Error opening file!");
+
+  }else{
+
+    do{
+      header();
+      printf("Informe qual o nome deseja buscar: ");
+      fgets(nameSearch, MAX_NAME_LEN, stdin);
+      sizeNameSearch = strlen(nameSearch) - 1;
+      if (nameSearch[sizeNameSearch] == '\n')
+        nameSearch[sizeNameSearch] = '\0';
+
+      if(sizeNameSearch < 3){
+        printf("\nDigite no mínimo 3 caracteres.");
+        getchar();
+      }
+    }while(sizeNameSearch < 3);
+
+    counter = structAmount(file, &student, sizeof(Student));
+    ptrStudent = (Student*) malloc(counter * sizeof(Student));
+   
+    while(fread(&ptrStudent[auxiliary],sizeof(ptrStudent[auxiliary]), 1, file) == 1){
+
+      ret = strstr(ptrStudent[auxiliary].name, nameSearch);
+      if(ret){
+        printStudent(ptrStudent[auxiliary]);
+        verification++;
+      }   
+      auxiliary++;
+    }
+
+    if(verification==0) printf("\n\nNão encontrado!");
+    else verification = 0;  
+  }
+  free(ptrStudent);
   fclose(file);
   getchar();
 }
@@ -101,7 +164,7 @@ void sortStudentByName(){
   }else{
 
     counter =  structAmount(file, &student, sizeof(Student));   
-    ptrStudent = (Student*)malloc(counter*sizeof(Student));
+    ptrStudent = (Student*) malloc(counter * sizeof(Student));
    
     while(fread(&ptrStudent[auxiliary++],sizeof(ptrStudent[auxiliary]), 1, file) == 1);
 
