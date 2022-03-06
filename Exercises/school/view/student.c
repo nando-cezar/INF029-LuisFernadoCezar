@@ -50,6 +50,8 @@ Student insertStudent(Student student){
 
     if(!verification)
       printf("\nInforme nome válido!\n\n");
+    else  
+      textToUpper(student.name, strlen(student.name));
   
   }while(!verification);
 
@@ -80,9 +82,8 @@ Student insertStudent(Student student){
  
     verification = validateDate(student.birthDate);
 
-    if(!verification){
+    if(!verification)
       printf("\nInforme data válida!\n\n");
-    }
 
   }while (!verification);
 
@@ -93,9 +94,11 @@ Student insertStudent(Student student){
     
     verification = validateGender(student.gender);
 
-    if(!verification){
+    if(!verification)
       printf("\nInforme gênero válido!\n\n");
-    }
+    else
+      textToUpper(student.gender, strlen(student.gender));
+
 
   }while(!verification);
 

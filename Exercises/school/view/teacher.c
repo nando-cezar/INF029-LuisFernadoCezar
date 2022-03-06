@@ -51,6 +51,8 @@ Teacher insertTeacher(Teacher teacher){
 
     if(!verification)
       printf("\nInforme nome válido!\n\n");
+    else  
+      textToUpper(teacher.name, strlen(teacher.name));
   
   }while(!verification);
     

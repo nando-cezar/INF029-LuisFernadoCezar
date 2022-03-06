@@ -8,6 +8,7 @@
         Date birthDate;
         char CPF[MAX_CPF_LEN];
         char gender;
+        //char disciplineCode[MAX_DISC][MAX_ENR_LEN];
     } Student; 
     
     void createStudent();

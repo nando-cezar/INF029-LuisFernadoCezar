@@ -7,6 +7,8 @@
         char name[MAX_NAME_LEN];
         int semester;
         struct detailsTeacher *teacher;
+        //char students[MAX_STUDENTS_DISC][MAX_ENR_LEN];
+        //char teacherEnrollment[MAX_ENR_LEN];
     } Discipline;
 
     void createDiscipline();

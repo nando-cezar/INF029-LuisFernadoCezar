@@ -8,6 +8,7 @@
         Date birthDate;
         char CPF[MAX_CPF_LEN];
         char gender;
+        //char disciplines[MAX_DISC][MAX_ENR_LEN];
     } Teacher; 
     
     void createTeacher();
