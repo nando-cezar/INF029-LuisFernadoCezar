@@ -107,6 +107,8 @@ void mainTeacher(){
 
   int option;
 
+  setlocale(LC_ALL, "Portuguese");
+
   do{
     header();
     printf("1. Inserir professor;\n");

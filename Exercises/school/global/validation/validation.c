@@ -5,8 +5,22 @@ int validateDay(int day, int month, int year);
 
 int validateCPF(char CPF[]){ 
 
-    if(strlen(CPF)-1 == 13) return 1;
-    else return 0;
+    if(strlen(CPF) == 14){
+ 
+        for(int i = 0; i < strlen(CPF) ; i++){
+            
+            if(i != 3 && i!=7 && i!=11 ){
+                if(!isdigit(CPF[i])) return 0;
+            }else if(i == 3 || i==7){
+                    if(!(CPF[i] == '.'))return 0;
+            }else if(i == 11){
+                if(!(CPF[i] == '-')) return 0;
+            }
+        }
+        return 1;        
+    }else{
+       return 0; 
+    } 
 }
 
 int validateName(char name[]){

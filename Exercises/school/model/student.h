@@ -21,6 +21,6 @@
     void deleteStudent();
     void mainStudent();
     void printStudent(Student student);
-    Student insertStudent();
+    Student insertStudent(Student student);
 
 #endif

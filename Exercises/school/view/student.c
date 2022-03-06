@@ -106,6 +106,8 @@ void mainStudent(){
 
   int option;
 
+  setlocale(LC_ALL, "Portuguese");
+
   do{
     header();
     printf("1. Inserir estudante;\n");
@@ -137,6 +139,6 @@ void mainStudent(){
         getchar();
         break;
     }
-  }while(option != 9);
+  }while(option != 10);
 
 }

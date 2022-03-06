@@ -53,6 +53,7 @@ void retrieveStudent(){
     while(fread(&student, sizeof(Student), 1, file) == 1){   
       printStudent(student);
     }
+    printf("Pressione qualquer tecla para voltar...");
   }
   fclose(file);
   getchar();
@@ -85,8 +86,6 @@ void retrieveStudentByGender(){
         getchar();
       }
 
-      
-
     }while(!verification);
 
     while(fread(&student, sizeof(Student), 1, file) == 1){ 
@@ -95,6 +94,7 @@ void retrieveStudentByGender(){
         printStudent(student);
       }
     }
+    printf("Pressione qualquer tecla para voltar...");
   }
   fclose(file);
   getchar();
@@ -145,6 +145,8 @@ void retrieveStudentByName(){
 
     if(verification==0) printf("\n\nNão encontrado!");
     else verification = 0;  
+
+    printf("Pressione qualquer tecla para voltar...");
   }
   free(ptrStudent);
   fclose(file);
@@ -182,7 +184,7 @@ void sortStudentByName(){
     for(int i = 0; i < counter; i++){ 
       printStudent(ptrStudent[i]);
     }
-    
+    printf("Pressione qualquer tecla para voltar...");
   }
   free(ptrStudent);
   fclose(file);
@@ -231,7 +233,7 @@ void sortStudentByBirthDate(){
     for(int i = 0; i < counter;i++){ 
       printStudent(ptrStudent[i]);
     }
-    
+    printf("Pressione qualquer tecla para voltar...");
   }
   free(ptrStudent);
   fclose(file);
@@ -263,6 +265,7 @@ void birthdaysOfTheMonthStudent(){
         printStudent(student);
       }
     }
+    printf("Pressione qualquer tecla para voltar...");
   }
   fclose(file);
   getchar();
@@ -297,8 +300,10 @@ void updateStudent(){
       student = insertStudent(student);
       fseek(file, id * sizeof(Student), SEEK_SET);
       fwrite(&student, sizeof(Student), 1, file);
+    }else{
+      printf("Informe ID válido!\n\n");
     }
-
+    printf("Pressione qualquer tecla para voltar...");
   }
   fclose(file);
   getchar();
@@ -363,9 +368,9 @@ void deleteStudent(){
           fwrite(&student, sizeof(Student), 1, file);
         }
       }else{
-        printf("Invalide code!");
+        printf("Informe ID válido!\n\n");
       }
-
+      printf("Pressione qualquer tecla para voltar...");
     }
   }
   fclose(file);

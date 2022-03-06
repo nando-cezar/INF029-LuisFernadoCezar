@@ -5,11 +5,42 @@
 void printDiscipline(Discipline discipline){
 
   printf("\n");
-  printf("Código:\t\t %s\n", discipline.code);
-  printf("Nome:\t\t %s\n", discipline.name);
-  printf("Semestre:\t %d\n", discipline.semester);
+  printf("Código:   \t\t %s\n", discipline.code);
+  printf("Nome:     \t\t %s\n", discipline.name);
+  printf("Semestre: \t %d\n", discipline.semester);
   printf ("\n***********************************************\n\n");
 
+}
+
+Discipline insertDiscipline(Discipline discipline){
+  
+  size_t ln;
+  int verification;
+
+  //.code
+  printf("Insira o código da disciplina: ");
+  fgets(discipline.code, MAX_ENR_LEN, stdin);
+  ln = strlen(discipline.code) - 1;
+  if (discipline.code[ln] == '\n')
+    discipline.code[ln] = '\0';
+  textToUpper(discipline.code, strlen(discipline.code));
+
+  
+  //.name
+  printf("Insira o nome da disciplina: ");
+  fgets(discipline.name, MAX_NAME_LEN, stdin);
+  ln = strlen(discipline.name) - 1;
+  if (discipline.name[ln] == '\n')
+    discipline.name[ln] = '\0';
+  textToUpper(discipline.name, strlen(discipline.name));
+
+
+  //.semester
+  printf("Insira o semestre: ");
+  scanf("%d", &discipline.semester);
+  getchar();
+
+  return discipline;
 }
 
 void mainDiscipline(){

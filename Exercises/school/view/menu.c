@@ -60,6 +60,8 @@ void menu(){
 
     int option;
 
+    setlocale(LC_ALL, "Portuguese");
+
     do{
         header();
         printf("1 - Estudante;\n");
@@ -72,7 +74,7 @@ void menu(){
         switch (option){
             case 1:mainStudent();break;    
             case 2:mainTeacher();break;    
-            //case 3:mainDiscipline();break;
+            case 3:mainDiscipline();break;
             case 4:
                 printf("Acesso finalizado!");
                 getchar();

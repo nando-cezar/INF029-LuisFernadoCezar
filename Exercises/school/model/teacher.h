@@ -21,6 +21,6 @@
     void deleteTeacher();
     void mainTeacher();
     void printTeacher(Teacher teacher);
-    Teacher insertTeacher();
+    Teacher insertTeacher(Teacher teacher);
 
 #endif

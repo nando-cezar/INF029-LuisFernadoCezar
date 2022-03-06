@@ -53,6 +53,7 @@ void retrieveTeacher(){
     while(fread(&teacher, sizeof(Teacher), 1, file) == 1){   
       printTeacher(teacher);
     }
+    printf("Pressione qualquer tecla para voltar...");
   }
   fclose(file);
   getchar();
@@ -93,6 +94,7 @@ void retrieveTeacherByGender(){
         printTeacher(teacher);
       }
     }
+    printf("Pressione qualquer tecla para voltar...");
   }
   fclose(file);
   getchar();
@@ -144,6 +146,8 @@ void retrieveTeacherByName(){
 
     if(verification==0) printf("\n\nNão encontrado!");
     else verification = 0;  
+
+    printf("Pressione qualquer tecla para voltar...");
   }
   free(ptrTeacher);
   fclose(file);
@@ -183,7 +187,7 @@ void sortTeacherByName(){
     for(int i = 0; i < counter; i++){ 
       printTeacher(ptrTeacher[i]);
     }
-    
+    printf("Pressione qualquer tecla para voltar...");
   }
   free(ptrTeacher);
   fclose(file);
@@ -231,7 +235,7 @@ void sortTeacherByBirthDate(){
     for(int i = 0; i < counter;i++){ 
       printTeacher(ptrTeacher[i]);
     }
-    
+    printf("Pressione qualquer tecla para voltar...");
   }
   free(ptrTeacher);
   fclose(file);
@@ -263,6 +267,7 @@ void birthdaysOfTheMonthTeacher(){
         printTeacher(teacher);
       }
     }
+    printf("Pressione qualquer tecla para voltar...");
   }
   fclose(file);
   getchar();
@@ -297,8 +302,10 @@ void updateTeacher(){
       teacher = insertTeacher(teacher);
       fseek(file, id * sizeof(Teacher), SEEK_SET);
       fwrite(&teacher, sizeof(Teacher), 1, file);
+    }else{
+      printf("Informe ID válido!\n\n");
     }
-
+    printf("Pressione qualquer tecla para voltar...");
   }
   fclose(file);
   getchar();
@@ -363,9 +370,9 @@ void deleteTeacher(){
           fwrite(&teacher, sizeof(Teacher), 1, file);
         }
       }else{
-        printf("Invalide code!");
+        printf("Informe ID válido!\n\n");
       }
-
+      printf("Pressione qualquer tecla para voltar...");
     }
   }
   fclose(file);
