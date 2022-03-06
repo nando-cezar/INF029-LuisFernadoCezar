@@ -15,6 +15,8 @@
     #define MAX_NAME_LEN 255
     #define MAX_CPF_LEN 15
     #define MAX_REGISTER_LEN 255
+    #define MAX_STUDENTS_DISC 60 
+    #define MAX_DISC 5
 
     #if defined(_WIN32) || defined(_WIN64)
         #define CLEAR "cls"
