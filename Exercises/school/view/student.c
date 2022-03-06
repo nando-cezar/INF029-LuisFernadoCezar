@@ -1,5 +1,6 @@
 #include "../util/utility.h"
 #include "../global/validation/validation.h"
+#include "../global/function/function.h"
 #include "../model/student.h"
 #include "../model/menu.h"
 
@@ -96,9 +97,6 @@ Student insertStudent(Student student){
 
     if(!verification)
       printf("\nInforme gênero válido!\n\n");
-    else
-      textToUpper(student.gender, strlen(student.gender));
-
 
   }while(!verification);
 

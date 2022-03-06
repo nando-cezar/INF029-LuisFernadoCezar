@@ -1,4 +1,6 @@
 #include "../util/utility.h"
+#include "../global/validation/validation.h"
+#include "../global/function/function.h"
 #include "../model/discipline.h"
 #include "../model/menu.h"
 

@@ -1,5 +1,6 @@
 #include "../util/utility.h"
 #include "../global/validation/validation.h"
+#include "../global/function/function.h"
 #include "../model/teacher.h"
 #include "../model/menu.h"
 
@@ -96,9 +97,9 @@ Teacher insertTeacher(Teacher teacher){
     
     verification = validateGender(teacher.gender);
 
-    if(!verification){
+    if(!verification)
       printf("\nInforme gênero válido!!!\n\n");
-    }
+    
 
   }while(!verification);
 

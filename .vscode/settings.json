@@ -6,7 +6,8 @@
         "utility.h": "c",
         "string.h": "c",
         "menu.h": "c",
-        "validation.h": "c"
+        "validation.h": "c",
+        "function.h": "c"
     },
     "files.encoding": "utf8"
 }
