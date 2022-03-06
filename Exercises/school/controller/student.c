@@ -86,6 +86,8 @@ void retrieveStudentByGender(){
         getchar();
       }
 
+      gender = charToUpper(gender);
+
     }while(!verification);
 
     while(fread(&student, sizeof(Student), 1, file) == 1){ 
@@ -123,6 +125,8 @@ void retrieveStudentByName(){
       sizeNameSearch = strlen(nameSearch) - 1;
       if (nameSearch[sizeNameSearch] == '\n')
         nameSearch[sizeNameSearch] = '\0';
+      
+      textToUpper(nameSearch, strlen(nameSearch));
 
       if(sizeNameSearch < 3){
         printf("\nDigite no mínimo 3 caracteres.");
@@ -143,7 +147,7 @@ void retrieveStudentByName(){
       auxiliary++;
     }
 
-    if(verification==0) printf("\n\nNão encontrado!");
+    if(verification==0) printf("\nNão encontrado!\n\n");
     else verification = 0;  
 
     printf("Pressione qualquer tecla para voltar...");

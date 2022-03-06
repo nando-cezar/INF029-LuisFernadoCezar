@@ -97,6 +97,8 @@ Student insertStudent(Student student){
 
     if(!verification)
       printf("\nInforme gênero válido!\n\n");
+    else
+      student.gender = charToUpper(student.gender);
 
   }while(!verification);
 

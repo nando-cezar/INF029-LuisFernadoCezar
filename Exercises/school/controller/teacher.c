@@ -86,6 +86,8 @@ void retrieveTeacherByGender(){
         getchar();
       }
 
+      gender = charToUpper(gender);
+      
     }while(!verification);
 
     while(fread(&teacher, sizeof(Teacher), 1, file) == 1){ 
@@ -123,7 +125,8 @@ void retrieveTeacherByName(){
       sizeNameSearch = strlen(nameSearch) - 1;
       if (nameSearch[sizeNameSearch] == '\n')
         nameSearch[sizeNameSearch] = '\0';
-      printf("\n\n");
+
+      textToUpper(nameSearch, strlen(nameSearch));
 
       if(sizeNameSearch < 3){
         printf("\nDigite no mínimo 3 caracteres.");
@@ -144,7 +147,7 @@ void retrieveTeacherByName(){
       auxiliary++;
     }
 
-    if(verification==0) printf("\n\nNão encontrado!");
+    if(verification==0) printf("\nNão encontrado!\n\n");
     else verification = 0;  
 
     printf("Pressione qualquer tecla para voltar...");
@@ -167,8 +170,6 @@ void sortTeacherByName(){
   }else{
 
     counter =  structAmount(file, &teacher, sizeof(Teacher));
-    printf("%d", counter);
-    getchar();
     ptrTeacher = (Teacher*) malloc(counter * sizeof(Teacher));
    
     while(fread(&ptrTeacher[auxiliary++], sizeof(ptrTeacher[auxiliary]), 1, file) == 1);

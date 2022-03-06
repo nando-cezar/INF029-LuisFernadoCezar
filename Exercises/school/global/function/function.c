@@ -32,3 +32,7 @@ void textToUpper(char* string, int size){
   }
 }
 
+char charToUpper(char ch){ 
+  return toupper(ch);
+}
+

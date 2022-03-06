@@ -99,7 +99,8 @@ Teacher insertTeacher(Teacher teacher){
 
     if(!verification)
       printf("\nInforme gênero válido!!!\n\n");
-    
+    else  
+      teacher.gender = charToUpper(teacher.gender);
 
   }while(!verification);
 
@@ -118,12 +119,12 @@ void mainTeacher(){
     printf("2. Listar professores;\n");
     printf("3. Pesquisar professores por sexo (M/F);\n");
     printf("4. Pesquisar professores por nome;\n");
-    printf("4. Listar professores ordenados por nome;\n");
-    printf("5. Listar professores ordenados data de nascimento;\n");
-    printf("6. Aniversariantes do mês;\n");
-    printf("7. Atualizar professor;\n");
-    printf("8. Excluir professor;\n");
-    printf("9. Retornar ao menu principal;\n\n");
+    printf("5. Listar professores ordenados por nome;\n");
+    printf("6. Listar professores ordenados data de nascimento;\n");
+    printf("7. Aniversariantes do mês;\n");
+    printf("8. Atualizar professor;\n");
+    printf("9. Excluir professor;\n");
+    printf("10. Retornar ao menu principal;\n\n");
     printf("\nEscolha uma opção: ");
     scanf("%d", &option);
     getchar();
