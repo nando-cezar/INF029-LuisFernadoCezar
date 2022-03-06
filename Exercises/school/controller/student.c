@@ -1,8 +1,8 @@
 #include "../util/utility.h"
 #include "../global/validation/validation.h"
+#include "../global/function/function.h"
 #include "../model/student.h"
 #include "../model/menu.h"
-#include "../global/function/function.h"
 
 void createStudent(){
 

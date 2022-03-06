@@ -23,3 +23,12 @@ size_t structAmount(FILE *file, void *obj, size_t size){
   return counter;
 }
 
+void textToUpper(char* string, int size){ 
+
+  for (int i = 0; i < size; i++){
+    if (isalpha(string[i])){
+      string[i] = toupper(string[i]);
+    }
+  }
+}
+

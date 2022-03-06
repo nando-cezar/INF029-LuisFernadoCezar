@@ -1,12 +1,12 @@
 #include "../util/utility.h"
 #include "../global/validation/validation.h"
+#include "../global/function/function.h"
 #include "../model/teacher.h"
 #include "../model/menu.h"
-#include "../global/function/function.h"
 
 void createTeacher(){
 
-  FILE * file;
+  FILE *file;
   Teacher teacher;
   char alternative;
   int verification;

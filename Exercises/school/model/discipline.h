@@ -14,5 +14,8 @@
     void updateDiscipline();
     void deleteDiscipline();
     void mainDiscipline();
+    void printDiscipline(Discipline discipline);
+    Discipline insertDiscipline();
 
 #endif
+
