@@ -1,8 +1,8 @@
 #include "../util/utility.h"
 #include "../model/menu.h"
-#include "../model/discipline.h"
 #include "../model/student.h"
 #include "../model/teacher.h"
+#include "../model/discipline.h"
 
 void logo(){
 

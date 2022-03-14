@@ -13,6 +13,7 @@
     
     void createStudent();
     void retrieveStudent();
+    char* retrieveStudentSelected();
     void retrieveStudentByGender();
     void retrieveStudentByName();
     void sortStudentByName();
@@ -20,8 +21,13 @@
     void birthdaysOfTheMonthStudent();
     void updateStudent();
     void deleteStudent();
-    void mainStudent();
+    
     void printStudent(Student student);
-    Student insertStudent(Student student);
+    void printSummaryStudent(Student student);
+    Student insertCreateStudent(Student student);
+    Student insertUpdateStudent(Student student);
+    void mainStudent();
 
-#endif
+    int isExistingStudent(char enrollment[]);
+
+#endif 

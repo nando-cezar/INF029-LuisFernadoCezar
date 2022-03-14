@@ -9,5 +9,6 @@
         "validation.h": "c",
         "function.h": "c"
     },
-    "files.encoding": "utf8"
+    "files.encoding": "utf8",
+    "C_Cpp.errorSquiggles": "Disabled"
 }

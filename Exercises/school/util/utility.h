@@ -10,6 +10,7 @@
     #include <unistd.h>
     #include <locale.h>
     #include <ctype.h>
+    #include <time.h>
 
     #define MAX_ENR_LEN 255
     #define MAX_NAME_LEN 255

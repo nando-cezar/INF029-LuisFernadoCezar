@@ -13,15 +13,21 @@
     
     void createTeacher();
     void retrieveTeacher();
+    char* retrieveTeacherSelected();
     void retrieveTeacherByGender();
-    void retrieveStudentByName();
+    void retrieveTeacherByName();
     void sortTeacherByName();
     void sortTeacherByBirthDate();
     void birthdaysOfTheMonthTeacher();
     void updateTeacher();
     void deleteTeacher();
-    void mainTeacher();
+ 
     void printTeacher(Teacher teacher);
-    Teacher insertTeacher(Teacher teacher);
+    void printSummaryTeacher(Teacher teacher);
+    Teacher insertCreateTeacher(Teacher teacher);
+    Teacher insertUpdateTeacher(Teacher teacher);
+    void mainTeacher(); 
+
+    int isExistingTeacher(char enrollment[]);
 
 #endif

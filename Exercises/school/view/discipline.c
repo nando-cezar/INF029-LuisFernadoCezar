@@ -1,16 +1,33 @@
 #include "../util/utility.h"
 #include "../global/validation/validation.h"
 #include "../global/function/function.h"
+#include "../model/student.h"
+#include "../model/teacher.h"
 #include "../model/discipline.h"
 #include "../model/menu.h"
 
-void printDiscipline(Discipline discipline){
+void printDiscipline(Discipline discipline, Teacher teacher){
 
   printf("\n");
-  printf("Código:   \t\t %s\n", discipline.code);
-  printf("Nome:     \t\t %s\n", discipline.name);
+  printf("Código:   \t %s\n", discipline.code);
+  printf("Nome:     \t %s\n", discipline.name);
   printf("Semestre: \t %d\n", discipline.semester);
-  printf ("\n***********************************************\n\n");
+  printf("Professor: \t %s (%s)\n", teacher.name, teacher.enrollment);
+  printf ("***********************************************\n");
+
+}
+
+void printSummaryDiscipline(Discipline discipline, Teacher teacher){
+
+  printf("\n");
+  printf(
+    "Código: %s - Nome: %s - Prefessor: %s (%s)\n", 
+    discipline.code, 
+    discipline.name, 
+    teacher.name, 
+    teacher.enrollment
+  );
+  printf ("***********************************************\n");
 
 }
 
@@ -20,27 +37,34 @@ Discipline insertDiscipline(Discipline discipline){
   int verification;
 
   //.code
-  printf("Insira o código da disciplina: ");
-  fgets(discipline.code, MAX_ENR_LEN, stdin);
-  ln = strlen(discipline.code) - 1;
-  if (discipline.code[ln] == '\n')
-    discipline.code[ln] = '\0';
-  textToUpper(discipline.code, strlen(discipline.code));
+  do{
+    printf("Inserir o código da disciplina: ");
+    fgets(discipline.code, MAX_ENR_LEN, stdin);
+    removeBreakLine(discipline.code);
+    
+    verification = isExistingDiscipline(discipline.code);
 
-  
+    if(!verification)
+      printf("\nO código informado já existe!\n");
+    else{
+      removeSpace(discipline.code);
+      textToUpper(discipline.code);
+    }
+
+  }while(!verification);
   //.name
-  printf("Insira o nome da disciplina: ");
+  printf("Inserir o nome da disciplina: ");
   fgets(discipline.name, MAX_NAME_LEN, stdin);
-  ln = strlen(discipline.name) - 1;
-  if (discipline.name[ln] == '\n')
-    discipline.name[ln] = '\0';
-  textToUpper(discipline.name, strlen(discipline.name));
-
+  removeBreakLine(discipline.name);
+  textToUpper(discipline.name);
 
   //.semester
-  printf("Insira o semestre: ");
+  printf("Inserir o semestre: ");
   scanf("%d", &discipline.semester);
   getchar();
+
+  //.teacher
+  printf("Selecione o professor desejado... \n");
 
   return discipline;
 }
@@ -53,16 +77,15 @@ void mainDiscipline(){
 
   do{
     header();
-    printf("1. Inserir disciplina;\n");
-    printf("2. Inserir aluno na disciplina;\n");
-    printf("3. Listar disciplinas;\n");
-    printf("4. Listar disciplina e seus alunos;\n");
+    printf("1. Inserir disciplina;\n"); // OK
+    printf("2. Inserir aluno na disciplina;\n"); // OK
+    printf("3. Listar disciplinas;\n"); // OK
+    printf("4. Listar disciplina e seus alunos;\n"); // OK
     printf("5. Listar disciplinas com mais de 40 alunos;\n");
-    printf("6. Atualizar disciplina;\n");
-    printf("7. Excluir disciplina;\n");
-    printf("8. Remover aluno da disciplina;\n");
-    
-    printf("9. Retornar ao menu principal;\n\n");
+    printf("6. Atualizar disciplina;\n"); // OK
+    printf("7. Excluir disciplina;\n"); // OK
+    printf("8. Remover aluno da disciplina;\n"); // Em desenvolvimento
+    printf("9. Retornar ao menu principal;\n"); // OK
     printf("\nEscolha uma opção: ");
     scanf("%d", &option);
     getchar();
@@ -70,13 +93,13 @@ void mainDiscipline(){
 
     switch (option){
     case 1: createDiscipline(); break;
-    case 2: break;
+    case 2: insertStudentInDiscipline(); break;
     case 3: retrieveDiscipline(); break;
-    case 4: break;
+    case 4: retrieveDisciplineWithStudent(); break;
     case 5: break;
-    case 6: break;
+    case 6: updateDiscipline(); break;
     case 7: deleteDiscipline(); break;
-    case 8: break;
+    case 8: deleteStudentInDiscipline(); break;
     case 9: break;
     default:
       printf("Opção inválida!\n"); 
@@ -88,3 +111,4 @@ void mainDiscipline(){
 }
 
 
+ 

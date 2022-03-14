@@ -7,52 +7,63 @@
 void printStudent(Student student){
 
   printf("\n");
-  printf("Matricula: %s\n", student.enrollment);
-  printf("Nome: %s\n", student.name);
-  printf("CPF: %s\n", student.CPF);
-  printf("Data de nascimento: %d/%d/%d\n", 
+  printf("Matricula: \t\t %s\n", student.enrollment);
+  printf("Nome: \t\t\t %s\n", student.name);
+  printf("CPF: \t\t\t %s\n", student.CPF);
+  printf("Data de nascimento: \t %d/%d/%d\n", 
   student.birthDate.day,
   student.birthDate.month,
   student.birthDate.year
   );
-  printf("Gênero: %c\n", student.gender);
-  printf ("\n***********************************************\n\n");
+  printf("Gênero: \t\t %c\n", student.gender);
+  printf ("***********************************************\n");
 
 }
 
-Student insertStudent(Student student){
+void printSummaryStudent(Student student){
+
+  printf("\n");
+  printf("Matricula: %s - Nome: %s\n", student.enrollment, student.name);
+  printf ("***********************************************\n");
+
+}
+
+Student insertCreateStudent(Student student){
 
   size_t ln;
-  int verification;
+  int verification, verificationStudent;
 
   do{
     printf("Inserir matricula: ");
     fgets(student.enrollment, MAX_ENR_LEN, stdin);
-    ln = strlen(student.enrollment) - 1;
-    if (student.enrollment[ln] == '\n')
-      student.enrollment[ln] = '\0';
+    removeBreakLine(student.enrollment);
 
     verification = validateEnrollment(student.enrollment);
+    verificationStudent = isExistingStudent(student.enrollment);
 
     if(!verification)
       printf("\nInforme um número de matricula válido!\n\n");
+    else if(!verificationStudent)
+      printf("\nO número de matricula já existe!\n");
+    else{
+      removeSpace(student.enrollment);
+      textToUpper(student.enrollment);
+    }
 
-  }while (!verification);
+  }while (!verification || !verificationStudent);
       
   do{  
 
     printf("Inserir nome: ");
     fgets(student.name, MAX_NAME_LEN, stdin);
-    ln = strlen(student.name) - 1;
-    if (student.name[ln] == '\n')
-        student.name[ln] = '\0';
+    removeBreakLine(student.name);
       
     verification = validateName(student.name);
 
     if(!verification)
       printf("\nInforme nome válido!\n\n");
-    else  
-      textToUpper(student.name, strlen(student.name));
+    else
+      textToUpper(student.name);
   
   }while(!verification);
 
@@ -60,9 +71,74 @@ Student insertStudent(Student student){
 
     printf("No padrão (###.###.###-##)\nInserir CPF: ");
     fgets(student.CPF, MAX_CPF_LEN, stdin);
-    ln = strlen(student.CPF) - 1;
-    if (student.CPF[ln] == '\n')
-      student.CPF[ln] = '\0';
+    removeBreakLine(student.CPF);
+
+    verification = validateCPF(student.CPF);
+
+    if(!verification)
+      printf("\nInforme CPF válido!\n\n");
+    
+  }while(!verification);
+   
+  do{
+
+    printf("No padrão (## ## ####)\nInserir data de nascimento: ");
+    scanf("%d %d %d", 
+    &student.birthDate.day, 
+    &student.birthDate.month, 
+    &student.birthDate.year);   
+
+    getchar();
+ 
+    verification = validateDate(student.birthDate);
+
+    if(!verification)
+      printf("\nInforme data válida!\n\n");
+
+  }while (!verification);
+
+  do{
+    printf("Inserir gênero (M/F): ");
+    scanf(" %c", &student.gender);
+    getchar();
+    
+    verification = validateGender(student.gender);
+
+    if(!verification)
+      printf("\nInforme gênero válido!\n\n");
+    else
+      student.gender = charToUpper(student.gender);
+
+  }while(!verification);
+
+  return student;
+}
+
+Student insertUpdateStudent(Student student){
+
+  size_t ln;
+  int verification;
+      
+  do{  
+
+    printf("Inserir nome: ");
+    fgets(student.name, MAX_NAME_LEN, stdin);
+    removeBreakLine(student.name);
+      
+    verification = validateName(student.name);
+
+    if(!verification)
+      printf("\nInforme nome válido!\n\n");
+    else  
+      textToUpper(student.name);
+  
+  }while(!verification);
+
+  do{
+
+    printf("No padrão (###.###.###-##)\nInserir CPF: ");
+    fgets(student.CPF, MAX_CPF_LEN, stdin);
+    removeBreakLine(student.CPF);
 
     verification = validateCPF(student.CPF);
 
@@ -113,16 +189,16 @@ void mainStudent(){
 
   do{
     header();
-    printf("1. Inserir estudante;\n");
-    printf("2. Listar estudantes;\n");
-    printf("3. Pesquisar estudantes por sexo (M/F);\n");
-    printf("4. Pesquisar estudantes por nome;\n");
-    printf("5. Listar estudantes ordenados por nome;\n");
-    printf("6. Listar estudantes ordenados data de nascimento;\n");
-    printf("7. Aniversariantes do mês;\n");
-    printf("8. Atualizar estudante;\n");
-    printf("9. Excluir estudante;\n");
-    printf("10.Retornar ao menu principal;\n\n");
+    printf("1. Inserir estudante;\n"); //OK
+    printf("2. Listar estudantes;\n"); //OK
+    printf("3. Pesquisar estudantes por sexo (M/F);\n"); //OK
+    printf("4. Pesquisar estudantes por nome;\n"); //OK
+    printf("5. Listar estudantes ordenados por nome;\n"); //OK
+    printf("6. Listar estudantes ordenados data de nascimento;\n"); //OK
+    printf("7. Aniversariantes do mês;\n"); //OK
+    printf("8. Atualizar estudante;\n"); //OK
+    printf("9. Excluir estudante;\n"); //OK
+    printf("10.Retornar ao menu principal;\n"); //OK
     printf("\nEscolha uma opção: ");
     scanf("%d", &option);
     getchar();
