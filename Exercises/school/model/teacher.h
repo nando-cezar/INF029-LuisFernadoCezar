@@ -30,4 +30,7 @@
 
     int isExistingTeacher(char enrollment[]);
 
+    Teacher* toPointerTeacher(size_t *nReg, size_t size, char filePath[], char mode[]);
+    void toFileTeacher(Teacher *ptrTeacher, size_t size, char filePath[], char mode[], int idSelected);
+
 #endif

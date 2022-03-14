@@ -9,5 +9,5 @@
     int verifyNumber(char *string);
     void removeBreakLine(char *string);
     void removeSpace(char* string);
-    void toPointer(void *pointer, size_t *nReg, size_t size, FILE *file);
+    
 #endif

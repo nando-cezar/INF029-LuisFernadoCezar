@@ -66,19 +66,3 @@ void removeSpace(char *string){
   strcpy(string, array);
   free(array);
 }
-
-void toPointer(void *pointer, size_t *nReg, size_t size, FILE *file){
-  
-  size_t fSize = 0;
-
-  fseek(file, 0L, SEEK_END);
-  fSize = ftell(file);
-  (*nReg) = fSize/size;
-  rewind(file);
-  
-  pointer = (void*) malloc(fSize);
-
-  while(fread(&pointer, size, 1, file) == 1);
-
-  fclose(file);
-}

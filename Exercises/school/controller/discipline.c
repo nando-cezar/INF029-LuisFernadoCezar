@@ -262,29 +262,29 @@ void retrieveDisciplineWithStudent(){
 
 void updateDiscipline(){
 
-  FILE *dfile, *tfile;
-  Discipline discipline;
-  Teacher teacher;
+  FILE *file;
+  size_t nRegDiscipline, nRegTeacher;
+  Discipline discipline, *ptrDiscipline;
+  Teacher *ptrTeacher;
   int idSelected, sizeArray = 1;
 
-  dfile = fopen("db/discipline.txt","rb+");
-  tfile = fopen("db/teacher.txt","rb");
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), "db/discipline.txt","rb");
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), "db/teacher.txt","rb");
 
-  if(dfile == NULL && tfile == NULL){
-    printf("Error opening file!");
-
+  if(ptrDiscipline == NULL || ptrTeacher == NULL){
+    printf("Error opening array!");
   }else{
 
     header();
-    while(fread(&discipline, sizeof(Discipline), 1, dfile) == 1){ 
-      while(fread(&teacher, sizeof(Teacher), 1, tfile) == 1){
-        if(strcmp(discipline.teacherEnrollment, teacher.enrollment) == 0){
+    
+    for(int i = 0; i < nRegDiscipline; i++){ 
+      for(int j = 0; j < nRegTeacher; j++){ 
+        if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
           printf("ID: %d\n", sizeArray);
-          printDiscipline(discipline, teacher);
+          printDiscipline(ptrDiscipline[i], ptrTeacher[j]);
           sizeArray++;
         }
       }   
-      fseek(tfile, 0L, SEEK_SET);
     }
 
     do{
@@ -294,13 +294,12 @@ void updateDiscipline(){
       idSelected--;
     }while(!(idSelected >= 0 && idSelected < sizeArray-1));
 
-    discipline = insertDiscipline(discipline);
-    strcpy(discipline.teacherEnrollment, retrieveTeacherSelected());
-    fseek(dfile, idSelected * sizeof(Discipline), SEEK_SET);
-    fwrite(&discipline, sizeof(Discipline), 1, dfile);
-    
-    fclose(dfile);
-    fclose(tfile);
+    ptrDiscipline[idSelected] = insertDiscipline(discipline);
+    strcpy(ptrDiscipline[idSelected].teacherEnrollment, retrieveTeacherSelected());
+
+    toFileDiscipline(&ptrDiscipline[idSelected], sizeof(Discipline), "db/discipline.txt","rb+", idSelected);
+
+    free(ptrDiscipline);
     printf("Pressione qualquer tecla para voltar..."); 
   }
   getchar();
@@ -308,87 +307,52 @@ void updateDiscipline(){
 
 void deleteDiscipline(){
 
-  FILE *dfile, *tfile;
-  size_t fSize, nReg;
+  size_t nRegDiscipline, nRegTeacher;
   Discipline discipline, *ptrDiscipline;
-  Teacher teacher;
-  int idSelected, sizeArray = 1, indexPtrDiscipline = 0;
+  Teacher *ptrTeacher;
+  int idSelected, sizeArray = 1;
 
-  dfile = fopen("db/discipline.txt","rb");
-  tfile = fopen("db/teacher.txt","rb");
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), "db/discipline.txt","rb");
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), "db/teacher.txt","rb");
 
-  if(dfile == NULL && tfile == NULL){
-    printf("Error opening file!");
-
+  if(ptrDiscipline == NULL || ptrTeacher == NULL){
+    printf("Error opening array!");
   }else{
 
-    fseek(dfile, 0L, SEEK_END); // Indo até a posição final
-    fSize = ftell(dfile);  //Salvando o tamanho total do arquivo
-    nReg = fSize/sizeof(Discipline); // número de registros = Tamanho do arquivo / quantidade de bytes da struct
-    ptrDiscipline = (Discipline*) malloc(fSize); //Definindo ponteiro com tamanho fSize para discipline
+    header();
 
-    if(ptrDiscipline == NULL){
-      printf("Error opening array!");
-    }else{
-
-      header();
-      fseek(dfile, 0L, SEEK_SET); //Voltando para posição inicial
-
-      /*
-      -Lê todos os registros e atribui um ID de 1 a N para
-      cada uma das disciplinas.
-      -Atribui o valor de cada disciplina ao ptrDiscipline
-      */
-      while(fread(&discipline, sizeof(Discipline), 1, dfile) == 1){ 
-        while(fread(&teacher, sizeof(Teacher), 1, tfile) == 1){
-          if(strcmp(discipline.teacherEnrollment, teacher.enrollment) == 0){
-            printf("ID: %d\n", sizeArray);
-            printDiscipline(discipline, teacher);
-            ptrDiscipline[indexPtrDiscipline] = discipline;
-            indexPtrDiscipline++;
-            sizeArray++;
-          }
-        }   
-        fseek(tfile, 0L, SEEK_SET);
-      }
-
-      do{
-        printf("Informe o ID da disciplina que deseja selecionar: ");
-        scanf("%d", &idSelected);
-        getchar();
-        idSelected--;
-      }while(!(idSelected >= 0 && idSelected < sizeArray-1));
-
-      /*
-      -Atribui o último índice do ponteiro ao índice que será excluído
-      -Realoca o ponteiro, retirando a última posição
-      */
-      ptrDiscipline[idSelected] = ptrDiscipline[nReg-1];
-      ptrDiscipline = (Discipline*) realloc(ptrDiscipline, --sizeArray * sizeof(Discipline)); 
-    
-      //Fechar, excluir e abrir um novo arquivo 
-      fclose(dfile);
-      remove("db/discipline.txt");
-      dfile = fopen("db/discipline.txt","ab");
-
-      //Verificar se o arquivo foi aberto com sucesso
-      if (dfile == NULL) {
-        printf("Error opening file!");
-      }else{
-
-        for(int j = 0; j < nReg-1; j++){
-          strcpy(discipline.code, ptrDiscipline[j].code);
-          strcpy(discipline.name, ptrDiscipline[j].name);
-          discipline.semester = ptrDiscipline[j].semester;
-          strcpy(discipline.teacherEnrollment, ptrDiscipline[j].teacherEnrollment);
-          fwrite(&discipline, sizeof(Discipline), 1, dfile);
+    for(int i = 0; i < nRegDiscipline; i++){ 
+      for(int j = 0; j < nRegTeacher; j++){ 
+        if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
+          printf("ID: %d\n", sizeArray);
+          printDiscipline(ptrDiscipline[i], ptrTeacher[j]);
+          sizeArray++;
         }
-      }
-      free(ptrDiscipline);
-      fclose(dfile);
-      fclose(tfile);
-      printf("Pressione qualquer tecla para voltar...");
+      }   
     }
+
+    do{
+      printf("Informe o ID da disciplina que deseja selecionar: ");
+      scanf("%d", &idSelected);
+      getchar();
+      idSelected--;
+    }while(!(idSelected >= 0 && idSelected < sizeArray-1));
+
+    /*
+    -Atribui o último índice do ponteiro ao índice que será excluído
+    -Realoca o ponteiro, retirando a última posição
+    */
+    ptrDiscipline[idSelected] = ptrDiscipline[nRegDiscipline-1];
+    ptrDiscipline = (Discipline*) realloc(ptrDiscipline, --sizeArray * sizeof(Discipline)); 
+
+    remove("db/student.txt");
+
+    for(int i = 0; i < nRegDiscipline-1; i++){
+      toFileDiscipline(&ptrDiscipline[i], sizeof(Discipline), "db/discipline.txt","ab", i);
+    }
+
+    free(ptrDiscipline);
+    printf("Pressione qualquer tecla para voltar...");
   }
   getchar();
 }
@@ -505,6 +469,7 @@ int isExistingDiscipline(char code[]){
 
 int checkDisciplineStudent(char code[],char enrollment[]){
 
+
   FILE *file;
   Discipline discipline;
 
@@ -527,4 +492,50 @@ int checkDisciplineStudent(char code[],char enrollment[]){
   }
   fclose(file);
   return 1;
+}
+
+Discipline* toPointerDiscipline(size_t *nReg, size_t size, char filePath[], char mode[]){
+
+  FILE *file;
+  Discipline* pointer = NULL;
+  size_t fSize;
+
+  file = fopen(filePath, mode);
+
+  if(file == NULL){
+    printf("Error opening file!");
+
+  }else{
+
+    fseek(file, 0L, SEEK_END);
+    fSize = ftell(file);
+    (*nReg) = fSize/size;
+    rewind(file);
+    
+    pointer = (Discipline*) malloc(fSize);
+
+    for(int i = 0; i < (*nReg); i++){
+      fread(&pointer[i], size, 1, file);
+    }
+
+    fclose(file);
+  }
+  return pointer;
+}
+
+void toFileDiscipline(Discipline *ptrDiscipline, size_t size, char filePath[], char mode[], int idSelected){
+
+  FILE *file;
+
+  file = fopen(filePath, mode);
+
+  if(file == NULL)
+    printf("Error opening file!");
+  else{
+
+    fseek(file, idSelected * sizeof(Discipline), SEEK_SET);
+    fwrite(ptrDiscipline, sizeof(Discipline), 1, file);
+
+    fclose(file);
+  }
 }

@@ -30,4 +30,7 @@
 
     int isExistingStudent(char enrollment[]);
 
+    Student* toPointerStudent(size_t *nReg, size_t size, char filePath[], char mode[]);
+    void toFileStudent(Student *ptrStudent, size_t size, char filePath[], char mode[], int idSelected);
+
 #endif 

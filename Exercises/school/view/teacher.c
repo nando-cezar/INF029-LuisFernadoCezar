@@ -66,7 +66,7 @@ Teacher insertCreateTeacher(Teacher teacher){
     verification = validateName(teacher.name);
 
     if(!verification)
-      printf("\nInforme nome válido!\n\n");
+      printf("\nInforme nome válido!\n");
     else  
       textToUpper(teacher.name);
   
@@ -81,7 +81,7 @@ Teacher insertCreateTeacher(Teacher teacher){
     verification = validateCPF(teacher.CPF);
 
     if(!verification)
-      printf("\nInforme CPF válido!\n\n");
+      printf("\nInforme CPF válido!\n");
     
   }while(!verification);
    
@@ -98,7 +98,7 @@ Teacher insertCreateTeacher(Teacher teacher){
     verification = validateDate(teacher.birthDate);
 
     if(!verification){
-      printf("\nInforme data válida!\n\n");
+      printf("\nInforme data válida!\n");
     }
 
   }while (!verification);
@@ -111,7 +111,7 @@ Teacher insertCreateTeacher(Teacher teacher){
     verification = validateGender(teacher.gender);
 
     if(!verification)
-      printf("\nInforme gênero válido!!!\n\n");
+      printf("\nInforme gênero válido!!!\n");
     else  
       teacher.gender = charToUpper(teacher.gender);
 
@@ -134,7 +134,7 @@ Teacher insertUpdateTeacher(Teacher teacher){
     verification = validateName(teacher.name);
 
     if(!verification)
-      printf("\nInforme nome válido!\n\n");
+      printf("\nInforme nome válido!\n");
     else  
       textToUpper(teacher.name);
   
@@ -149,7 +149,7 @@ Teacher insertUpdateTeacher(Teacher teacher){
     verification = validateCPF(teacher.CPF);
 
     if(!verification)
-      printf("\nInforme CPF válido!\n\n");
+      printf("\nInforme CPF válido!\n");
     
   }while(!verification);
    
@@ -166,7 +166,7 @@ Teacher insertUpdateTeacher(Teacher teacher){
     verification = validateDate(teacher.birthDate);
 
     if(!verification){
-      printf("\nInforme data válida!\n\n");
+      printf("\nInforme data válida!\n");
     }
 
   }while (!verification);
@@ -179,7 +179,7 @@ Teacher insertUpdateTeacher(Teacher teacher){
     verification = validateGender(teacher.gender);
 
     if(!verification)
-      printf("\nInforme gênero válido!!!\n\n");
+      printf("\nInforme gênero válido!!!\n");
     else  
       teacher.gender = charToUpper(teacher.gender);
 
