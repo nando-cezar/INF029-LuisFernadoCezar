@@ -15,12 +15,14 @@
     void retrieveDiscipline();
     Discipline retrieveDisciplineSelected();
     void retrieveDisciplineWithStudent();
+    void retrieveDisciplineWithMoreThan40Students();
     void updateDiscipline();
     void deleteDiscipline();
     void deleteStudentInDiscipline();
 
     void printDiscipline(Discipline discipline, Teacher teacher);
     void printSummaryDiscipline(Discipline discipline, Teacher teacher);
+    void printMaxSummaryDiscipline(Discipline discipline);
     Discipline insertDiscipline(Discipline discipline);
     void mainDiscipline();
 

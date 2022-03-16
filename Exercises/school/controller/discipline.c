@@ -214,7 +214,6 @@ Discipline retrieveDisciplineSelected(){
 
 void retrieveDisciplineWithStudent(){
 
-  FILE *file;
   size_t nRegDiscipline, nRegTeacher, nRegStudent;
   Discipline discipline, *ptrDiscipline;
   Teacher *ptrTeacher;
@@ -259,6 +258,41 @@ void retrieveDisciplineWithStudent(){
     free(ptrDiscipline);
     free(ptrTeacher);
     free(ptrStudent);
+    printf("Pressione qualquer tecla para voltar...");
+  }
+  getchar();
+}
+
+void retrieveDisciplineWithMoreThan40Students(){
+
+  size_t nRegDiscipline = 0;
+  Discipline *ptrDiscipline;
+  int values[nRegDiscipline];
+
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
+
+  if(ptrDiscipline == NULL){
+    printf(MESSAGE_ERROR);
+  }else{
+
+    header();
+
+    for(int i = 0; i < nRegDiscipline; i++){
+      values[i] = 0;
+    }
+
+    for(int i = 0; i < nRegDiscipline; i++){ 
+      for(int j = 0; strcmp(ptrDiscipline[i].studentEnrollment[j], "\0") != 0; j++){
+        values[i] += 1;
+      }
+    }
+    for(int i = 0; i < nRegDiscipline; i++){
+      if(values[i] > 40){
+        printMaxSummaryDiscipline(ptrDiscipline[i]);
+      }
+    }
+
+    free(ptrDiscipline);
     printf("Pressione qualquer tecla para voltar...");
   }
   getchar();

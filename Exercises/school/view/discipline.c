@@ -31,6 +31,18 @@ void printSummaryDiscipline(Discipline discipline, Teacher teacher){
 
 }
 
+void printMaxSummaryDiscipline(Discipline discipline){
+
+  printf("\n");
+  printf(
+    "Código: %s - Nome: %s\n", 
+    discipline.code, 
+    discipline.name
+  );
+  printf ("***********************************************\n");
+
+}
+
 Discipline insertDiscipline(Discipline discipline){
   
   size_t ln;
@@ -96,7 +108,7 @@ void mainDiscipline(){
     case 2: insertStudentInDiscipline(); break;
     case 3: retrieveDiscipline(); break;
     case 4: retrieveDisciplineWithStudent(); break;
-    case 5: break;
+    case 5: retrieveDisciplineWithMoreThan40Students(); break;
     case 6: updateDiscipline(); break;
     case 7: deleteDiscipline(); break;
     case 8: deleteStudentInDiscipline(); break;
