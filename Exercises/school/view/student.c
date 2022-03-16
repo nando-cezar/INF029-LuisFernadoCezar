@@ -16,6 +16,11 @@ void printStudent(Student student){
   student.birthDate.year
   );
   printf("Gênero: \t\t %c\n", student.gender);
+  if(strcmp(student.disciplineCode[0], "\0") != 0)
+    printf("Disciplinas: \n");
+  for(int i = 0; strcmp(student.disciplineCode[i], "\0") != 0; i++){
+    printf("%d. %s\n", i+1, student.disciplineCode[i]);
+  }
   printf ("***********************************************\n");
 
 }
@@ -110,6 +115,9 @@ Student insertCreateStudent(Student student){
       student.gender = charToUpper(student.gender);
 
   }while(!verification);
+
+  for (int i = 0; i < MAX_DISC; i++)
+    strcpy(student.disciplineCode[i], "\0");
 
   return student;
 }

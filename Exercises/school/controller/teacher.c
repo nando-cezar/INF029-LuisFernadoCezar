@@ -13,10 +13,10 @@ void createTeacher(){
 
   do{
 
-    file = fopen("db/teacher.txt","ab");
+    file = fopen(TEACHER_PATH,"ab");
 
     if(file == NULL){
-      printf("Error opening file!");
+      printf(MESSAGE_ERROR);
       getchar();
     }else{
 
@@ -44,10 +44,10 @@ void retrieveTeacher(){
   size_t nReg;
   Teacher *ptrTeacher;
 
-  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -69,10 +69,10 @@ char* retrieveTeacherSelected(){
   char* enrollment = (char*)malloc(MAX_ENR_LEN * sizeof(char));
   int idSelected, sizeArray = 1;
 
-  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     for(int i = 0; i < nReg; i++){ 
@@ -102,10 +102,10 @@ void retrieveTeacherByGender(){
   char gender;
   int verification, count = 0;
 
-  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     do{
@@ -152,10 +152,10 @@ void retrieveTeacherByName(){
   char nameSearch[MAX_NAME_LEN];
   int sizeNameSearch;
  
-  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     do{
@@ -195,10 +195,10 @@ void sortTeacherByName(){
   Teacher auxiliaryTeacher, *ptrTeacher;
   int counter = 0, auxiliary = 0;
 
-  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     for(int i = 0 ; i < nReg; i++){
@@ -228,10 +228,10 @@ void sortTeacherByBirthDate(){
   Teacher auxiliaryTeacher, *ptrTeacher;
   int checkerYear, checkerMonth, checkerDay;
 
-  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     for(int i = 0; i < nReg; i++){
@@ -269,10 +269,10 @@ void birthdaysOfTheMonthTeacher(){
   Teacher *ptrTeacher;
   int month;
 
-  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -297,10 +297,10 @@ void updateTeacher(){
   Teacher teacher, *ptrTeacher;
   int idSelected, sizeArray = 1;
 
-  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -320,7 +320,7 @@ void updateTeacher(){
 
     ptrTeacher[idSelected] = insertUpdateTeacher(ptrTeacher[idSelected]);
 
-    toFileTeacher(&ptrTeacher[idSelected], sizeof(Teacher), "db/teacher.txt","rb+", idSelected);
+    toFileTeacher(&ptrTeacher[idSelected], sizeof(Teacher), TEACHER_PATH,"rb+", idSelected);
 
     free(ptrTeacher);
     printf("Pressione qualquer tecla para voltar...");
@@ -334,17 +334,17 @@ void deleteTeacher(){
   Teacher teacher, *ptrTeacher;
   int idSelected, sizeArray = 1;
 
-  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
 
     for(int i = 0; i < nReg; i++){ 
       printf("ID: %d\n", sizeArray);
-      printTeacher(ptrTeacher[i]);
+      printSummaryTeacher(ptrTeacher[i]);
       sizeArray++; 
     }
 
@@ -358,10 +358,10 @@ void deleteTeacher(){
     ptrTeacher[idSelected] = ptrTeacher[nReg-1];
     ptrTeacher = (Teacher*) realloc(ptrTeacher, --sizeArray * sizeof(Teacher)); 
   
-    remove("db/teacher.txt");
+    remove(TEACHER_PATH);
 
     for(int i = 0; i < nReg-1; i++){
-      toFileTeacher(&ptrTeacher[i], sizeof(Teacher), "db/teacher.txt","ab", i);
+      toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"ab", i);
     }
     free(ptrTeacher);
     printf("Pressione qualquer tecla para voltar...");    
@@ -375,10 +375,10 @@ int isExistingTeacher(char enrollment[]){
   FILE *file;
   Teacher teacher;
 
-  file = fopen("db/teacher.txt","rb");
+  file = fopen(TEACHER_PATH,"rb");
 
   if(file == NULL){
-      printf("Error opening file!");
+      printf(MESSAGE_ERROR);
 
   }else{
     rewind(file);
@@ -402,7 +402,7 @@ Teacher* toPointerTeacher(size_t *nReg, size_t size, char filePath[], char mode[
   file = fopen(filePath, mode);
 
   if(file == NULL){
-    printf("Error opening file!");
+    printf(MESSAGE_ERROR);
 
   }else{
 
@@ -429,7 +429,7 @@ void toFileTeacher(Teacher *ptrTeacher, size_t size, char filePath[], char mode[
   file = fopen(filePath, mode);
 
   if(file == NULL)
-    printf("Error opening file!");
+    printf(MESSAGE_ERROR);
   else{
 
     fseek(file, idSelected * sizeof(Teacher), SEEK_SET);

@@ -19,6 +19,11 @@
     #define MAX_STUDENTS_DISC 60 
     #define MAX_DISC 5
 
+    #define MESSAGE_ERROR "\nFalha ao abrir o arquivo ou ponteiro!"
+    #define STUDENT_PATH "db/student.txt"
+    #define TEACHER_PATH "db/teacher.txt"
+    #define DISCIPLINE_PATH "db/discipline.txt"
+
     #if defined(_WIN32) || defined(_WIN64)
         #define CLEAR "cls"
     #else

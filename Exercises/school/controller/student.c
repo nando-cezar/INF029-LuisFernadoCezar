@@ -5,7 +5,7 @@
 #include "../model/menu.h"
 
 void createStudent(){
-
+ 
   FILE *file;
   Student student;
   char alternative;
@@ -13,10 +13,10 @@ void createStudent(){
     
   do{
 
-    file = fopen("db/student.txt","ab");
+    file = fopen(STUDENT_PATH,"ab");
 
     if(file == NULL){
-      printf("Error opening file!");
+      printf(MESSAGE_ERROR);
       getchar();
     }else{
 
@@ -44,10 +44,10 @@ void retrieveStudent(){
   size_t nReg;
   Student *ptrStudent;
 
-  ptrStudent = toPointerStudent(&nReg, sizeof(Student), "db/student.txt","rb");
+  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrStudent == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -61,6 +61,26 @@ void retrieveStudent(){
   getchar();
 }
 
+  Student retrieveDataStudent(char enrollment[]){
+ 
+  Student student, *ptrStudent;
+  size_t nRegStudent;
+
+  ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
+
+  if(ptrStudent == NULL){
+    printf(MESSAGE_ERROR);
+  }else{
+
+    for(int i = 0; i < nRegStudent; i++){ 
+      if(strcmp(ptrStudent[i].enrollment, enrollment) == 0){
+        student = ptrStudent[i];
+      }
+    }
+  }
+  return student;
+}
+
 char* retrieveStudentSelected(){
 
   FILE *file;
@@ -69,11 +89,13 @@ char* retrieveStudentSelected(){
   char* enrollment = (char*)malloc(MAX_ENR_LEN * sizeof(char));
   int idSelected, sizeArray = 1;
 
-  ptrStudent = toPointerStudent(&nReg, sizeof(Student), "db/student.txt","rb");
+  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrStudent == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
+
+    header();
 
     for(int i = 0; i < nReg; i++){ 
       printf("ID: %d\n", sizeArray);
@@ -102,10 +124,10 @@ void retrieveStudentByGender(){
   char gender;
   int verification, count = 0;
 
-  ptrStudent = toPointerStudent(&nReg, sizeof(Student), "db/student.txt","rb");
+  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrStudent == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     do{
@@ -152,10 +174,10 @@ void retrieveStudentByName(){
   char nameSearch[MAX_NAME_LEN];
   int sizeNameSearch;
  
-  ptrStudent = toPointerStudent(&nReg, sizeof(Student), "db/student.txt","rb");
+  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrStudent == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     do{
@@ -195,10 +217,10 @@ void sortStudentByName(){
   Student auxiliaryStudent, *ptrStudent;
   int counter = 0, auxiliary = 0;
 
-  ptrStudent = toPointerStudent(&nReg, sizeof(Student), "db/student.txt","rb");
+  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrStudent == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     for(int i = 0 ; i < nReg; i++){
@@ -228,10 +250,10 @@ void sortStudentByBirthDate(){
   Student auxiliaryStudent, *ptrStudent;
   int checkerYear, checkerMonth, checkerDay;
 
-  ptrStudent = toPointerStudent(&nReg, sizeof(Student), "db/student.txt","rb");
+  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrStudent == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     for(int i = 0; i < nReg; i++){
@@ -269,10 +291,10 @@ void birthdaysOfTheMonthStudent(){
   Student *ptrStudent;
   int month;
 
-  ptrStudent = toPointerStudent(&nReg, sizeof(Student), "db/student.txt","rb");
+  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrStudent == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -297,10 +319,10 @@ void updateStudent(){
   Student *ptrStudent;
   int idSelected, sizeArray = 1;
 
-  ptrStudent = toPointerStudent(&nReg, sizeof(Student), "db/student.txt","rb");
+  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrStudent == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -320,7 +342,7 @@ void updateStudent(){
     
     ptrStudent[idSelected] = insertUpdateStudent(ptrStudent[idSelected]);
 
-    toFileStudent(&ptrStudent[idSelected], sizeof(Student), "db/student.txt","rb+", idSelected);
+    toFileStudent(&ptrStudent[idSelected], sizeof(Student), STUDENT_PATH,"rb+", idSelected);
 
     free(ptrStudent);
     printf("Pressione qualquer tecla para voltar...");
@@ -334,22 +356,22 @@ void deleteStudent(){
   Student *ptrStudent;
   int idSelected, sizeArray = 1;
 
-  ptrStudent = toPointerStudent(&nReg, sizeof(Student), "db/student.txt","rb");
+  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrStudent == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
 
     for(int i = 0; i < nReg; i++){ 
       printf("ID: %d\n", sizeArray);
-      printStudent(ptrStudent[i]);
+      printSummaryStudent(ptrStudent[i]);
       sizeArray++; 
     }
 
     do{
-      printf("Informe o ID do professor que deseja selecionar: ");
+      printf("Informe o ID do estudante que deseja selecionar: ");
       scanf("%d", &idSelected);
       getchar();
       idSelected--;
@@ -358,10 +380,10 @@ void deleteStudent(){
     ptrStudent[idSelected] = ptrStudent[nReg-1];
     ptrStudent = (Student*) realloc(ptrStudent, --sizeArray * sizeof(Student)); 
   
-    remove("db/student.txt");
+    remove(STUDENT_PATH);
 
     for(int i = 0; i < nReg-1; i++){
-      toFileStudent(&ptrStudent[i], sizeof(Student), "db/student.txt","ab", i);
+      toFileStudent(&ptrStudent[i], sizeof(Student), STUDENT_PATH,"ab", i);
     }
     free(ptrStudent);
     printf("Pressione qualquer tecla para voltar...");    
@@ -374,10 +396,10 @@ int isExistingStudent(char enrollment[]){
   FILE *file;
   Student student;
 
-  file = fopen("db/student.txt","rb");
+  file = fopen(STUDENT_PATH,"rb");
 
   if(file == NULL){
-    printf("Error opening file!");
+    printf(MESSAGE_ERROR);
   }else{
 
     while(fread(&student,sizeof(student), 1, file) == 1){
@@ -400,7 +422,7 @@ Student* toPointerStudent(size_t *nReg, size_t size, char filePath[], char mode[
   file = fopen(filePath, mode);
 
   if(file == NULL){
-    printf("Error opening file!");
+    printf(MESSAGE_ERROR);
 
   }else{
 
@@ -428,7 +450,7 @@ void toFileStudent(Student *ptrStudent, size_t size, char filePath[], char mode[
   file = fopen(filePath, mode);
 
   if(file == NULL)
-    printf("Error opening file!");
+    printf(MESSAGE_ERROR);
   else{
 
     fseek(file, idSelected * sizeof(Student), SEEK_SET);

@@ -15,10 +15,10 @@ void createDiscipline(){
 
   do{
 
-    file = fopen("db/discipline.txt","ab");
+    file = fopen(DISCIPLINE_PATH,"ab");
 
     if(file == NULL){
-      printf("Error opening file!");
+      printf(MESSAGE_ERROR);
       getchar();
     }else{
       
@@ -48,15 +48,19 @@ void insertStudentInDiscipline(){
 
   Discipline *ptrDiscipline;
   Teacher *ptrTeacher;
-  size_t nRegDiscipline, nRegTeacher;
-  int verification, idSelected, verificationStudent, sizeArray = 1, incrementStudent = 0;
-  char alternative;
+  Student *ptrStudent;
+  size_t nRegDiscipline, nRegTeacher, nRegStudent;
+  int verification, idSelected, sizeArray = 1;
+  int incrementDiscipline;
+  int verificationStudent, incrementStudent = 0;
+  char alternative, studentEnrollment[MAX_ENR_LEN];
 
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), "db/discipline.txt","rb");
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
+  ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
-  if(ptrDiscipline == NULL || ptrTeacher == NULL){
-    printf("Error opening array!");
+  if(ptrDiscipline == NULL || ptrTeacher == NULL || ptrStudent == NULL){
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -65,7 +69,7 @@ void insertStudentInDiscipline(){
       for(int j = 0; j < nRegTeacher; j++){ 
         if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
           printf("ID: %d\n", sizeArray);
-          printDiscipline(ptrDiscipline[i], ptrTeacher[j]);
+          printSummaryDiscipline(ptrDiscipline[i], ptrTeacher[j]);
           sizeArray++;
         }
       }   
@@ -78,10 +82,20 @@ void insertStudentInDiscipline(){
       idSelected--;
     }while(!(idSelected >= 0 && idSelected < sizeArray-1));
 
+    //*********************************
+    for(int i = 0; strcmp(ptrDiscipline[idSelected].studentEnrollment[i], "\0") != 0; i++){
+      incrementStudent++;   
+    }
+    //
+
     do{
       
+      incrementDiscipline = 0;
+
       do{
+        
         strcpy(ptrDiscipline[idSelected].studentEnrollment[incrementStudent], retrieveStudentSelected());
+        strcpy(studentEnrollment, ptrDiscipline[idSelected].studentEnrollment[incrementStudent]);
         verificationStudent = checkDisciplineStudent(ptrDiscipline[idSelected].code, ptrDiscipline[idSelected].studentEnrollment[incrementStudent]);
         
         if(!verificationStudent){
@@ -89,6 +103,18 @@ void insertStudentInDiscipline(){
           getchar();
         }    
       }while(!verificationStudent);
+
+      //*********************************
+      for(int n = 0; strcmp(retrieveDataStudent(studentEnrollment).disciplineCode[n], "\0") != 0; n++){
+        incrementDiscipline++;
+      }
+      for(int i = 0; i < nRegStudent; i++){
+        if(strcmp(ptrStudent[i].enrollment, studentEnrollment) == 0){
+          strcpy(ptrStudent[i].disciplineCode[incrementDiscipline], ptrDiscipline[idSelected].code);
+          toFileStudent(&ptrStudent[i], sizeof(Student), STUDENT_PATH,"rb+", i);
+        }
+      }
+      //
 
       do{
         printf("\n\nDeseja continuar(s/n)? ");
@@ -102,15 +128,18 @@ void insertStudentInDiscipline(){
           
       }while(!verification);
       
-      if(alternative == 's')
+      if(alternative == 's'){
         incrementStudent++;
+        incrementDiscipline++;
+      }
 
     }while(alternative == 's'); 
     
-    toFileDiscipline(&ptrDiscipline[idSelected], sizeof(Discipline), "db/discipline.txt","rb+", idSelected);
+    toFileDiscipline(&ptrDiscipline[idSelected], sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
 
     free(ptrDiscipline);
     free(ptrTeacher);
+    free(ptrStudent);
   }
 }
 
@@ -122,11 +151,11 @@ void retrieveDiscipline(){
   Teacher *ptrTeacher;
   int idSelected, sizeArray = 1;
 
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), "db/discipline.txt","rb");
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrDiscipline == NULL || ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -153,11 +182,11 @@ Discipline retrieveDisciplineSelected(){
   size_t nRegDiscipline, nRegTeacher;
   int idSelected, sizeArray = 1;
 
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), "db/discipline.txt","rb");
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrTeacher == NULL || ptrDiscipline == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -192,12 +221,12 @@ void retrieveDisciplineWithStudent(){
   Student *ptrStudent;
   int idSelected, sizeArray = 1;
 
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), "db/discipline.txt","rb");
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), "db/teacher.txt","rb");
-  ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), "db/student.txt","rb");
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
+  ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrDiscipline == NULL || ptrTeacher == NULL || ptrStudent == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -243,11 +272,11 @@ void updateDiscipline(){
   Teacher *ptrTeacher;
   int idSelected, sizeArray = 1;
 
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), "db/discipline.txt","rb");
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrDiscipline == NULL || ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -272,7 +301,7 @@ void updateDiscipline(){
     ptrDiscipline[idSelected] = insertDiscipline(discipline);
     strcpy(ptrDiscipline[idSelected].teacherEnrollment, retrieveTeacherSelected());
 
-    toFileDiscipline(&ptrDiscipline[idSelected], sizeof(Discipline), "db/discipline.txt","rb+", idSelected);
+    toFileDiscipline(&ptrDiscipline[idSelected], sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
 
     free(ptrDiscipline);
     free(ptrTeacher);
@@ -288,11 +317,11 @@ void deleteDiscipline(){
   Teacher *ptrTeacher;
   int idSelected, sizeArray = 1;
 
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), "db/discipline.txt","rb");
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), "db/teacher.txt","rb");
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
 
   if(ptrDiscipline == NULL || ptrTeacher == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -301,7 +330,7 @@ void deleteDiscipline(){
       for(int j = 0; j < nRegTeacher; j++){ 
         if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
           printf("ID: %d\n", sizeArray);
-          printDiscipline(ptrDiscipline[i], ptrTeacher[j]);
+          printSummaryDiscipline(ptrDiscipline[i], ptrTeacher[j]);
           sizeArray++;
         }
       }   
@@ -321,10 +350,10 @@ void deleteDiscipline(){
     ptrDiscipline[idSelected] = ptrDiscipline[nRegDiscipline-1];
     ptrDiscipline = (Discipline*) realloc(ptrDiscipline, --sizeArray * sizeof(Discipline)); 
 
-    remove("db/discipline.txt");
+    remove(DISCIPLINE_PATH);
 
     for(int i = 0; i < nRegDiscipline-1; i++){
-      toFileDiscipline(&ptrDiscipline[i], sizeof(Discipline), "db/discipline.txt","ab", i);
+      toFileDiscipline(&ptrDiscipline[i], sizeof(Discipline), DISCIPLINE_PATH,"ab", i);
     }
 
     free(ptrDiscipline);
@@ -342,13 +371,15 @@ void deleteStudentInDiscipline(){
   Student *ptrStudent;
   int idDisciplineSelected, sizeArrayDiscipline = 1;
   int idStudentSelected, sizeArrayStudent = 1;
+  int indexStudentEnrolled = 0;
+  char studentEnrollment[MAX_ENR_LEN];
 
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), "db/discipline.txt","rb");
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), "db/teacher.txt","rb");
-  ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), "db/student.txt","rb");
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
+  ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrDiscipline == NULL || ptrTeacher == NULL || ptrStudent == NULL){
-    printf("Error opening array!");
+    printf(MESSAGE_ERROR);
   }else{
 
     header();
@@ -371,28 +402,44 @@ void deleteStudentInDiscipline(){
     }while(!(idDisciplineSelected >= 0 && idDisciplineSelected < sizeArrayDiscipline-1));
 
       
-    for(int i = 0, j = 0; i < nRegStudent; i++){
-      if(strcmp(ptrDiscipline[idDisciplineSelected].studentEnrollment[j], ptrStudent[i].enrollment) == 0){
+    for(int i = 0; strcmp(ptrDiscipline[idDisciplineSelected].studentEnrollment[indexStudentEnrolled], "\0") != 0; i++){
+      if(strcmp(ptrDiscipline[idDisciplineSelected].studentEnrollment[indexStudentEnrolled], ptrStudent[i].enrollment) == 0){
         printf("ID: %d\n", sizeArrayStudent);
         printSummaryStudent(ptrStudent[i]);
         sizeArrayStudent++;
-        j++;
+        indexStudentEnrolled++;
       } 
     }      
 
-    do{
-      printf("Informe o ID do estudante que deseja selecionar: ");
-      scanf("%d", &idStudentSelected);
-      getchar();
-      idStudentSelected--;
-    }while(!(idStudentSelected >= 0 && idStudentSelected < sizeArrayStudent-1));
+    if(indexStudentEnrolled > 0){
 
-      
-    strcpy(ptrDiscipline[idDisciplineSelected].studentEnrollment[idStudentSelected], ptrDiscipline[idDisciplineSelected].studentEnrollment[nRegStudent-1]);
-    strcpy(ptrDiscipline[idDisciplineSelected].studentEnrollment[nRegStudent-1], "\0");
+      do{
+        printf("Informe o ID do estudante que deseja selecionar: ");
+        scanf("%d", &idStudentSelected);
+        getchar();
+        idStudentSelected--;
+      }while(!(idStudentSelected >= 0 && idStudentSelected < sizeArrayStudent-1));
 
-    toFileDiscipline(&ptrDiscipline[idDisciplineSelected], sizeof(Discipline), "db/discipline.txt","rb+", idDisciplineSelected);
+      strcpy(studentEnrollment, ptrDiscipline[idDisciplineSelected].studentEnrollment[idStudentSelected]);
 
+      strcpy(ptrDiscipline[idDisciplineSelected].studentEnrollment[idStudentSelected], ptrDiscipline[idDisciplineSelected].studentEnrollment[sizeArrayStudent-1]);
+      strcpy(ptrDiscipline[idDisciplineSelected].studentEnrollment[sizeArrayStudent-1], "\0");
+      //
+      for(int i = 0; i < nRegStudent; i++){
+        if(strcmp(studentEnrollment, ptrStudent[i].enrollment) == 0){
+          for(int j = 0; strcmp(ptrStudent[i].disciplineCode[j], "\0") != 0; j++){
+            if(strcmp(ptrStudent[i].disciplineCode[j], ptrDiscipline[idDisciplineSelected].code) == 0){
+              strcpy(ptrStudent[i].disciplineCode[j], "\0");
+              toFileStudent(&ptrStudent[i], sizeof(Student), STUDENT_PATH,"rb+", i);
+            }
+          }      
+        }
+      }
+      //
+      toFileDiscipline(&ptrDiscipline[idDisciplineSelected], sizeof(Discipline), DISCIPLINE_PATH,"rb+", idDisciplineSelected);
+
+    }
+    
     free(ptrDiscipline);
     free(ptrTeacher);
     free(ptrStudent);
@@ -406,10 +453,10 @@ int isExistingDiscipline(char code[]){
   FILE *file;
   Discipline discipline;
 
-  file = fopen("db/discipline.txt","rb");
+  file = fopen(DISCIPLINE_PATH,"rb");
 
   if(file == NULL){
-    printf("Error opening file!");
+    printf(MESSAGE_ERROR);
   }else{
 
     while(fread(&discipline,sizeof(discipline), 1, file) == 1){
@@ -429,10 +476,10 @@ int checkDisciplineStudent(char code[],char enrollment[]){
   FILE *file;
   Discipline discipline;
 
-  file = fopen("db/discipline.txt","rb");
+  file = fopen(DISCIPLINE_PATH,"rb");
 
   if(file == NULL){
-    printf("Error opening file!");
+    printf(MESSAGE_ERROR);
   }else{
 
     while(fread(&discipline,sizeof(discipline), 1, file) == 1){
@@ -459,7 +506,7 @@ Discipline* toPointerDiscipline(size_t *nReg, size_t size, char filePath[], char
   file = fopen(filePath, mode);
 
   if(file == NULL){
-    printf("Error opening file!");
+    printf(MESSAGE_ERROR);
 
   }else{
 
@@ -486,7 +533,7 @@ void toFileDiscipline(Discipline *ptrDiscipline, size_t size, char filePath[], c
   file = fopen(filePath, mode);
 
   if(file == NULL)
-    printf("Error opening file!");
+    printf(MESSAGE_ERROR);
   else{
 
     fseek(file, idSelected * sizeof(Discipline), SEEK_SET);
