@@ -266,7 +266,6 @@ void updateDiscipline(){
 
   toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
 
-  free(ptrTeacher);
   printf("Pressione qualquer tecla para voltar..."); 
   getchar();
 }
@@ -318,7 +317,7 @@ void deleteStudentInDiscipline(){
 
   ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
-  if(ptrTeacher == NULL || ptrStudent == NULL){
+  if(ptrStudent == NULL){
     printf(MESSAGE_ERROR);
   }else{
 
