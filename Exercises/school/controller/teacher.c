@@ -122,7 +122,7 @@ void retrieveTeacherByGender(){
         getchar();
       }
 
-      gender = charToUpper(gender);
+      gender = toupper(gender);
       
     }while(!verification);
     

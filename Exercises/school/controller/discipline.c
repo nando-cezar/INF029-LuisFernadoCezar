@@ -46,44 +46,26 @@ void createDiscipline(){
 
 void insertStudentInDiscipline(){
 
-  Discipline *ptrDiscipline;
+  Discipline disciplineSelected;
   Teacher *ptrTeacher;
   Student *ptrStudent;
-  size_t nRegDiscipline, nRegTeacher, nRegStudent;
+  size_t nRegTeacher, nRegStudent;
   int verification, idSelected, sizeArray = 1;
   int incrementDiscipline;
   int verificationStudent, incrementStudent = 0;
   char alternative, studentEnrollment[MAX_ENR_LEN];
 
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
   ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
   ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
-  if(ptrDiscipline == NULL || ptrTeacher == NULL || ptrStudent == NULL){
+  if(ptrTeacher == NULL || ptrStudent == NULL){
     printf(MESSAGE_ERROR);
   }else{
 
-    header();
-
-    for(int i = 0; i < nRegDiscipline; i++){ 
-      for(int j = 0; j < nRegTeacher; j++){ 
-        if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
-          printf("ID: %d\n", sizeArray);
-          printSummaryDiscipline(ptrDiscipline[i], ptrTeacher[j]);
-          sizeArray++;
-        }
-      }   
-    }
-
-    do{
-      printf("Informe o ID da disciplina que deseja selecionar: ");
-      scanf("%d", &idSelected);
-      getchar();
-      idSelected--;
-    }while(!(idSelected >= 0 && idSelected < sizeArray-1));
+    disciplineSelected = retrieveDisciplineSelected(&idSelected, &sizeArray);
 
     //*********************************
-    for(int i = 0; strcmp(ptrDiscipline[idSelected].studentEnrollment[i], "\0") != 0; i++){
+    for(int i = 0; strcmp(disciplineSelected.studentEnrollment[i], "\0") != 0; i++){
       incrementStudent++;   
     }
     //
@@ -94,9 +76,9 @@ void insertStudentInDiscipline(){
 
       do{
         
-        strcpy(ptrDiscipline[idSelected].studentEnrollment[incrementStudent], retrieveStudentSelected());
-        strcpy(studentEnrollment, ptrDiscipline[idSelected].studentEnrollment[incrementStudent]);
-        verificationStudent = checkDisciplineStudent(ptrDiscipline[idSelected].code, ptrDiscipline[idSelected].studentEnrollment[incrementStudent]);
+        strcpy(disciplineSelected.studentEnrollment[incrementStudent], retrieveStudentSelected());
+        strcpy(studentEnrollment, disciplineSelected.studentEnrollment[incrementStudent]);
+        verificationStudent = checkDisciplineStudent(disciplineSelected.code, disciplineSelected.studentEnrollment[incrementStudent]);
         
         if(!verificationStudent){
           printf("\nO aluno já se encontra matriculado na disciplina.\n");
@@ -110,7 +92,7 @@ void insertStudentInDiscipline(){
       }
       for(int i = 0; i < nRegStudent; i++){
         if(strcmp(ptrStudent[i].enrollment, studentEnrollment) == 0){
-          strcpy(ptrStudent[i].disciplineCode[incrementDiscipline], ptrDiscipline[idSelected].code);
+          strcpy(ptrStudent[i].disciplineCode[incrementDiscipline], disciplineSelected.code);
           toFileStudent(&ptrStudent[i], sizeof(Student), STUDENT_PATH,"rb+", i);
         }
       }
@@ -135,9 +117,8 @@ void insertStudentInDiscipline(){
 
     }while(alternative == 's'); 
     
-    toFileDiscipline(&ptrDiscipline[idSelected], sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
+    toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
 
-    free(ptrDiscipline);
     free(ptrTeacher);
     free(ptrStudent);
   }
@@ -145,11 +126,9 @@ void insertStudentInDiscipline(){
 
 void retrieveDiscipline(){
 
-  FILE *file;
   size_t nRegDiscipline, nRegTeacher;
-  Discipline discipline, *ptrDiscipline;
+  Discipline *ptrDiscipline;
   Teacher *ptrTeacher;
-  int idSelected, sizeArray = 1;
 
   ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
   ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
@@ -175,12 +154,12 @@ void retrieveDiscipline(){
   getchar();
 }
 
-Discipline retrieveDisciplineSelected(){
+Discipline retrieveDisciplineSelected(int *idSelected, int *sizeArray){
  
   Discipline *ptrDiscipline;
   Teacher *ptrTeacher;
   size_t nRegDiscipline, nRegTeacher;
-  int idSelected, sizeArray = 1;
+  int id = 0;
 
   ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
   ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
@@ -194,68 +173,50 @@ Discipline retrieveDisciplineSelected(){
     for(int i = 0; i < nRegDiscipline; i++){ 
       for(int j = 0; j < nRegTeacher; j++){ 
         if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
-          printf("ID: %d\n", sizeArray);
+          printf("ID: %d\n", *sizeArray);
           printDiscipline(ptrDiscipline[i], ptrTeacher[j]);
-          sizeArray++;
+          (*sizeArray)++;
         }
       }   
     }
 
     do{
       printf("Informe o ID da disciplina que deseja selecionar: ");
-      scanf("%d", &idSelected);
+      scanf("%d", &id);
       getchar();
-      idSelected--;
-    }while(!(idSelected >= 0 && idSelected < sizeArray-1));
+      *idSelected = id;
+      (*idSelected)--;
+    }while(!(*idSelected >= 0 && *idSelected < *sizeArray-1));
     
-    return ptrDiscipline[idSelected];
+    return ptrDiscipline[*idSelected];
   }
 }
 
 void retrieveDisciplineWithStudent(){
 
-  size_t nRegDiscipline, nRegTeacher, nRegStudent;
-  Discipline discipline, *ptrDiscipline;
+  size_t nRegTeacher, nRegStudent;
+  Discipline disciplineSelected;
   Teacher *ptrTeacher;
   Student *ptrStudent;
-  int idSelected, sizeArray = 1;
+  int idSelected = 0, sizeArray = 1;
 
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
   ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
   ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
-  if(ptrDiscipline == NULL || ptrTeacher == NULL || ptrStudent == NULL){
+  if(ptrTeacher == NULL || ptrStudent == NULL){
     printf(MESSAGE_ERROR);
   }else{
 
-    header();
+    disciplineSelected = retrieveDisciplineSelected(&idSelected, &sizeArray);
 
-    for(int i = 0; i < nRegDiscipline; i++){ 
-      for(int j = 0; j < nRegTeacher; j++){ 
-        if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
-          printf("ID: %d\n", sizeArray);
-          printDiscipline(ptrDiscipline[i], ptrTeacher[j]);
-          sizeArray++;
-        }
-      }   
-    }
-
-    do{
-      printf("Informe o ID da disciplina que deseja selecionar: ");
-      scanf("%d", &idSelected);
-      getchar();
-      idSelected--;
-    }while(!(idSelected >= 0 && idSelected < sizeArray-1));
-
-    for(int i = 0; i < nRegStudent; i++){
+    for(int i = 0; i < MAX_STUDENTS_DISC; i++){
       for(int j = 0; j < nRegStudent; j++){
-        if(strcmp(ptrDiscipline[idSelected].studentEnrollment[i], ptrStudent[j].enrollment) == 0){
+        if(strcmp(disciplineSelected.studentEnrollment[i], ptrStudent[j].enrollment) == 0){
           printSummaryStudent(ptrStudent[j]);
         }
       }
     }
 
-    free(ptrDiscipline);
     free(ptrTeacher);
     free(ptrStudent);
     printf("Pressione qualquer tecla para voltar...");
@@ -300,44 +261,26 @@ void retrieveDisciplineWithMoreThan40Students(){
 
 void updateDiscipline(){
 
-  FILE *file;
-  size_t nRegDiscipline, nRegTeacher;
-  Discipline discipline, *ptrDiscipline;
+  size_t nRegTeacher;
+  Discipline disciplineSelected;
   Teacher *ptrTeacher;
   int idSelected, sizeArray = 1;
 
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
   ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
 
-  if(ptrDiscipline == NULL || ptrTeacher == NULL){
+  if(ptrTeacher == NULL){
     printf(MESSAGE_ERROR);
   }else{
 
     header();
-    
-    for(int i = 0; i < nRegDiscipline; i++){ 
-      for(int j = 0; j < nRegTeacher; j++){ 
-        if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
-          printf("ID: %d\n", sizeArray);
-          printDiscipline(ptrDiscipline[i], ptrTeacher[j]);
-          sizeArray++;
-        }
-      }   
-    }
 
-    do{
-      printf("Informe o ID da disciplina que deseja selecionar: ");
-      scanf("%d", &idSelected);
-      getchar();
-      idSelected--;
-    }while(!(idSelected >= 0 && idSelected < sizeArray-1));
+    disciplineSelected = retrieveDisciplineSelected(&idSelected, &sizeArray);
 
-    ptrDiscipline[idSelected] = insertDiscipline(discipline);
-    strcpy(ptrDiscipline[idSelected].teacherEnrollment, retrieveTeacherSelected());
+    disciplineSelected = insertDiscipline(disciplineSelected);
+    strcpy(disciplineSelected.teacherEnrollment, retrieveTeacherSelected());
 
-    toFileDiscipline(&ptrDiscipline[idSelected], sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
+    toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
 
-    free(ptrDiscipline);
     free(ptrTeacher);
     printf("Pressione qualquer tecla para voltar..."); 
   }
@@ -347,9 +290,9 @@ void updateDiscipline(){
 void deleteDiscipline(){
 
   size_t nRegDiscipline, nRegTeacher;
-  Discipline discipline, *ptrDiscipline;
+  Discipline disciplineSelected, *ptrDiscipline;
   Teacher *ptrTeacher;
-  int idSelected, sizeArray = 1;
+  int idSelected = 0, sizeArray = 1;
 
   ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
   ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
@@ -360,22 +303,7 @@ void deleteDiscipline(){
 
     header();
 
-    for(int i = 0; i < nRegDiscipline; i++){ 
-      for(int j = 0; j < nRegTeacher; j++){ 
-        if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
-          printf("ID: %d\n", sizeArray);
-          printSummaryDiscipline(ptrDiscipline[i], ptrTeacher[j]);
-          sizeArray++;
-        }
-      }   
-    }
-
-    do{
-      printf("Informe o ID da disciplina que deseja selecionar: ");
-      scanf("%d", &idSelected);
-      getchar();
-      idSelected--;
-    }while(!(idSelected >= 0 && idSelected < sizeArray-1));
+    disciplineSelected = retrieveDisciplineSelected(&idSelected, &sizeArray);
 
     /*
     -Atribui o último índice do ponteiro ao índice que será excluído
@@ -399,45 +327,26 @@ void deleteDiscipline(){
 
 void deleteStudentInDiscipline(){
 
-  size_t nRegDiscipline, nRegTeacher, nRegStudent;
-  Discipline *ptrDiscipline;
+  size_t nRegTeacher, nRegStudent;
   Teacher *ptrTeacher;
   Student *ptrStudent;
+  Discipline disciplineSelected;
   int idDisciplineSelected, sizeArrayDiscipline = 1;
   int idStudentSelected, sizeArrayStudent = 1;
   int indexStudentEnrolled = 0;
   char studentEnrollment[MAX_ENR_LEN];
 
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
   ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
   ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
-  if(ptrDiscipline == NULL || ptrTeacher == NULL || ptrStudent == NULL){
+  if(ptrTeacher == NULL || ptrStudent == NULL){
     printf(MESSAGE_ERROR);
   }else{
 
-    header();
-
-    for(int i = 0; i < nRegDiscipline; i++){ 
-      for(int j = 0; j < nRegTeacher; j++){ 
-        if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
-          printf("ID: %d\n", sizeArrayDiscipline);
-          printDiscipline(ptrDiscipline[i], ptrTeacher[j]);
-          sizeArrayDiscipline++;
-        }
-      }   
-    }
-
-    do{
-      printf("Informe o ID da disciplina que deseja selecionar: ");
-      scanf("%d", &idDisciplineSelected);
-      getchar();
-      idDisciplineSelected--;
-    }while(!(idDisciplineSelected >= 0 && idDisciplineSelected < sizeArrayDiscipline-1));
-
+    disciplineSelected = retrieveDisciplineSelected(&idDisciplineSelected, &sizeArrayDiscipline);
       
-    for(int i = 0; strcmp(ptrDiscipline[idDisciplineSelected].studentEnrollment[indexStudentEnrolled], "\0") != 0; i++){
-      if(strcmp(ptrDiscipline[idDisciplineSelected].studentEnrollment[indexStudentEnrolled], ptrStudent[i].enrollment) == 0){
+    for(int i = 0; strcmp(disciplineSelected.studentEnrollment[indexStudentEnrolled], "\0") != 0; i++){
+      if(strcmp(disciplineSelected.studentEnrollment[indexStudentEnrolled], ptrStudent[i].enrollment) == 0){
         printf("ID: %d\n", sizeArrayStudent);
         printSummaryStudent(ptrStudent[i]);
         sizeArrayStudent++;
@@ -454,15 +363,15 @@ void deleteStudentInDiscipline(){
         idStudentSelected--;
       }while(!(idStudentSelected >= 0 && idStudentSelected < sizeArrayStudent-1));
 
-      strcpy(studentEnrollment, ptrDiscipline[idDisciplineSelected].studentEnrollment[idStudentSelected]);
+      strcpy(studentEnrollment, disciplineSelected.studentEnrollment[idStudentSelected]);
 
-      strcpy(ptrDiscipline[idDisciplineSelected].studentEnrollment[idStudentSelected], ptrDiscipline[idDisciplineSelected].studentEnrollment[sizeArrayStudent-1]);
-      strcpy(ptrDiscipline[idDisciplineSelected].studentEnrollment[sizeArrayStudent-1], "\0");
+      strcpy(disciplineSelected.studentEnrollment[idStudentSelected], disciplineSelected.studentEnrollment[sizeArrayStudent-1]);
+      strcpy(disciplineSelected.studentEnrollment[sizeArrayStudent-1], "\0");
       //***************************
       for(int i = 0; i < nRegStudent; i++){
         if(strcmp(studentEnrollment, ptrStudent[i].enrollment) == 0){
           for(int j = 0; strcmp(ptrStudent[i].disciplineCode[j], "\0") != 0; j++){
-            if(strcmp(ptrStudent[i].disciplineCode[j], ptrDiscipline[idDisciplineSelected].code) == 0){
+            if(strcmp(ptrStudent[i].disciplineCode[j], disciplineSelected.code) == 0){
               strcpy(ptrStudent[i].disciplineCode[j], "\0");
               toFileStudent(&ptrStudent[i], sizeof(Student), STUDENT_PATH,"rb+", i);
             }
@@ -470,11 +379,10 @@ void deleteStudentInDiscipline(){
         }
       }
       //
-      toFileDiscipline(&ptrDiscipline[idDisciplineSelected], sizeof(Discipline), DISCIPLINE_PATH,"rb+", idDisciplineSelected);
+      toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idDisciplineSelected);
 
     }
     
-    free(ptrDiscipline);
     free(ptrTeacher);
     free(ptrStudent);
     printf("Pressione qualquer tecla para voltar...");

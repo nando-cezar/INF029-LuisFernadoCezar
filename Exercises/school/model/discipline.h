@@ -13,7 +13,7 @@
     void createDiscipline();
     void insertStudentInDiscipline();
     void retrieveDiscipline();
-    Discipline retrieveDisciplineSelected();
+    Discipline retrieveDisciplineSelected(int *idSelected, int *sizeArray);
     void retrieveDisciplineWithStudent();
     void retrieveDisciplineWithMoreThan40Students();
     void updateDiscipline();

@@ -10,18 +10,6 @@ int isLarger(int numberOne, int numberTwo){
   
   else return -1;
 }
-
-size_t structAmount(FILE *file, void *obj, size_t size){
-
-  int counter = 0;
-
-  while(fread(obj, size, 1, file) == 1){
-      counter++;
-  }
-  rewind(file);
-
-  return counter;
-}
  
 void textToUpper(char *string){ 
 
@@ -30,20 +18,6 @@ void textToUpper(char *string){
       string[i] = toupper(string[i]);
     }
   }
-}
-
-char charToUpper(char ch){ 
-  return toupper(ch);
-}
-
-int verifyNumber(char *string){
-  int len = strlen(string);
-
-  for (int i = 0; i < len; i++){
-    if (isalpha(string[i]))
-      return 0;
-  }
-  return 1;
 }
 
 void removeBreakLine(char *string){

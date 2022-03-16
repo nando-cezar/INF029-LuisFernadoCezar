@@ -113,7 +113,7 @@ Teacher insertCreateTeacher(Teacher teacher){
     if(!verification)
       printf("\nInforme gênero válido!!!\n");
     else  
-      teacher.gender = charToUpper(teacher.gender);
+      teacher.gender = toupper(teacher.gender);
 
   }while(!verification);
 
@@ -181,7 +181,7 @@ Teacher insertUpdateTeacher(Teacher teacher){
     if(!verification)
       printf("\nInforme gênero válido!!!\n");
     else  
-      teacher.gender = charToUpper(teacher.gender);
+      teacher.gender = toupper(teacher.gender);
 
   }while(!verification);
 
