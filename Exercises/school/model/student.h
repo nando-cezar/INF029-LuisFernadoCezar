@@ -14,7 +14,8 @@
     void createStudent();
     void retrieveStudent();
     Student retrieveDataStudent(char enrollment[]);
-    char* retrieveStudentSelected();
+    Student retrieveObjectStudent(int *idSelected, int *sizeArray);
+    char* retrieveEnrollmentStudent();
     void retrieveStudentByGender();
     void retrieveStudentByName();
     void sortStudentByName();

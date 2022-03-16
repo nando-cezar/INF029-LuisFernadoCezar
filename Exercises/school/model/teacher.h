@@ -13,7 +13,8 @@
     
     void createTeacher();
     void retrieveTeacher();
-    char* retrieveTeacherSelected();
+    Teacher retrieveObjectTeacher(int *idSelected, int *sizeArray);
+    char* retrieveEnrollmentTeacher();
     void retrieveTeacherByGender();
     void retrieveTeacherByName();
     void sortTeacherByName();

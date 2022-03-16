@@ -24,7 +24,7 @@ void createDiscipline(){
       
       header();
       discipline = insertDiscipline(discipline);
-      strcpy(discipline.teacherEnrollment, retrieveTeacherSelected());
+      strcpy(discipline.teacherEnrollment, retrieveEnrollmentTeacher());
       fwrite(&discipline, sizeof(Discipline), 1, file);
       fclose(file); 
       
@@ -60,7 +60,7 @@ void insertStudentInDiscipline(){
     printf(MESSAGE_ERROR);
   }else{
 
-    disciplineSelected = retrieveDisciplineSelected(&idSelected, &sizeArray);
+    disciplineSelected = retrieveObjectDiscipline(&idSelected, &sizeArray);
 
     for(int i = 0; strcmp(disciplineSelected.studentEnrollment[i], "\0") != 0; i++){
       incrementStudent++;   
@@ -72,7 +72,7 @@ void insertStudentInDiscipline(){
 
       do{
         
-        strcpy(disciplineSelected.studentEnrollment[incrementStudent], retrieveStudentSelected());
+        strcpy(disciplineSelected.studentEnrollment[incrementStudent], retrieveEnrollmentStudent());
         strcpy(studentEnrollment, disciplineSelected.studentEnrollment[incrementStudent]);
         verificationStudent = checkDisciplineStudent(disciplineSelected.code, disciplineSelected.studentEnrollment[incrementStudent]);
         
@@ -149,7 +149,7 @@ void retrieveDiscipline(){
   getchar();
 }
 
-Discipline retrieveDisciplineSelected(int *idSelected, int *sizeArray){
+Discipline retrieveObjectDiscipline(int *idSelected, int *sizeArray){
  
   Discipline *ptrDiscipline;
   Teacher *ptrTeacher;
@@ -200,7 +200,7 @@ void retrieveDisciplineWithStudent(){
     printf(MESSAGE_ERROR);
   }else{
 
-    disciplineSelected = retrieveDisciplineSelected(&idSelected, &sizeArray);
+    disciplineSelected = retrieveObjectDiscipline(&idSelected, &sizeArray);
 
     for(int i = 0; i < MAX_STUDENTS_DISC; i++){
       for(int j = 0; j < nRegStudent; j++){
@@ -253,16 +253,15 @@ void retrieveDisciplineWithMoreThan40Students(){
 
 void updateDiscipline(){
 
-  size_t nRegTeacher;
   Discipline disciplineSelected;
   int idSelected, sizeArray = 1;
 
   header();
 
-  disciplineSelected = retrieveDisciplineSelected(&idSelected, &sizeArray);
+  disciplineSelected = retrieveObjectDiscipline(&idSelected, &sizeArray);
 
   disciplineSelected = insertDiscipline(disciplineSelected);
-  strcpy(disciplineSelected.teacherEnrollment, retrieveTeacherSelected());
+  strcpy(disciplineSelected.teacherEnrollment, retrieveEnrollmentTeacher());
 
   toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
 
@@ -284,7 +283,7 @@ void deleteDiscipline(){
 
     header();
 
-    disciplineSelected = retrieveDisciplineSelected(&idSelected, &sizeArray);
+    disciplineSelected = retrieveObjectDiscipline(&idSelected, &sizeArray);
 
     /*
     -Atribui o último índice do ponteiro ao índice que será excluído
@@ -321,7 +320,7 @@ void deleteStudentInDiscipline(){
     printf(MESSAGE_ERROR);
   }else{
 
-    disciplineSelected = retrieveDisciplineSelected(&idDisciplineSelected, &sizeArrayDiscipline);
+    disciplineSelected = retrieveObjectDiscipline(&idDisciplineSelected, &sizeArrayDiscipline);
       
     for(int i = 0; strcmp(disciplineSelected.studentEnrollment[indexStudentEnrolled], "\0") != 0; i++){
       if(strcmp(disciplineSelected.studentEnrollment[indexStudentEnrolled], ptrStudent[i].enrollment) == 0){

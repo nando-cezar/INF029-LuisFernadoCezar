@@ -81,14 +81,13 @@ void retrieveStudent(){
   return student;
 }
 
-char* retrieveStudentSelected(){
-
-  size_t nReg;
+Student retrieveObjectStudent(int *idSelected, int *sizeArray){
+ 
   Student *ptrStudent;
-  char* enrollment = (char*)malloc(MAX_ENR_LEN * sizeof(char));
-  int idSelected, sizeArray = 1;
+  size_t nRegStudent;
+  int id = 0;
 
-  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
+  ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrStudent == NULL){
     printf(MESSAGE_ERROR);
@@ -96,24 +95,34 @@ char* retrieveStudentSelected(){
 
     header();
 
-    for(int i = 0; i < nReg; i++){ 
-      printf("ID: %d\n", sizeArray);
-      printSummaryStudent(ptrStudent[i]);
-      sizeArray++; 
+    for(int i = 0; i < nRegStudent; i++){ 
+      printf("ID: %d\n", *sizeArray);
+      printStudent(ptrStudent[i]);
+      (*sizeArray)++;      
     }
 
     do{
       printf("Informe o ID do estudante que deseja selecionar: ");
-      scanf("%d", &idSelected);
+      scanf("%d", &id);
       getchar();
-      idSelected--;
-    }while(!(idSelected >= 0 && idSelected < sizeArray-1));
-
-    strcpy(enrollment, ptrStudent[idSelected].enrollment);
+      *idSelected = id;
+      (*idSelected)--;
+    }while(!(*idSelected >= 0 && *idSelected < *sizeArray-1));
     
-    free(ptrStudent);
-    return enrollment;
+    return ptrStudent[*idSelected];
   }
+}
+
+char* retrieveEnrollmentStudent(){
+
+  Student studentSelected;
+  char* enrollment = (char*)malloc(MAX_ENR_LEN * sizeof(char));
+  int idSelected, sizeArray = 1;
+
+  studentSelected = retrieveObjectStudent(&idSelected, &sizeArray);
+  strcpy(enrollment, studentSelected.enrollment);
+  
+  return enrollment;
 }
 
 void retrieveStudentByGender(){ 
@@ -313,45 +322,22 @@ void birthdaysOfTheMonthStudent(){
 
 void updateStudent(){
 
-  size_t nReg;
-  Student *ptrStudent;
+  Student studentSelected;
   int idSelected, sizeArray = 1;
 
-  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
+  studentSelected = retrieveObjectStudent(&idSelected, &sizeArray);
+  studentSelected = insertUpdateStudent(studentSelected);
 
-  if(ptrStudent == NULL){
-    printf(MESSAGE_ERROR);
-  }else{
+  toFileStudent(&studentSelected, sizeof(Student), STUDENT_PATH,"rb+", idSelected);
 
-    header();
-
-    for(int i = 0; i < nReg; i++){ 
-      printf("ID: %d\n", sizeArray);
-      printStudent(ptrStudent[i]);
-      sizeArray++; 
-    }
-
-    do{
-      printf("Informe o ID do aluno que deseja selecionar: ");
-      scanf("%d", &idSelected);
-      getchar();
-      idSelected--;
-    }while(!(idSelected >= 0 && idSelected < sizeArray-1));
-    
-    ptrStudent[idSelected] = insertUpdateStudent(ptrStudent[idSelected]);
-
-    toFileStudent(&ptrStudent[idSelected], sizeof(Student), STUDENT_PATH,"rb+", idSelected);
-
-    free(ptrStudent);
-    printf("Pressione qualquer tecla para voltar...");
-  }
+  printf("Pressione qualquer tecla para voltar...");
   getchar();
 }
 
 void deleteStudent(){
 
   size_t nReg;
-  Student *ptrStudent;
+  Student *ptrStudent, studentSelected;
   int idSelected, sizeArray = 1;
 
   ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
@@ -360,20 +346,7 @@ void deleteStudent(){
     printf(MESSAGE_ERROR);
   }else{
 
-    header();
-
-    for(int i = 0; i < nReg; i++){ 
-      printf("ID: %d\n", sizeArray);
-      printSummaryStudent(ptrStudent[i]);
-      sizeArray++; 
-    }
-
-    do{
-      printf("Informe o ID do estudante que deseja selecionar: ");
-      scanf("%d", &idSelected);
-      getchar();
-      idSelected--;
-    }while(!(idSelected >= 0 && idSelected < sizeArray-1));
+    studentSelected = retrieveObjectStudent(&idSelected, &sizeArray);
 
     ptrStudent[idSelected] = ptrStudent[nReg-1];
     ptrStudent = (Student*) realloc(ptrStudent, --sizeArray * sizeof(Student)); 
