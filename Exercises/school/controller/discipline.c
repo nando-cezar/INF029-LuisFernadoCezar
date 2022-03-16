@@ -47,7 +47,6 @@ void createDiscipline(){
 void insertStudentInDiscipline(){
 
   Discipline disciplineSelected;
-  Teacher *ptrTeacher;
   Student *ptrStudent;
   size_t nRegTeacher, nRegStudent;
   int verification, idSelected, sizeArray = 1;
@@ -55,20 +54,17 @@ void insertStudentInDiscipline(){
   int verificationStudent, incrementStudent = 0;
   char alternative, studentEnrollment[MAX_ENR_LEN];
 
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
   ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
-  if(ptrTeacher == NULL || ptrStudent == NULL){
+  if(ptrStudent == NULL){
     printf(MESSAGE_ERROR);
   }else{
 
     disciplineSelected = retrieveDisciplineSelected(&idSelected, &sizeArray);
 
-    //*********************************
     for(int i = 0; strcmp(disciplineSelected.studentEnrollment[i], "\0") != 0; i++){
       incrementStudent++;   
     }
-    //
 
     do{
       
@@ -119,7 +115,6 @@ void insertStudentInDiscipline(){
     
     toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
 
-    free(ptrTeacher);
     free(ptrStudent);
   }
 }
@@ -196,14 +191,12 @@ void retrieveDisciplineWithStudent(){
 
   size_t nRegTeacher, nRegStudent;
   Discipline disciplineSelected;
-  Teacher *ptrTeacher;
   Student *ptrStudent;
   int idSelected = 0, sizeArray = 1;
 
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
   ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
-  if(ptrTeacher == NULL || ptrStudent == NULL){
+  if(ptrStudent == NULL){
     printf(MESSAGE_ERROR);
   }else{
 
@@ -217,7 +210,6 @@ void retrieveDisciplineWithStudent(){
       }
     }
 
-    free(ptrTeacher);
     free(ptrStudent);
     printf("Pressione qualquer tecla para voltar...");
   }
@@ -263,41 +255,31 @@ void updateDiscipline(){
 
   size_t nRegTeacher;
   Discipline disciplineSelected;
-  Teacher *ptrTeacher;
   int idSelected, sizeArray = 1;
 
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
+  header();
 
-  if(ptrTeacher == NULL){
-    printf(MESSAGE_ERROR);
-  }else{
+  disciplineSelected = retrieveDisciplineSelected(&idSelected, &sizeArray);
 
-    header();
+  disciplineSelected = insertDiscipline(disciplineSelected);
+  strcpy(disciplineSelected.teacherEnrollment, retrieveTeacherSelected());
 
-    disciplineSelected = retrieveDisciplineSelected(&idSelected, &sizeArray);
+  toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
 
-    disciplineSelected = insertDiscipline(disciplineSelected);
-    strcpy(disciplineSelected.teacherEnrollment, retrieveTeacherSelected());
-
-    toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
-
-    free(ptrTeacher);
-    printf("Pressione qualquer tecla para voltar..."); 
-  }
+  free(ptrTeacher);
+  printf("Pressione qualquer tecla para voltar..."); 
   getchar();
 }
 
 void deleteDiscipline(){
 
-  size_t nRegDiscipline, nRegTeacher;
+  size_t nRegDiscipline;
   Discipline disciplineSelected, *ptrDiscipline;
-  Teacher *ptrTeacher;
   int idSelected = 0, sizeArray = 1;
 
   ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
 
-  if(ptrDiscipline == NULL || ptrTeacher == NULL){
+  if(ptrDiscipline == NULL){
     printf(MESSAGE_ERROR);
   }else{
 
@@ -319,7 +301,6 @@ void deleteDiscipline(){
     }
 
     free(ptrDiscipline);
-    free(ptrTeacher);
     printf("Pressione qualquer tecla para voltar...");
   }
   getchar();
@@ -327,8 +308,7 @@ void deleteDiscipline(){
 
 void deleteStudentInDiscipline(){
 
-  size_t nRegTeacher, nRegStudent;
-  Teacher *ptrTeacher;
+  size_t nRegStudent;
   Student *ptrStudent;
   Discipline disciplineSelected;
   int idDisciplineSelected, sizeArrayDiscipline = 1;
@@ -336,7 +316,6 @@ void deleteStudentInDiscipline(){
   int indexStudentEnrolled = 0;
   char studentEnrollment[MAX_ENR_LEN];
 
-  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
   ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
   if(ptrTeacher == NULL || ptrStudent == NULL){
@@ -383,7 +362,6 @@ void deleteStudentInDiscipline(){
 
     }
     
-    free(ptrTeacher);
     free(ptrStudent);
     printf("Pressione qualquer tecla para voltar...");
   }

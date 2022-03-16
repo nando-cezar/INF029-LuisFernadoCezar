@@ -83,7 +83,6 @@ void retrieveStudent(){
 
 char* retrieveStudentSelected(){
 
-  FILE *file;
   size_t nReg;
   Student *ptrStudent;
   char* enrollment = (char*)malloc(MAX_ENR_LEN * sizeof(char));
@@ -314,7 +313,6 @@ void birthdaysOfTheMonthStudent(){
 
 void updateStudent(){
 
-  FILE *file;
   size_t nReg;
   Student *ptrStudent;
   int idSelected, sizeArray = 1;
@@ -352,7 +350,7 @@ void updateStudent(){
 
 void deleteStudent(){
 
-  size_t fSize, nReg;
+  size_t nReg;
   Student *ptrStudent;
   int idSelected, sizeArray = 1;
 

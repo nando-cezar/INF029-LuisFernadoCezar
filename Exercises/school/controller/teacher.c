@@ -63,7 +63,6 @@ void retrieveTeacher(){
 
 char* retrieveTeacherSelected(){
 
-  FILE *file;
   size_t nReg;
   Teacher *ptrTeacher;
   char* enrollment = (char*)malloc(MAX_ENR_LEN * sizeof(char));
@@ -292,9 +291,8 @@ void birthdaysOfTheMonthTeacher(){
 
 void updateTeacher(){
 
-  FILE *file;
   size_t nReg;
-  Teacher teacher, *ptrTeacher;
+  Teacher *ptrTeacher;
   int idSelected, sizeArray = 1;
 
   ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
@@ -330,8 +328,8 @@ void updateTeacher(){
 
 void deleteTeacher(){
 
-  size_t fSize, nReg;
-  Teacher teacher, *ptrTeacher;
+  size_t nReg;
+  Teacher *ptrTeacher;
   int idSelected, sizeArray = 1;
 
   ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
