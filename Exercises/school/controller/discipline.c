@@ -424,7 +424,7 @@ void deleteStudentInDiscipline(){
 
       strcpy(ptrDiscipline[idDisciplineSelected].studentEnrollment[idStudentSelected], ptrDiscipline[idDisciplineSelected].studentEnrollment[sizeArrayStudent-1]);
       strcpy(ptrDiscipline[idDisciplineSelected].studentEnrollment[sizeArrayStudent-1], "\0");
-      //
+      //***************************
       for(int i = 0; i < nRegStudent; i++){
         if(strcmp(studentEnrollment, ptrStudent[i].enrollment) == 0){
           for(int j = 0; strcmp(ptrStudent[i].disciplineCode[j], "\0") != 0; j++){
