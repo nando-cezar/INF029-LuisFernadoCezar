@@ -306,7 +306,7 @@ void deleteDiscipline(){
     for(int i = 0; strcmp(disciplineSelected.studentEnrollment[i], "\0") != 0; i++){
       quantity++;
     }
-
+    
     if(quantity == 0){
 
       for(int i = 0; i < nRegTeacher; i++){
@@ -444,8 +444,7 @@ int checkDisciplineStudent(char code[], char enrollment[]){
             return 0;
           }
         }
-      }else
-        printf("O código da disciplina é inválido!");
+      }
     }
   }
   fclose(file);

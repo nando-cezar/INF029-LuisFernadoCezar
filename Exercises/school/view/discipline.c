@@ -78,6 +78,9 @@ Discipline insertDiscipline(Discipline discipline){
   //.teacher
   printf("Selecione o professor desejado... \n");
 
+  for (int i = 0; i < MAX_STUDENTS_DISC; i++)
+    strcpy(discipline.studentEnrollment[i], "\0");
+
   return discipline;
 }
 
