@@ -11,7 +11,7 @@ void printTeacher(Teacher teacher){
   printf("Matricula: \t\t %s\n", teacher.enrollment);
   printf("Nome: \t\t\t %s\n", teacher.name);
   printf("CPF: \t\t\t %s\n", teacher.CPF);
-  printf("Data de nascimento: \t %d/%d/%d\n", 
+  printf("Data de nascimento: \t %02d/%02d/%d\n", 
   teacher.birthDate.day,
   teacher.birthDate.month,
   teacher.birthDate.year
@@ -35,7 +35,7 @@ Teacher insertCreateTeacher(Teacher teacher){
   int verification, verificationTeacher;
 
   do{
-    
+     
     printf("Inserir matricula: ");
     fgets(teacher.enrollment, MAX_ENR_LEN, stdin);
     removeBreakLine(teacher.enrollment);
@@ -115,6 +115,9 @@ Teacher insertCreateTeacher(Teacher teacher){
       teacher.gender = toupper(teacher.gender);
 
   }while(!verification);
+
+  for (int i = 0; i < MAX_DISC; i++)
+    strcpy(teacher.disciplineCode[i], "\0");
 
   return teacher;
 }

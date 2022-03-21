@@ -9,9 +9,13 @@
 void createDiscipline(){
 
   FILE *file;
+  size_t nRegTeacher;
   Discipline discipline;
+  Teacher *ptrTeacher;
   char alternative;
-  int verification;
+  int verification, incrementDiscipline = 0;
+
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
 
   do{
 
@@ -25,6 +29,18 @@ void createDiscipline(){
       header();
       discipline = insertDiscipline(discipline);
       strcpy(discipline.teacherEnrollment, retrieveEnrollmentTeacher());
+      
+      for(int n = 0; strcmp(retrieveDataTeacher(discipline.teacherEnrollment).disciplineCode[n], "\0") != 0; n++){
+        incrementDiscipline++;
+      }
+      
+      for(int i = 0; i < nRegTeacher; i++){
+        if(strcmp(ptrTeacher[i].enrollment, discipline.teacherEnrollment) == 0){
+          strcpy(ptrTeacher[i].disciplineCode[incrementDiscipline], discipline.code);
+          toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
+        }
+      }
+
       fwrite(&discipline, sizeof(Discipline), 1, file);
       fclose(file); 
       
@@ -271,13 +287,15 @@ void updateDiscipline(){
 
 void deleteDiscipline(){
 
-  size_t nRegDiscipline;
+  size_t nRegDiscipline, nRegTeacher;
   Discipline disciplineSelected, *ptrDiscipline;
+  Teacher *ptrTeacher;
   int idSelected = 0, sizeArray = 1;
 
   ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
 
-  if(ptrDiscipline == NULL){
+  if(ptrDiscipline == NULL || ptrTeacher == NULL){
     printf(MESSAGE_ERROR);
   }else{
 
@@ -285,10 +303,18 @@ void deleteDiscipline(){
 
     disciplineSelected = retrieveObjectDiscipline(&idSelected, &sizeArray);
 
-    /*
-    -Atribui o último índice do ponteiro ao índice que será excluído
-    -Realoca o ponteiro, retirando a última posição
-    */
+    for(int i = 0; i < nRegTeacher; i++){
+      if(strcmp(disciplineSelected.teacherEnrollment, ptrTeacher[i].enrollment) == 0){
+        for(int j = 0; strcmp(ptrTeacher[i].disciplineCode[j], "\0") != 0; j++){
+          if(strcmp(ptrTeacher[i].disciplineCode[j], disciplineSelected.code) == 0){
+            strcpy(ptrTeacher[i].disciplineCode[j], "\0");
+            toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
+          }
+        }
+        break;      
+      }
+    }
+
     ptrDiscipline[idSelected] = ptrDiscipline[nRegDiscipline-1];
     ptrDiscipline = (Discipline*) realloc(ptrDiscipline, --sizeArray * sizeof(Discipline)); 
 
@@ -298,6 +324,7 @@ void deleteDiscipline(){
       toFileDiscipline(&ptrDiscipline[i], sizeof(Discipline), DISCIPLINE_PATH,"ab", i);
     }
 
+    free(ptrTeacher);
     free(ptrDiscipline);
     printf("Pressione qualquer tecla para voltar...");
   }
@@ -352,7 +379,8 @@ void deleteStudentInDiscipline(){
               strcpy(ptrStudent[i].disciplineCode[j], "\0");
               toFileStudent(&ptrStudent[i], sizeof(Student), STUDENT_PATH,"rb+", i);
             }
-          }      
+          } 
+          break;     
         }
       }
       //
@@ -388,8 +416,7 @@ int isExistingDiscipline(char code[]){
   return 1;
 }
 
-int checkDisciplineStudent(char code[],char enrollment[]){
-
+int checkDisciplineStudent(char code[], char enrollment[]){
 
   FILE *file;
   Discipline discipline;
@@ -401,14 +428,15 @@ int checkDisciplineStudent(char code[],char enrollment[]){
   }else{
 
     while(fread(&discipline,sizeof(discipline), 1, file) == 1){
-        if(strcmp(discipline.code, code) == 0){
-           for(int i = 0; i < MAX_STUDENTS_DISC; i++){
-               if(strcmp(discipline.studentEnrollment[i], enrollment) == 0){
-                fclose(file);
-                return 0;
-               }
-           }
+      if(strcmp(discipline.code, code) == 0){
+        for(int i = 0; i < MAX_STUDENTS_DISC; i++){
+          if(strcmp(discipline.studentEnrollment[i], enrollment) == 0){
+            fclose(file);
+            return 0;
+          }
         }
+      }else
+        printf("O código da disciplina é inválido!");
     }
   }
   fclose(file);

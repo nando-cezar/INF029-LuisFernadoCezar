@@ -61,7 +61,7 @@ void retrieveStudent(){
   getchar();
 }
 
-  Student retrieveDataStudent(char enrollment[]){
+Student retrieveDataStudent(char enrollment[]){
  
   Student student, *ptrStudent;
   size_t nRegStudent;
@@ -339,6 +339,7 @@ void deleteStudent(){
   size_t nReg;
   Student *ptrStudent, studentSelected;
   int idSelected, sizeArray = 1;
+  int quantity = 0;
 
   ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
 
@@ -348,14 +349,24 @@ void deleteStudent(){
 
     studentSelected = retrieveObjectStudent(&idSelected, &sizeArray);
 
-    ptrStudent[idSelected] = ptrStudent[nReg-1];
-    ptrStudent = (Student*) realloc(ptrStudent, --sizeArray * sizeof(Student)); 
-  
-    remove(STUDENT_PATH);
-
-    for(int i = 0; i < nReg-1; i++){
-      toFileStudent(&ptrStudent[i], sizeof(Student), STUDENT_PATH,"ab", i);
+    for(int i = 0; strcmp(studentSelected.disciplineCode[i], "\0") != 0; i++){
+      quantity++;
     }
+
+    if(quantity == 0){
+
+      ptrStudent[idSelected] = ptrStudent[nReg-1];
+      ptrStudent = (Student*) realloc(ptrStudent, --sizeArray * sizeof(Student)); 
+    
+      remove(STUDENT_PATH);
+
+      for(int i = 0; i < nReg-1; i++){
+        toFileStudent(&ptrStudent[i], sizeof(Student), STUDENT_PATH,"ab", i);
+      }
+    }else{
+      printf("O estudante se encontra vinculado a uma ou mais disciplinas!\n");
+    }
+    
     free(ptrStudent);
     printf("Pressione qualquer tecla para voltar...");    
   }

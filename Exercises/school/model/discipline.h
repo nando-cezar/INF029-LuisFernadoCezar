@@ -27,7 +27,7 @@
     void mainDiscipline();
 
     int isExistingDiscipline(char code[]);
-    int checkDisciplineStudent(char code[],char enrollment[]);
+    int checkDisciplineStudent(char code[], char enrollment[]);
 
     Discipline* toPointerDiscipline(size_t *nReg, size_t size, char filePath[], char mode[]);
     void toFileDiscipline(Discipline *ptrDiscipline, size_t size, char filePath[], char mode[], int idSelected);

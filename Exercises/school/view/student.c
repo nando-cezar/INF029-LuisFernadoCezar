@@ -10,7 +10,7 @@ void printStudent(Student student){
   printf("Matricula: \t\t %s\n", student.enrollment);
   printf("Nome: \t\t\t %s\n", student.name);
   printf("CPF: \t\t\t %s\n", student.CPF);
-  printf("Data de nascimento: \t %d/%d/%d\n", 
+  printf("Data de nascimento: \t %02d/%02d/%d\n", 
   student.birthDate.day,
   student.birthDate.month,
   student.birthDate.year

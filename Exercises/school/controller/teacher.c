@@ -61,6 +61,26 @@ void retrieveTeacher(){
   getchar();
 }
 
+Teacher retrieveDataTeacher(char enrollment[]){
+ 
+  Teacher teacher, *ptrTeacher;
+  size_t nRegTeacher;
+
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
+
+  if(ptrTeacher == NULL){
+    printf(MESSAGE_ERROR);
+  }else{
+
+    for(int i = 0; i < nRegTeacher; i++){ 
+      if(strcmp(ptrTeacher[i].enrollment, enrollment) == 0){
+        teacher = ptrTeacher[i];
+      }
+    }
+  }
+  return teacher;
+}
+
 Teacher retrieveObjectTeacher(int *idSelected, int *sizeArray){
  
   Teacher *ptrTeacher;
@@ -319,6 +339,7 @@ void deleteTeacher(){
   size_t nReg;
   Teacher *ptrTeacher, teacherSelected;
   int idSelected, sizeArray = 1;
+  int quantity = 0;
 
   ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
 
@@ -328,14 +349,24 @@ void deleteTeacher(){
 
     teacherSelected = retrieveObjectTeacher(&idSelected, &sizeArray);
 
-    ptrTeacher[idSelected] = ptrTeacher[nReg-1];
-    ptrTeacher = (Teacher*) realloc(ptrTeacher, --sizeArray * sizeof(Teacher)); 
-  
-    remove(TEACHER_PATH);
-
-    for(int i = 0; i < nReg-1; i++){
-      toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"ab", i);
+    for(int i = 0; strcmp(teacherSelected.disciplineCode[i], "\0") != 0; i++){
+      quantity++;
     }
+
+    if(quantity == 0){
+
+      ptrTeacher[idSelected] = ptrTeacher[nReg-1];
+      ptrTeacher = (Teacher*) realloc(ptrTeacher, --sizeArray * sizeof(Teacher)); 
+    
+      remove(TEACHER_PATH);
+
+      for(int i = 0; i < nReg-1; i++){
+        toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"ab", i);
+      }
+    }else{
+      printf("O professor se encontra vinculado a uma ou mais disciplinas!\n");
+    }
+
     free(ptrTeacher);
     printf("Pressione qualquer tecla para voltar...");    
   }

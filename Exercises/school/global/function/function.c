@@ -45,6 +45,7 @@ void removeSpace(char *string){
 void removeZero(char* string){
   
   if(string[0] == '0' ){
+    
     char *array = (char*) calloc(strlen(string), sizeof(char));
     int validation = 0;
 

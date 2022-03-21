@@ -8,11 +8,12 @@
         Date birthDate;
         char CPF[MAX_CPF_LEN];
         char gender;
-        //char disciplines[MAX_DISC][MAX_ENR_LEN];
+        char disciplineCode[MAX_DISC][MAX_ENR_LEN];
     } Teacher; 
     
     void createTeacher();
     void retrieveTeacher();
+    Teacher retrieveDataTeacher(char enrollment[]);
     Teacher retrieveObjectTeacher(int *idSelected, int *sizeArray);
     char* retrieveEnrollmentTeacher();
     void retrieveTeacherByGender();
