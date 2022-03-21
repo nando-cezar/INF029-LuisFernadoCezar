@@ -38,9 +38,8 @@ Teacher insertCreateTeacher(Teacher teacher){
     
     printf("Inserir matricula: ");
     fgets(teacher.enrollment, MAX_ENR_LEN, stdin);
-    ln = strlen(teacher.enrollment) - 1;
-    if (teacher.enrollment[ln] == '\n')
-      teacher.enrollment[ln] = '\0';
+    removeBreakLine(teacher.enrollment);
+    removeZero(teacher.enrollment);
 
     verification = validateEnrollment(teacher.enrollment);
     verificationTeacher = isExistingTeacher(teacher.enrollment);

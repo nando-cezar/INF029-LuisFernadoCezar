@@ -37,8 +37,9 @@ int validateName(char name[]){
 int validateEnrollment(char enrollment[]){
 
     if(!isgraph(enrollment[0])) return 0;
-    for(int i = 0; i < strlen(enrollment)-1; i++){
+    for(int i = 0; i < strlen(enrollment); i++){
         if(isalpha(enrollment[i])) return 0;
+        if(ispunct(enrollment[i])) return 0;
     }
 
     return 1;

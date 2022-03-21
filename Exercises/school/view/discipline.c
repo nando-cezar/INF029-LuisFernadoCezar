@@ -93,10 +93,10 @@ void mainDiscipline(){
     printf("2. Inserir aluno na disciplina;\n"); // OK
     printf("3. Listar disciplinas;\n"); // OK
     printf("4. Listar disciplina e seus alunos;\n"); // OK
-    printf("5. Listar disciplinas com mais de 40 alunos;\n");
+    printf("5. Listar disciplinas com mais de 40 alunos;\n"); // OK
     printf("6. Atualizar disciplina;\n"); // OK
     printf("7. Excluir disciplina;\n"); // OK
-    printf("8. Remover aluno da disciplina;\n"); // Em desenvolvimento
+    printf("8. Remover aluno da disciplina;\n"); // OK
     printf("9. Retornar ao menu principal;\n"); // OK
     printf("\nEscolha uma opção: ");
     scanf("%d", &option);

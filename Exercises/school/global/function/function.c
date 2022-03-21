@@ -31,12 +31,35 @@ void removeSpace(char *string){
 
   char *array = (char*) calloc(strlen(string), sizeof(char));
 
-  for (int i = 0, j = 0; i < strlen(string); i++, j++){
+  for (int i = 0, j = 0; i < strlen(string); i++){
     if (!isspace(string[i])){
       array[j] = string[i];
+      j++;
     }
   }
 
   strcpy(string, array);
   free(array);
+}
+
+void removeZero(char* string){
+  
+  if(string[0] == '0' ){
+    char *array = (char*) calloc(strlen(string), sizeof(char));
+    int validation = 0;
+
+    for (int i = 0, j = 0; i < strlen(string); i++){
+
+      if ( string[i] != '0' || validation){
+        array[j] = string[i];
+        j++;
+        validation =1;
+      }
+    }
+
+    strcpy(string, array);
+    free(array);
+
+  }
+
 }

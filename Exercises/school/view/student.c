@@ -42,6 +42,7 @@ Student insertCreateStudent(Student student){
     printf("Inserir matricula: ");
     fgets(student.enrollment, MAX_ENR_LEN, stdin);
     removeBreakLine(student.enrollment);
+    removeZero(student.enrollment);
 
     verification = validateEnrollment(student.enrollment);
     verificationStudent = isExistingStudent(student.enrollment);

@@ -6,5 +6,6 @@
     void textToUpper(char* string);
     void removeBreakLine(char *string);
     void removeSpace(char* string);
+    void removeZero(char* string);
     
 #endif
