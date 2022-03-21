@@ -290,7 +290,7 @@ void deleteDiscipline(){
   size_t nRegDiscipline, nRegTeacher;
   Discipline disciplineSelected, *ptrDiscipline;
   Teacher *ptrTeacher;
-  int idSelected = 0, sizeArray = 1;
+  int idSelected = 0, sizeArray = 1, quantity = 0;
 
   ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
   ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
@@ -303,25 +303,34 @@ void deleteDiscipline(){
 
     disciplineSelected = retrieveObjectDiscipline(&idSelected, &sizeArray);
 
-    for(int i = 0; i < nRegTeacher; i++){
-      if(strcmp(disciplineSelected.teacherEnrollment, ptrTeacher[i].enrollment) == 0){
-        for(int j = 0; strcmp(ptrTeacher[i].disciplineCode[j], "\0") != 0; j++){
-          if(strcmp(ptrTeacher[i].disciplineCode[j], disciplineSelected.code) == 0){
-            strcpy(ptrTeacher[i].disciplineCode[j], "\0");
-            toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
-          }
-        }
-        break;      
-      }
+    for(int i = 0; strcmp(disciplineSelected.studentEnrollment[i], "\0") != 0; i++){
+      quantity++;
     }
 
-    ptrDiscipline[idSelected] = ptrDiscipline[nRegDiscipline-1];
-    ptrDiscipline = (Discipline*) realloc(ptrDiscipline, --sizeArray * sizeof(Discipline)); 
+    if(quantity == 0){
 
-    remove(DISCIPLINE_PATH);
+      for(int i = 0; i < nRegTeacher; i++){
+        if(strcmp(disciplineSelected.teacherEnrollment, ptrTeacher[i].enrollment) == 0){
+          for(int j = 0; strcmp(ptrTeacher[i].disciplineCode[j], "\0") != 0; j++){
+            if(strcmp(ptrTeacher[i].disciplineCode[j], disciplineSelected.code) == 0){
+              strcpy(ptrTeacher[i].disciplineCode[j], "\0");
+              toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
+            }
+          }
+          break;      
+        }
+      }
 
-    for(int i = 0; i < nRegDiscipline-1; i++){
-      toFileDiscipline(&ptrDiscipline[i], sizeof(Discipline), DISCIPLINE_PATH,"ab", i);
+      ptrDiscipline[idSelected] = ptrDiscipline[nRegDiscipline-1];
+      ptrDiscipline = (Discipline*) realloc(ptrDiscipline, --sizeArray * sizeof(Discipline)); 
+
+      remove(DISCIPLINE_PATH);
+
+      for(int i = 0; i < nRegDiscipline-1; i++){
+        toFileDiscipline(&ptrDiscipline[i], sizeof(Discipline), DISCIPLINE_PATH,"ab", i);
+      }
+    }else{
+      printf("A disciplina se encontra vinculada a um ou mais alunos!\n");
     }
 
     free(ptrTeacher);
