@@ -16,15 +16,14 @@ void createDiscipline(){
   int verification, incrementDiscipline = 0;
 
   ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
+  file = fopen(DISCIPLINE_PATH,"ab");
 
-  do{
+  if(ptrTeacher == NULL || file == NULL){
+    printf(MESSAGE_ERROR); 
+    getchar();
+  }else{
 
-    file = fopen(DISCIPLINE_PATH,"ab");
-
-    if(file == NULL){
-      printf(MESSAGE_ERROR);
-      getchar();
-    }else{
+    do{
       
       header();
       discipline = insertDiscipline(discipline);
@@ -56,23 +55,24 @@ void createDiscipline(){
         }
         
       }while(!verification);
-    }
-  }while(alternative == 's');
+    }while(alternative == 's');
+  }
 }
 
 void insertStudentInDiscipline(){
 
-  Discipline disciplineSelected;
+  Discipline *ptrDiscipline, disciplineSelected;
   Student *ptrStudent;
-  size_t nRegTeacher, nRegStudent;
+  size_t nRegTeacher, nRegStudent, nRegDiscipline;
   int verification, idSelected, sizeArray = 1;
   int incrementDiscipline;
   int verificationStudent, incrementStudent = 0;
   char alternative, studentEnrollment[MAX_ENR_LEN];
 
   ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline),DISCIPLINE_PATH,"rb");
 
-  if(ptrStudent == NULL){
+  if(ptrStudent == NULL || ptrDiscipline == NULL){
     printf(MESSAGE_ERROR);
   }else{
 
@@ -110,6 +110,8 @@ void insertStudentInDiscipline(){
       }
       //
 
+      toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
+
       do{
         printf("\n\nDeseja continuar(s/n)? ");
         scanf(" %c", &alternative);
@@ -129,8 +131,6 @@ void insertStudentInDiscipline(){
 
     }while(alternative == 's'); 
     
-    toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
-
     free(ptrStudent);
   }
 }
@@ -287,15 +287,17 @@ void updateDiscipline(){
 
 void deleteDiscipline(){
 
-  size_t nRegDiscipline, nRegTeacher;
+  size_t nRegDiscipline, nRegTeacher, nRegStudent;
   Discipline disciplineSelected, *ptrDiscipline;
   Teacher *ptrTeacher;
+  Student *ptrStudent;
   int idSelected = 0, sizeArray = 1, quantity = 0;
 
   ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
   ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
+  ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
 
-  if(ptrDiscipline == NULL || ptrTeacher == NULL){
+  if(ptrDiscipline == NULL || ptrTeacher == NULL || ptrStudent == NULL){
     printf(MESSAGE_ERROR);
   }else{
 
@@ -414,7 +416,7 @@ int isExistingDiscipline(char code[]){
     printf(MESSAGE_ERROR);
   }else{
 
-    while(fread(&discipline,sizeof(discipline), 1, file) == 1){
+    while(fread(&discipline, sizeof(Discipline), 1, file) == 1){
       if(strcmp(discipline.code, code) == 0){
         fclose(file);
         return 0;
@@ -436,13 +438,13 @@ int checkDisciplineStudent(char code[], char enrollment[]){
     printf(MESSAGE_ERROR);
   }else{
 
-    while(fread(&discipline,sizeof(discipline), 1, file) == 1){
+    while(fread(&discipline, sizeof(Discipline), 1, file) == 1){
       if(strcmp(discipline.code, code) == 0){
         for(int i = 0; i < MAX_STUDENTS_DISC; i++){
           if(strcmp(discipline.studentEnrollment[i], enrollment) == 0){
             fclose(file);
             return 0;
-          }
+          } 
         }
       }
     }
