@@ -95,6 +95,7 @@ void insertStudentInDiscipline(){
         if(!verificationStudent){
           printf("\nO aluno já se encontra matriculado na disciplina.\n");
           getchar();
+          return;
         }    
       }while(!verificationStudent);
 
@@ -132,6 +133,7 @@ void insertStudentInDiscipline(){
     }while(alternative == 's'); 
     
     free(ptrStudent);
+    free(ptrDiscipline);
   }
 }
 
