@@ -200,33 +200,35 @@ void mainStudent(){
     header();
     printf("1. Inserir estudante;\n"); //OK
     printf("2. Listar estudantes;\n"); //OK
-    printf("3. Pesquisar estudantes por sexo (M/F);\n"); //OK
-    printf("4. Pesquisar estudantes por nome;\n"); //OK
-    printf("5. Listar estudantes ordenados por nome;\n"); //OK
-    printf("6. Listar estudantes ordenados data de nascimento;\n"); //OK
-    printf("7. Aniversariantes do mês;\n"); //OK
-    printf("8. Atualizar estudante;\n"); //OK
-    printf("9. Excluir estudante;\n"); //OK
-    printf("10.Retornar ao menu principal;\n"); //OK
+    printf("3. Lista de alunos matriculados em menos de 3 disciplinas;\n"); // Progress
+    printf("4. Pesquisar estudantes por sexo (M/F);\n"); //OK
+    printf("5. Pesquisar estudantes por nome;\n"); //OK
+    printf("6. Listar estudantes ordenados por nome;\n"); //OK
+    printf("7. Listar estudantes ordenados data de nascimento;\n"); //OK
+    printf("8. Aniversariantes do mês;\n"); //OK
+    printf("9. Atualizar estudante;\n"); //OK
+    printf("10. Excluir estudante;\n"); //OK
+    printf("11. Retornar ao menu principal;\n"); //OK
     printf("\nEscolha uma opção: ");
     scanf("%d", &option);
     getchar();
     switch(option){
       case 1:  createStudent();break;
       case 2:  retrieveStudent();break;
-      case 3:  retrieveStudentByGender();break;
-      case 4:  retrieveStudentByName();break;
-      case 5:  sortStudentByName();break;
-      case 6:  sortStudentByBirthDate();break; 
-      case 7:  birthdaysOfTheMonthStudent();break;
-      case 8:  updateStudent();break;
-      case 9:  deleteStudent();break;
-      case 10: break;
+      case 3:  retrieveStudentWithMoreThan3Disciplines();break;
+      case 4:  retrieveStudentByGender();break;
+      case 5:  retrieveStudentByName();break;
+      case 6:  sortStudentByName();break;
+      case 7:  sortStudentByBirthDate();break; 
+      case 8:  birthdaysOfTheMonthStudent();break;
+      case 9:  updateStudent();break;
+      case 10: deleteStudent();break;
+      case 11: break;
       default: 
         printf("Opção inválida!\n"); 
         getchar();
         break;
     }
-  }while(option != 10);
+  }while(option != 11);
 
 }

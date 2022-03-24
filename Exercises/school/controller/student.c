@@ -61,6 +61,38 @@ void retrieveStudent(){
   getchar();
 }
 
+void retrieveStudentWithMoreThan3Disciplines(){
+
+  size_t nRegStudent = 0;
+  Student *ptrStudent;
+  int values[nRegStudent];
+
+  ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
+
+  if(ptrStudent == NULL){
+    printf(MESSAGE_ERROR);
+  }else{
+ 
+    header();
+
+    for(int i = 0; i < nRegStudent; i++){ 
+      values[i] = 0;
+      for(int j = 0; strcmp(ptrStudent[i].disciplineCode[j], "\0") != 0; j++){
+        values[i] += 1;
+      }
+    }
+    for(int i = 0; i < nRegStudent; i++){
+      if(values[i] < 3){
+        printSummaryStudent(ptrStudent[i]);
+      }
+    }
+
+    free(ptrStudent);
+    printf("Pressione qualquer tecla para voltar...");
+  }
+  getchar();
+}
+
 Student retrieveDataStudent(char enrollment[]){
  
   Student student, *ptrStudent;

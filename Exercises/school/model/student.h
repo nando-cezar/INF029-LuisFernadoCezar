@@ -13,6 +13,7 @@
     
     void createStudent();
     void retrieveStudent();
+    void retrieveStudentWithMoreThan3Disciplines();
     Student retrieveDataStudent(char enrollment[]);
     Student retrieveObjectStudent(int *idSelected, int *sizeArray);
     char* retrieveEnrollmentStudent();
