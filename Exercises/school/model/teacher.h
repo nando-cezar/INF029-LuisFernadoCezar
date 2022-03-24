@@ -24,7 +24,7 @@
     void updateTeacher();
     void deleteTeacher();
  
-    void printTeacher(Teacher teacher);
+    void printFullTeacher(Teacher teacher);
     void printSummaryTeacher(Teacher teacher);
     Teacher insertCreateTeacher(Teacher teacher);
     Teacher insertUpdateTeacher(Teacher teacher);

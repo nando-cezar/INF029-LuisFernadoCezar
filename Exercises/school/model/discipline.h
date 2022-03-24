@@ -20,14 +20,14 @@
     void deleteDiscipline();
     void deleteStudentInDiscipline();
 
-    void printDiscipline(Discipline discipline, Teacher teacher);
+    void printFullDiscipline(Discipline discipline, Teacher teacher);
     void printSummaryDiscipline(Discipline discipline, Teacher teacher);
     void printMaxSummaryDiscipline(Discipline discipline);
     Discipline insertDiscipline(Discipline discipline);
     void mainDiscipline();
 
     int isExistingDiscipline(char code[]);
-    int checkDisciplineStudent(char code[], char enrollment[]);
+    int checkStudentInDiscipline(char code[], char enrollment[]);
 
     Discipline* toPointerDiscipline(size_t *nReg, size_t size, char filePath[], char mode[]);
     void toFileDiscipline(Discipline *ptrDiscipline, size_t size, char filePath[], char mode[], int idSelected);

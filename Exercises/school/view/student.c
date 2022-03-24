@@ -4,8 +4,8 @@
 #include "../model/student.h"
 #include "../model/menu.h"
 
-void printStudent(Student student){
-
+void printFullStudent(Student student){
+ 
   printf("\n");
   printf("Matricula: \t\t %s\n", student.enrollment);
   printf("Nome: \t\t\t %s\n", student.name);
@@ -21,7 +21,7 @@ void printStudent(Student student){
   for(int i = 0; strcmp(student.disciplineCode[i], "\0") != 0; i++){
     printf("%d. %s\n", i+1, student.disciplineCode[i]);
   }
-  printf ("***********************************************\n");
+  printf("***********************************************\n");
 
 }
 

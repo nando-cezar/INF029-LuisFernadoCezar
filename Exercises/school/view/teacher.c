@@ -5,7 +5,7 @@
 #include "../model/student.h"
 #include "../model/menu.h"
 
-void printTeacher(Teacher teacher){
+void printFullTeacher(Teacher teacher){
 
   printf("\n");
   printf("Matricula: \t\t %s\n", teacher.enrollment);

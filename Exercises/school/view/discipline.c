@@ -5,15 +5,15 @@
 #include "../model/teacher.h"
 #include "../model/discipline.h"
 #include "../model/menu.h"
-
-void printDiscipline(Discipline discipline, Teacher teacher){
+ 
+void printFullDiscipline(Discipline discipline, Teacher teacher){
 
   printf("\n");
   printf("Código:   \t %s\n", discipline.code);
   printf("Nome:     \t %s\n", discipline.name);
   printf("Semestre: \t %d\n", discipline.semester);
   printf("Professor: \t %s (%s)\n", teacher.name, teacher.enrollment);
-  printf ("***********************************************\n");
+  printf("***********************************************\n");
 
 }
 

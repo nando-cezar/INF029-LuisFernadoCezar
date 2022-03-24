@@ -53,7 +53,7 @@ void retrieveTeacher(){
     header();
 
     for(int i = 0; i < nReg; i++){ 
-      printTeacher(ptrTeacher[i]);
+      printSummaryTeacher(ptrTeacher[i]);
     }
     free(ptrTeacher);
     printf("Pressione qualquer tecla para voltar...");
@@ -97,7 +97,7 @@ Teacher retrieveObjectTeacher(int *idSelected, int *sizeArray){
 
     for(int i = 0; i < nRegTeacher; i++){ 
       printf("ID: %d\n", *sizeArray);
-      printTeacher(ptrTeacher[i]);
+      printSummaryTeacher(ptrTeacher[i]);
       (*sizeArray)++;      
     }
 
@@ -158,7 +158,7 @@ void retrieveTeacherByGender(){
     
     for(int i = 0; i < nReg; i++){ 
       if(ptrTeacher[i].gender == gender){
-        printTeacher(ptrTeacher[i]);
+        printFullTeacher(ptrTeacher[i]);
         count++;
       }
     }
@@ -206,7 +206,7 @@ void retrieveTeacherByName(){
 
     for(int i = 0; i < nReg; i++){ 
       if(strstr(ptrTeacher[i].name, nameSearch))
-        printTeacher(ptrTeacher[i]);
+        printFullTeacher(ptrTeacher[i]);
         verification++;
     }
 
@@ -243,7 +243,7 @@ void sortTeacherByName(){
 
     header();
     for(int i = 0; i < nReg; i++){ 
-      printTeacher(ptrTeacher[i]);
+      printSummaryTeacher(ptrTeacher[i]);
     }
 
     free(ptrTeacher);
@@ -284,7 +284,7 @@ void sortTeacherByBirthDate(){
 
     header();
     for(int i = 0; i < nReg;i++){ 
-      printTeacher(ptrTeacher[i]);
+      printSummaryTeacher(ptrTeacher[i]);
     }
 
     free(ptrTeacher);
@@ -312,7 +312,7 @@ void birthdaysOfTheMonthTeacher(){
 
     for(int i = 0; i < nReg; i++){ 
       if(ptrTeacher[i].birthDate.month == month)
-        printTeacher(ptrTeacher[i]);
+        printSummaryTeacher(ptrTeacher[i]);
     }
 
     printf("Pressione qualquer tecla para voltar...");
@@ -375,25 +375,26 @@ void deleteTeacher(){
 
 int isExistingTeacher(char enrollment[]){
 
+  size_t nReg;
+  Teacher *ptrTeacher;
 
-  FILE *file;
-  Teacher teacher;
+  
+  ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
 
-  file = fopen(TEACHER_PATH,"rb");
 
-  if(file == NULL){
+  if(ptrTeacher == NULL){
       printf(MESSAGE_ERROR);
 
   }else{
-    rewind(file);
-    while(fread(&teacher,sizeof(teacher), 1, file) == 1){
-        if(strcmp(teacher.enrollment, enrollment) == 0){
-            fclose(file);
+
+    for(int i = 0; strcmp(ptrTeacher[i].enrollment, "\0") != 0; i++){
+        if(strcmp(ptrTeacher[i].enrollment, enrollment) == 0){
+            free(ptrTeacher);
             return 0;
         }
     }
   }
-  fclose(file);
+  free(ptrTeacher);
   return 1;
 }
 

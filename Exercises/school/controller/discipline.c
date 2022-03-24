@@ -72,7 +72,7 @@ void insertStudentInDiscipline(){
   char alternative, studentEnrollment[MAX_ENR_LEN];
 
   ptrStudent = toPointerStudent(&nRegStudent, sizeof(Student), STUDENT_PATH,"rb");
-  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline),DISCIPLINE_PATH,"rb");
+  ptrDiscipline = toPointerDiscipline(&nRegDiscipline, sizeof(Discipline), DISCIPLINE_PATH,"rb");
 
   if(ptrStudent == NULL || ptrDiscipline == NULL){
     printf(MESSAGE_ERROR);
@@ -92,7 +92,7 @@ void insertStudentInDiscipline(){
         
         strcpy(disciplineSelected.studentEnrollment[incrementStudent], retrieveEnrollmentStudent());
         strcpy(studentEnrollment, disciplineSelected.studentEnrollment[incrementStudent]);
-        verificationStudent = checkDisciplineStudent(disciplineSelected.code, disciplineSelected.studentEnrollment[incrementStudent]);
+        verificationStudent = checkStudentInDiscipline(disciplineSelected.code, disciplineSelected.studentEnrollment[incrementStudent]);
         
         if(!verificationStudent){
           printf("\nO aluno já se encontra matriculado na disciplina.\n");
@@ -157,7 +157,7 @@ void retrieveDiscipline(){
     for(int i = 0; i < nRegDiscipline; i++){ 
       for(int j = 0; j < nRegTeacher; j++){ 
         if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
-          printDiscipline(ptrDiscipline[i], ptrTeacher[j]);
+          printSummaryDiscipline(ptrDiscipline[i], ptrTeacher[j]);
         }
       }   
     }
@@ -189,7 +189,7 @@ Discipline retrieveObjectDiscipline(int *idSelected, int *sizeArray){
       for(int j = 0; j < nRegTeacher; j++){ 
         if(strcmp(ptrDiscipline[i].teacherEnrollment, ptrTeacher[j].enrollment) == 0){
           printf("ID: %d\n", *sizeArray);
-          printDiscipline(ptrDiscipline[i], ptrTeacher[j]);
+          printSummaryDiscipline(ptrDiscipline[i], ptrTeacher[j]);
           (*sizeArray)++;
         }
       }   
@@ -408,49 +408,51 @@ void deleteStudentInDiscipline(){
 
 int isExistingDiscipline(char code[]){
 
-  FILE *file;
-  Discipline discipline;
+  size_t nReg;
+  Discipline *ptrDiscipline;
 
-  file = fopen(DISCIPLINE_PATH,"rb");
+  ptrDiscipline = toPointerDiscipline(&nReg, sizeof(Discipline), DISCIPLINE_PATH,"rb");
 
-  if(file == NULL){
-    printf(MESSAGE_ERROR);
+  if(ptrDiscipline == NULL){
+      printf(MESSAGE_ERROR);
+
   }else{
 
-    while(fread(&discipline, sizeof(Discipline), 1, file) == 1){
-      if(strcmp(discipline.code, code) == 0){
-        fclose(file);
-        return 0;
-      }
+    for(int i = 0; strcmp(ptrDiscipline[i].code, "\0") != 0; i++){
+        if(strcmp(ptrDiscipline[i].code, code) == 0){
+            free(ptrDiscipline);
+            return 0;
+        }
     }
   }
-  fclose(file);
+  free(ptrDiscipline);
   return 1;
 }
 
-int checkDisciplineStudent(char code[], char enrollment[]){
+int checkStudentInDiscipline(char code[], char enrollment[]){
 
-  FILE *file;
-  Discipline discipline;
+  size_t nReg;
+  Discipline *ptrDiscipline;
 
-  file = fopen(DISCIPLINE_PATH,"rb");
+  ptrDiscipline = toPointerDiscipline(&nReg, sizeof(Discipline), DISCIPLINE_PATH,"rb");
 
-  if(file == NULL){
-    printf(MESSAGE_ERROR);
+  if(ptrDiscipline == NULL){
+      printf(MESSAGE_ERROR);
+
   }else{
 
-    while(fread(&discipline, sizeof(Discipline), 1, file) == 1){
-      if(strcmp(discipline.code, code) == 0){
-        for(int i = 0; i < MAX_STUDENTS_DISC; i++){
-          if(strcmp(discipline.studentEnrollment[i], enrollment) == 0){
-            fclose(file);
-            return 0;
-          } 
-        }
+    for(int i = 0; strcmp(ptrDiscipline[i].code, "\0") != 0; i++){
+        if(strcmp(discipline.code, code) == 0){
+          for(int j = 0; j < MAX_STUDENTS_DISC; j++){
+            if(strcmp(discipline.studentEnrollment[j], enrollment) == 0){
+             free(ptrDiscipline);
+              return 0;
+            } 
+          }
       }
     }
   }
-  fclose(file);
+  free(ptrDiscipline);
   return 1;
 }
 

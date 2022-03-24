@@ -53,7 +53,7 @@ void retrieveStudent(){
     header();
 
     for(int i = 0; i < nReg; i++){ 
-      printStudent(ptrStudent[i]);
+      printSummaryStudent(ptrStudent[i]);
     }
     free(ptrStudent);
     printf("Pressione qualquer tecla para voltar...");
@@ -129,7 +129,7 @@ Student retrieveObjectStudent(int *idSelected, int *sizeArray){
 
     for(int i = 0; i < nRegStudent; i++){ 
       printf("ID: %d\n", *sizeArray);
-      printStudent(ptrStudent[i]);
+      printSummaryStudent(ptrStudent[i]);
       (*sizeArray)++;      
     }
 
@@ -190,7 +190,7 @@ void retrieveStudentByGender(){
     
     for(int i = 0; i < nReg; i++){ 
       if(ptrStudent[i].gender == gender){
-        printStudent(ptrStudent[i]);
+        printFullStudent(ptrStudent[i]);
         count++;
       }
     }
@@ -238,7 +238,7 @@ void retrieveStudentByName(){
 
     for(int i = 0; i < nReg; i++){ 
       if(strstr(ptrStudent[i].name, nameSearch))
-        printStudent(ptrStudent[i]);
+        printFullStudent(ptrStudent[i]);
         verification++;
     }
 
@@ -275,7 +275,7 @@ void sortStudentByName(){
 
     header();
     for(int i = 0; i < nReg; i++){ 
-      printStudent(ptrStudent[i]);
+      printSummaryStudent(ptrStudent[i]);
     }
 
     free(ptrStudent);
@@ -316,7 +316,7 @@ void sortStudentByBirthDate(){
 
     header();
     for(int i = 0; i < nReg;i++){ 
-      printStudent(ptrStudent[i]);
+      printSummaryStudent(ptrStudent[i]);
     }
 
     free(ptrStudent);
@@ -344,7 +344,7 @@ void birthdaysOfTheMonthStudent(){
 
     for(int i = 0; i < nReg; i++){ 
       if(ptrStudent[i].birthDate.month == month)
-        printStudent(ptrStudent[i]);
+        printFullStudent(ptrStudent[i]);
     }
 
     printf("Pressione qualquer tecla para voltar...");
@@ -407,23 +407,26 @@ void deleteStudent(){
 
 int isExistingStudent(char enrollment[]){
   
-  FILE *file;
-  Student student;
+  size_t nReg;
+  Student *ptrStudent;
 
-  file = fopen(STUDENT_PATH,"rb");
+  
+  ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
 
-  if(file == NULL){
-    printf(MESSAGE_ERROR);
+
+  if(ptrStudent == NULL){
+      printf(MESSAGE_ERROR);
+
   }else{
 
-    while(fread(&student,sizeof(student), 1, file) == 1){
-        if(strcmp(student.enrollment, enrollment) == 0){
-          fclose(file);
-          return 0;
+    for(int i = 0; strcmp(ptrStudent[i].enrollment, "\0") != 0; i++){
+        if(strcmp(ptrStudent[i].enrollment, enrollment) == 0){
+            free(ptrStudent);
+            return 0;
         }
     }
   }
-  fclose(file);
+  free(ptrStudent);
   return 1;
 }
 

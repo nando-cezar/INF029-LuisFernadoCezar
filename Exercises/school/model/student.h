@@ -25,7 +25,7 @@
     void updateStudent();
     void deleteStudent();
     
-    void printStudent(Student student);
+    void printFullStudent(Student student);
     void printSummaryStudent(Student student);
     Student insertCreateStudent(Student student);
     Student insertUpdateStudent(Student student);
