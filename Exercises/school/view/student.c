@@ -88,15 +88,14 @@ Student insertCreateStudent(Student student){
 
   do{
 
-    printf("No padrão (###.###.###-##)\nInserir CPF: ");
+    printf("\nNo padrão (###.###.###-##)\nInserir CPF: ");
     fgets(student.CPF, MAX_CPF_LEN, stdin);
-    getchar();
     removeBreakLine(student.CPF);
 
     verification = validateCPF(student.CPF);
 
     if(!verification)
-      printf("\nInforme CPF válido!\n");
+      printf("\nInforme CPF válido!");
     
   }while(!verification);
    
@@ -172,7 +171,7 @@ Student insertUpdateStudent(Student student){
    
   do{
 
-    printf("No padrão (## ## ####)\nInserir data de nascimento: ");
+    printf("\nNo padrão (## ## ####)\nInserir data de nascimento: ");
     scanf("%d %d %d", 
     &student.birthDate.day, 
     &student.birthDate.month, 
@@ -183,7 +182,7 @@ Student insertUpdateStudent(Student student){
     verification = validateDate(student.birthDate);
 
     if(!verification)
-      printf("\nInforme data válida!\n");
+      printf("\nInforme data válida!");
 
   }while (!verification);
 

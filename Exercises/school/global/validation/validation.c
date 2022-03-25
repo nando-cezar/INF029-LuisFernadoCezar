@@ -29,6 +29,7 @@ int validateName(char name[]){
 
     for(int i = 0;  i < strlen(name);  i++){
         if(isdigit(name[i])) return 0;
+        if(ispunct(name[i])) return 0;
     }
 
     return 1;

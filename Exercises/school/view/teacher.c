@@ -86,14 +86,14 @@ Teacher insertCreateTeacher(Teacher teacher){
     
   do{
 
-    printf("No padrão (###.###.###-##)\nInserir CPF: ");
+    printf("\nNo padrão (###.###.###-##)\nInserir CPF: ");
     fgets(teacher.CPF, MAX_CPF_LEN, stdin);
     removeBreakLine(teacher.CPF);
 
     verification = validateCPF(teacher.CPF);
 
     if(!verification)
-      printf("\nInforme CPF válido!\n");
+      printf("\nInforme CPF válido!");
     
   }while(!verification);
    
@@ -157,15 +157,14 @@ Teacher insertUpdateTeacher(Teacher teacher){
     
   do{
 
-    printf("No padrão (###.###.###-##)\nInserir CPF: ");
+    printf("\nNo padrão (###.###.###-##)\nInserir CPF: ");
     fgets(teacher.CPF, MAX_CPF_LEN, stdin);
-    getchar();
     removeBreakLine(teacher.CPF);
 
     verification = validateCPF(teacher.CPF);
 
     if(!verification)
-      printf("\nInforme CPF válido!\n");
+      printf("\nInforme CPF válido!");
     
   }while(!verification);
    
