@@ -1,5 +1,5 @@
 cd Exercises/school
 
-gcc -o main main.c global/validation/validation.c global/function/function.c controller/student.c controller/teacher.c controller/discipline.c view/menu.c view/student.c view/teacher.c view/discipline.c
+gcc -o main main.c global/validation/*.c global/function/*.c controller/*.c view/*.c 
 
 ./main

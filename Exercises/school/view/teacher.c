@@ -29,6 +29,19 @@ void printSummaryTeacher(Teacher teacher){
 
 }
 
+void printSummaryTeacherWithBirthDate(Teacher teacher){
+
+  printf("\n");
+  printf("%02d/%02d/%d | Matricula: %s - Nome: %s \n", 
+  teacher.birthDate.day,
+  teacher.birthDate.month,
+  teacher.birthDate.year,
+  teacher.enrollment, 
+  teacher.name
+  );
+  printf ("***********************************************\n");
+}
+
 Teacher insertCreateTeacher(Teacher teacher){
 
   size_t ln;
@@ -146,6 +159,7 @@ Teacher insertUpdateTeacher(Teacher teacher){
 
     printf("No padrão (###.###.###-##)\nInserir CPF: ");
     fgets(teacher.CPF, MAX_CPF_LEN, stdin);
+    getchar();
     removeBreakLine(teacher.CPF);
 
     verification = validateCPF(teacher.CPF);

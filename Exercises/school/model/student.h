@@ -27,6 +27,7 @@
     
     void printFullStudent(Student student);
     void printSummaryStudent(Student student);
+    void printSummaryStudentWithBirthDate(Student student);
     Student insertCreateStudent(Student student);
     Student insertUpdateStudent(Student student);
     void mainStudent();

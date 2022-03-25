@@ -316,7 +316,7 @@ void sortStudentByBirthDate(){
 
     header();
     for(int i = 0; i < nReg;i++){ 
-      printSummaryStudent(ptrStudent[i]);
+      printSummaryStudentWithBirthDate(ptrStudent[i]);
     }
 
     free(ptrStudent);

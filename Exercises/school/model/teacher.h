@@ -26,6 +26,7 @@
  
     void printFullTeacher(Teacher teacher);
     void printSummaryTeacher(Teacher teacher);
+    void printSummaryTeacherWithBirthDate(Teacher teacher);
     Teacher insertCreateTeacher(Teacher teacher);
     Teacher insertUpdateTeacher(Teacher teacher);
     void mainTeacher(); 

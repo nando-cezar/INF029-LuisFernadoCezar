@@ -284,7 +284,7 @@ void sortTeacherByBirthDate(){
 
     header();
     for(int i = 0; i < nReg;i++){ 
-      printSummaryTeacher(ptrTeacher[i]);
+      printSummaryTeacherWithBirthDate(ptrTeacher[i]);
     }
 
     free(ptrTeacher);

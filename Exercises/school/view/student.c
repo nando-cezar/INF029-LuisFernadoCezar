@@ -33,6 +33,19 @@ void printSummaryStudent(Student student){
 
 }
 
+void printSummaryStudentWithBirthDate(Student student){
+
+  printf("\n");
+  printf("%02d/%02d/%d | Matricula: %s - Nome: %s \n", 
+  student.birthDate.day,
+  student.birthDate.month,
+  student.birthDate.year,
+  student.enrollment, 
+  student.name
+  );
+  printf ("***********************************************\n");
+}
+
 Student insertCreateStudent(Student student){
 
   size_t ln;
@@ -77,6 +90,7 @@ Student insertCreateStudent(Student student){
 
     printf("No padrão (###.###.###-##)\nInserir CPF: ");
     fgets(student.CPF, MAX_CPF_LEN, stdin);
+    getchar();
     removeBreakLine(student.CPF);
 
     verification = validateCPF(student.CPF);
