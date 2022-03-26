@@ -3,6 +3,7 @@
     #define VALIDATION_H
 
     int validateEnrollment(char enrollment[]);
+    int validateCode(char code[]);
     int validateName(char name[]);
     int validateCPF(char CPF[]);
     int validateGender(char gender);

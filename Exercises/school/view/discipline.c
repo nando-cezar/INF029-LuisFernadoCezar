@@ -46,24 +46,35 @@ void printMaxSummaryDiscipline(Discipline discipline){
 Discipline insertDiscipline(Discipline discipline){
   
   size_t ln;
-  int verification;
+  int verification, verificationDiscipline;
 
   //.code
   do{
-    printf("Inserir o código da disciplina: ");
-    fgets(discipline.code, MAX_ENR_LEN, stdin);
-    removeBreakLine(discipline.code);
-    
-    verification = isExistingDiscipline(discipline.code);
 
-    if(!verification)
+    do{
+      printf("Inserir o código da disciplina: ");
+      fgets(discipline.code, MAX_ENR_LEN, stdin);
+      removeBreakLine(discipline.code);
+      removeZero(discipline.code);
+
+      verification = validateCode(discipline.code);
+      
+      if(!verification)
+        printf("\nInforme um código de disciplina válido!\n");
+
+    }while(!verification);
+
+    verificationDiscipline = isExistingDiscipline(discipline.code);
+
+    if(!verificationDiscipline)
       printf("\nO código informado já existe!\n");
     else{
       removeSpace(discipline.code);
       textToUpper(discipline.code);
     }
 
-  }while(!verification);
+  }while(!verificationDiscipline);
+    
   //.name
   printf("Inserir o nome da disciplina: ");
   fgets(discipline.name, MAX_NAME_LEN, stdin);

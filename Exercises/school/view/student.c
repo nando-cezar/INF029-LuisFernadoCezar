@@ -52,24 +52,30 @@ Student insertCreateStudent(Student student){
   int verification, verificationStudent;
 
   do{
-    printf("Inserir matricula: ");
-    fgets(student.enrollment, MAX_ENR_LEN, stdin);
-    removeBreakLine(student.enrollment);
-    removeZero(student.enrollment);
 
-    verification = validateEnrollment(student.enrollment);
-    verificationStudent = isExistingStudent(student.enrollment);
+    do{
+      printf("Inserir matricula: ");
+      fgets(student.enrollment, MAX_ENR_LEN, stdin);
+      removeBreakLine(student.enrollment);
+      removeZero(student.enrollment);
+
+      verification = validateEnrollment(student.enrollment);
 
     if(!verification)
       printf("\nInforme um número de matricula válido!\n");
-    else if(!verificationStudent)
+
+    }while(!verification);
+
+    verificationStudent = isExistingStudent(student.enrollment);
+
+    if(!verificationStudent)
       printf("\nO número de matricula já existe!\n");
     else{
       removeSpace(student.enrollment);
       textToUpper(student.enrollment);
     }
 
-  }while (!verification || !verificationStudent);
+  }while (!verificationStudent);
       
   do{  
 

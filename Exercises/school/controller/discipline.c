@@ -30,6 +30,9 @@ void createDiscipline(){
       discipline = insertDiscipline(discipline);
       strcpy(discipline.teacherEnrollment, retrieveEnrollmentTeacher());
       
+      fwrite(&discipline, sizeof(Discipline), 1, file);
+      fclose(file);
+      
       for(int n = 0; strcmp(retrieveDataTeacher(discipline.teacherEnrollment).disciplineCode[n], "\0") != 0; n++){
         incrementDiscipline++;
       }
@@ -39,10 +42,7 @@ void createDiscipline(){
           strcpy(ptrTeacher[i].disciplineCode[incrementDiscipline], discipline.code);
           toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
         }
-      }
-
-      fwrite(&discipline, sizeof(Discipline), 1, file);
-      fclose(file); 
+      } 
     
       do{
         printf("Deseja continuar (s/n)? ");
@@ -414,15 +414,17 @@ int isExistingDiscipline(char code[]){
   ptrDiscipline = toPointerDiscipline(&nReg, sizeof(Discipline), DISCIPLINE_PATH,"rb");
 
   if(ptrDiscipline == NULL){
-      printf(MESSAGE_ERROR);
-
+    printf(MESSAGE_ERROR);
+ 
   }else{
 
-    for(int i = 0; strcmp(ptrDiscipline[i].code, "\0") != 0; i++){
-        if(strcmp(ptrDiscipline[i].code, code) == 0){
-            free(ptrDiscipline);
-            return 0;
-        }
+    textToUpper(code);
+
+    for(int i = 0; i < nReg; i++){
+      if(strcmp(ptrDiscipline[i].code, code) == 0){
+        free(ptrDiscipline);
+        return 0;
+      }
     }
   }
   free(ptrDiscipline);

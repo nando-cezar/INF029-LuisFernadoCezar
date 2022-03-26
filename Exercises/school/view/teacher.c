@@ -48,26 +48,30 @@ Teacher insertCreateTeacher(Teacher teacher){
   int verification, verificationTeacher;
 
   do{
-     
-    printf("Inserir matricula: ");
-    fgets(teacher.enrollment, MAX_ENR_LEN, stdin);
-    removeBreakLine(teacher.enrollment);
-    removeZero(teacher.enrollment);
 
-    verification = validateEnrollment(teacher.enrollment);
-    verificationTeacher = isExistingTeacher(teacher.enrollment);
+    do{
+      printf("Inserir matricula: ");
+      fgets(teacher.enrollment, MAX_ENR_LEN, stdin);
+      removeBreakLine(teacher.enrollment);
+      removeZero(teacher.enrollment);
+
+      verification = validateEnrollment(teacher.enrollment);
 
     if(!verification)
-      printf("\nInforme um número de matricula valido!\n");
-    else if(!verificationTeacher)
+      printf("\nInforme um número de matricula válido!\n");
+
+    }while(!verification);
+
+    verificationTeacher = isExistingTeacher(teacher.enrollment);
+
+    if(!verificationTeacher)
       printf("\nO número de matricula já existe!\n");
     else{
       removeSpace(teacher.enrollment);
       textToUpper(teacher.enrollment);
     }
-    
 
-  }while (!verification || !verificationTeacher);
+  }while (!verificationTeacher);
       
   do{  
 

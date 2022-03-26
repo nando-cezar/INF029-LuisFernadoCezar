@@ -46,6 +46,15 @@ int validateEnrollment(char enrollment[]){
     return 1;
 }
 
+int validateCode(char code[]){
+
+    for(int i = 0; i < strlen(code); i++){
+        if(ispunct(code[i])) return 0;
+    }
+
+    return 1;
+}
+
 int validateGender(char gender){
 
     if(

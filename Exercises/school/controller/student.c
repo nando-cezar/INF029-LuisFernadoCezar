@@ -410,20 +410,18 @@ int isExistingStudent(char enrollment[]){
   size_t nReg;
   Student *ptrStudent;
 
-  
   ptrStudent = toPointerStudent(&nReg, sizeof(Student), STUDENT_PATH,"rb");
-
 
   if(ptrStudent == NULL){
       printf(MESSAGE_ERROR);
 
   }else{
-
-    for(int i = 0; strcmp(ptrStudent[i].enrollment, "\0") != 0; i++){
-        if(strcmp(ptrStudent[i].enrollment, enrollment) == 0){
-            free(ptrStudent);
-            return 0;
-        }
+    
+    for(int i = 0; i < nReg; i++){
+      if(strcmp(ptrStudent[i].enrollment, enrollment) == 0){
+          free(ptrStudent);
+          return 0;
+      }
     }
   }
   free(ptrStudent);

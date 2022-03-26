@@ -377,21 +377,19 @@ int isExistingTeacher(char enrollment[]){
 
   size_t nReg;
   Teacher *ptrTeacher;
-
   
   ptrTeacher = toPointerTeacher(&nReg, sizeof(Teacher), TEACHER_PATH,"rb");
-
 
   if(ptrTeacher == NULL){
       printf(MESSAGE_ERROR);
 
   }else{
 
-    for(int i = 0; strcmp(ptrTeacher[i].enrollment, "\0") != 0; i++){
-        if(strcmp(ptrTeacher[i].enrollment, enrollment) == 0){
-            free(ptrTeacher);
-            return 0;
-        }
+    for(int i = 0; i < nReg; i++){
+      if(strcmp(ptrTeacher[i].enrollment, enrollment) == 0){
+          free(ptrTeacher);
+          return 0;
+      }
     }
   }
   free(ptrTeacher);
