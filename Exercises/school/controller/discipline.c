@@ -443,7 +443,7 @@ int checkStudentInDiscipline(char code[], char enrollment[]){
 
   }else{
 
-    for(int i = 0; strcmp(ptrDiscipline[i].code, "\0") != 0; i++){
+    for(int i = 0; i < nReg; i++){
         if(strcmp(ptrDiscipline[i].code, code) == 0){
           for(int j = 0; j < MAX_STUDENTS_DISC; j++){
             if(strcmp(ptrDiscipline[i].studentEnrollment[j], enrollment) == 0){

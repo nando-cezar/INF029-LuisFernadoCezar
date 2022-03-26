@@ -102,7 +102,7 @@ Student insertCreateStudent(Student student){
 
     if(!verification)
       printf("\nInforme CPF válido!");
-    
+      getchar();
   }while(!verification);
    
   do{
@@ -171,8 +171,8 @@ Student insertUpdateStudent(Student student){
     verification = validateCPF(student.CPF);
 
     if(!verification)
-      printf("\nInforme CPF válido!\n");
-    
+      printf("\nInforme CPF válido!");
+      getchar();
   }while(!verification);
    
   do{

@@ -98,7 +98,7 @@ Teacher insertCreateTeacher(Teacher teacher){
 
     if(!verification)
       printf("\nInforme CPF válido!");
-    
+      getchar();
   }while(!verification);
    
   do{
@@ -169,7 +169,7 @@ Teacher insertUpdateTeacher(Teacher teacher){
 
     if(!verification)
       printf("\nInforme CPF válido!");
-    
+      getchar();
   }while(!verification);
    
   do{

@@ -312,7 +312,7 @@ void birthdaysOfTheMonthTeacher(){
 
     for(int i = 0; i < nReg; i++){ 
       if(ptrTeacher[i].birthDate.month == month)
-        printSummaryTeacher(ptrTeacher[i]);
+        printSummaryTeacherWithBirthDate(ptrTeacher[i]);
     }
 
     printf("Pressione qualquer tecla para voltar...");

@@ -344,7 +344,7 @@ void birthdaysOfTheMonthStudent(){
 
     for(int i = 0; i < nReg; i++){ 
       if(ptrStudent[i].birthDate.month == month)
-        printFullStudent(ptrStudent[i]);
+        printSummaryStudentWithBirthDate(ptrStudent[i]);
     }
 
     printf("Pressione qualquer tecla para voltar...");
