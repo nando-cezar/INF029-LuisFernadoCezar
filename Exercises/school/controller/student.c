@@ -355,14 +355,17 @@ void birthdaysOfTheMonthStudent(){
 void updateStudent(){
 
   Student studentSelected;
-  int idSelected, sizeArray = 1;
+  int idSelected = -1, sizeArray = 1;
 
   studentSelected = retrieveObjectStudent(&idSelected, &sizeArray);
-  studentSelected = insertUpdateStudent(studentSelected);
 
-  toFileStudent(&studentSelected, sizeof(Student), STUDENT_PATH,"rb+", idSelected);
-
-  printf("Pressione qualquer tecla para voltar...");
+  if(idSelected != -1){
+    studentSelected = insertUpdateStudent(studentSelected);
+    toFileStudent(&studentSelected, sizeof(Student), STUDENT_PATH,"rb+", idSelected);
+  
+    printf("Pressione qualquer tecla para voltar...");
+  }
+ 
   getchar();
 }
 

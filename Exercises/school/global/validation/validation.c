@@ -27,6 +27,7 @@ int validateCPF(char CPF[]){
 
 int validateName(char name[]){
 
+    if(!isgraph(name[0])) return 0;
     for(int i = 0;  i < strlen(name);  i++){
         if(isdigit(name[i])) return 0;
         if(ispunct(name[i])) return 0;

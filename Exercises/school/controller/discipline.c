@@ -17,47 +17,53 @@ void createDiscipline(){
 
   ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
 
-  do{
+  if(ptrTeacher == NULL){
+    printf(MESSAGE_ERROR); 
+    getchar();
+  }else{
 
-    file = fopen(DISCIPLINE_PATH,"ab");
+    do{
 
-    if(ptrTeacher == NULL || file == NULL){
-      printf(MESSAGE_ERROR); 
-      getchar();
-    }else{
+      file = fopen(DISCIPLINE_PATH,"ab");
 
-      header();
-      discipline = insertCreateDiscipline(discipline);
-      strcpy(discipline.teacherEnrollment, retrieveEnrollmentTeacher());
-      
-      fwrite(&discipline, sizeof(Discipline), 1, file);
-      fclose(file);
-      
-      for(int n = 0; strcmp(retrieveDataTeacher(discipline.teacherEnrollment).disciplineCode[n], "\0") != 0; n++){
-        incrementDiscipline++;
-      }
-    
-      for(int i = 0; i < nRegTeacher; i++){
-        if(strcmp(ptrTeacher[i].enrollment, discipline.teacherEnrollment) == 0){
-          strcpy(ptrTeacher[i].disciplineCode[incrementDiscipline], discipline.code);
-          toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
-        }
-      } 
-    
-      do{
-        printf("Deseja continuar (s/n)? ");
-        scanf(" %c", &alternative);
+      if(file == NULL){
+        printf(MESSAGE_ERROR); 
         getchar();
+      }else{
 
-        verification = validateAlternative(alternative);
-
-        if (!verification){
-          printf("Insira uma alternativa válida!\n\n");
-        }
+        header();
+        discipline = insertCreateDiscipline(discipline);
+        strcpy(discipline.teacherEnrollment, retrieveEnrollmentTeacher());
         
-      }while(!verification);
-    }
-  }while(alternative == 's');
+        fwrite(&discipline, sizeof(Discipline), 1, file);
+        fclose(file);
+        
+        for(int n = 0; strcmp(retrieveDataTeacher(discipline.teacherEnrollment).disciplineCode[n], "\0") != 0; n++){
+          incrementDiscipline++;
+        }
+      
+        for(int i = 0; i < nRegTeacher; i++){
+          if(strcmp(ptrTeacher[i].enrollment, discipline.teacherEnrollment) == 0){
+            strcpy(ptrTeacher[i].disciplineCode[incrementDiscipline], discipline.code);
+            toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
+          }
+        } 
+      
+        do{
+          printf("Deseja continuar (s/n)? ");
+          scanf(" %c", &alternative);
+          getchar();
+
+          verification = validateAlternative(alternative);
+
+          if (!verification){
+            printf("Insira uma alternativa válida!\n\n");
+          }
+          
+        }while(!verification);
+      }
+    }while(alternative == 's');
+  }
   free(ptrTeacher);
 }
 
@@ -271,17 +277,18 @@ void retrieveDisciplineWithMoreThan40Students(){
 void updateDiscipline(){
 
   Discipline disciplineSelected;
-  int idSelected, sizeArray = 1;
-
-  header();
+  int idSelected = -1, sizeArray = 1;
 
   disciplineSelected = retrieveObjectDiscipline(&idSelected, &sizeArray);
-  disciplineSelected = insertUpdateDiscipline(disciplineSelected);
-  strcpy(disciplineSelected.teacherEnrollment, retrieveEnrollmentTeacher());
 
-  toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
+  if(idSelected != -1){
+     disciplineSelected = insertUpdateDiscipline(disciplineSelected);
+    strcpy(disciplineSelected.teacherEnrollment, retrieveEnrollmentTeacher());
+    toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
 
-  printf("Pressione qualquer tecla para voltar..."); 
+    printf("Pressione qualquer tecla para voltar..."); 
+  }
+
   getchar();
 }
 

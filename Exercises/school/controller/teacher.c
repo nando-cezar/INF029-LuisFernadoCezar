@@ -323,14 +323,17 @@ void birthdaysOfTheMonthTeacher(){
 void updateTeacher(){
 
   Teacher teacherSelected;
-  int idSelected, sizeArray = 1;
+  int idSelected = -1, sizeArray = 1;
 
   teacherSelected = retrieveObjectTeacher(&idSelected, &sizeArray);
-  teacherSelected = insertUpdateTeacher(teacherSelected);
 
-  toFileTeacher(&teacherSelected, sizeof(Teacher), TEACHER_PATH,"rb+", idSelected);
-
-  printf("Pressione qualquer tecla para voltar...");
+  if(idSelected != -1){
+    teacherSelected = insertUpdateTeacher(teacherSelected);
+    toFileTeacher(&teacherSelected, sizeof(Teacher), TEACHER_PATH,"rb+", idSelected);
+    
+    printf("Pressione qualquer tecla para voltar...");
+  }
+  
   getchar();
 }
 
