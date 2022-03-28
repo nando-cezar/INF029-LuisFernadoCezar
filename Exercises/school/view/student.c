@@ -21,7 +21,7 @@ void printFullStudent(Student student){
   printf("Disciplina(s): \n");
   for(int i = 0; i < MAX_DISC; i++){
     if(strcmp(student.disciplineCode[i], "\0") != 0){
-      printf("%d. %s\n", i+1, student.disciplineCode[i]);
+      printf(" - %s\n", student.disciplineCode[i]);
       increment++;
     }
   }

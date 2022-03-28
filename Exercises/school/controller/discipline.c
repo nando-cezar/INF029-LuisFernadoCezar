@@ -27,7 +27,7 @@ void createDiscipline(){
     }else{
 
       header();
-      discipline = insertDiscipline(discipline);
+      discipline = insertCreateDiscipline(discipline);
       strcpy(discipline.teacherEnrollment, retrieveEnrollmentTeacher());
       
       fwrite(&discipline, sizeof(Discipline), 1, file);
@@ -276,8 +276,7 @@ void updateDiscipline(){
   header();
 
   disciplineSelected = retrieveObjectDiscipline(&idSelected, &sizeArray);
-
-  disciplineSelected = insertDiscipline(disciplineSelected);
+  disciplineSelected = insertUpdateDiscipline(disciplineSelected);
   strcpy(disciplineSelected.teacherEnrollment, retrieveEnrollmentTeacher());
 
   toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);

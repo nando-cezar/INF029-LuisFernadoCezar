@@ -23,7 +23,8 @@
     void printFullDiscipline(Discipline discipline, Teacher teacher);
     void printSummaryDiscipline(Discipline discipline, Teacher teacher);
     void printMaxSummaryDiscipline(Discipline discipline);
-    Discipline insertDiscipline(Discipline discipline);
+    Discipline insertCreateDiscipline(Discipline discipline);
+    Discipline insertUpdateDiscipline(Discipline discipline);
     void mainDiscipline();
 
     int isExistingDiscipline(char code[]);

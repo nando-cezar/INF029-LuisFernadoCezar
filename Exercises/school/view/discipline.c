@@ -43,7 +43,7 @@ void printMaxSummaryDiscipline(Discipline discipline){
 
 }
 
-Discipline insertDiscipline(Discipline discipline){
+Discipline insertCreateDiscipline(Discipline discipline){
   
   size_t ln;
   int verification, verificationDiscipline;
@@ -74,6 +74,31 @@ Discipline insertDiscipline(Discipline discipline){
     }
 
   }while(!verificationDiscipline);
+    
+  //.name
+  printf("Inserir o nome da disciplina: ");
+  fgets(discipline.name, MAX_NAME_LEN, stdin);
+  removeBreakLine(discipline.name);
+  textToUpper(discipline.name);
+
+  //.semester
+  printf("Inserir o semestre: ");
+  scanf("%d", &discipline.semester);
+  getchar();
+
+  //.teacher
+  printf("Selecione o professor desejado... \n");
+
+  for (int i = 0; i < MAX_STUDENTS_DISC; i++)
+    strcpy(discipline.studentEnrollment[i], "\0");
+
+  return discipline;
+}
+
+Discipline insertUpdateDiscipline(Discipline discipline){
+  
+  size_t ln;
+  int verification, verificationDiscipline;
     
   //.name
   printf("Inserir o nome da disciplina: ");
