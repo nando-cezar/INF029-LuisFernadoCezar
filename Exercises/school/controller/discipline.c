@@ -387,8 +387,14 @@ void deleteStudentInDiscipline(){
       for(int i = 0; i < nRegStudent; i++){
         if(strcmp(studentEnrollment, ptrStudent[i].enrollment) == 0){
           for(int j = 0; strcmp(ptrStudent[i].disciplineCode[j], "\0") != 0; j++){
+            printf("--->>>> %s", ptrStudent[i].disciplineCode[j]);
+            getchar();
             if(strcmp(ptrStudent[i].disciplineCode[j], disciplineSelected.code) == 0){
+              printf("@@@>>>> %s", ptrStudent[i].disciplineCode[j]);
+              getchar();
               strcpy(ptrStudent[i].disciplineCode[j], "\0");
+              printf("@@@>>>> %s", ptrStudent[i].disciplineCode[j]);
+              getchar();
               toFileStudent(&ptrStudent[i], sizeof(Student), STUDENT_PATH,"rb+", i);
             }
           } 

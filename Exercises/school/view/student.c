@@ -5,7 +5,9 @@
 #include "../model/menu.h"
 
 void printFullStudent(Student student){
- 
+  
+  int increment = 0;
+
   printf("\n");
   printf("Matricula: \t\t %s\n", student.enrollment);
   printf("Nome: \t\t\t %s\n", student.name);
@@ -16,11 +18,15 @@ void printFullStudent(Student student){
   student.birthDate.year
   );
   printf("Gênero: \t\t %c\n", student.gender);
-  if(strcmp(student.disciplineCode[0], "\0") != 0)
-    printf("Disciplinas: \n");
-  for(int i = 0; strcmp(student.disciplineCode[i], "\0") != 0; i++){
-    printf("%d. %s\n", i+1, student.disciplineCode[i]);
+  printf("Disciplina(s): \n");
+  for(int i = 0; i < MAX_DISC; i++){
+    if(strcmp(student.disciplineCode[i], "\0") != 0){
+      printf("%d. %s\n", i+1, student.disciplineCode[i]);
+      increment++;
+    }
   }
+  if(increment == 0)
+    printf("Não tem disciplina disponível!\n");
   printf("***********************************************\n");
 
 }
