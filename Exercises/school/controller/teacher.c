@@ -273,7 +273,7 @@ void sortTeacherByBirthDate(){
 
         if(checkerYear == 1 ||
           (checkerYear == 0 && checkerMonth == 1) ||
-          (checkerYear == 0 && checkerMonth == 0 && checkerDay==0))
+          (checkerYear == 0 && checkerMonth == 0 && checkerDay==1))
           {
             auxiliaryTeacher = ptrTeacher[i];
             ptrTeacher[i] = ptrTeacher[j];

@@ -305,7 +305,7 @@ void sortStudentByBirthDate(){
 
         if(checkerYear == 1 ||
           (checkerYear == 0 && checkerMonth == 1) ||
-          (checkerYear == 0 && checkerMonth == 0 && checkerDay==0))
+          (checkerYear == 0 && checkerMonth == 0 && checkerDay==1))
           {
             auxiliaryStudent = ptrStudent[i];
             ptrStudent[i] = ptrStudent[j];
