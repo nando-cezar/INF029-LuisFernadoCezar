@@ -305,7 +305,6 @@ void updateDiscipline(){
       if (strcmp(newTeacher, oldTeacher) != 0){
         //printf("Professores diferentes. ");
         strcpy(disciplineSelected.teacherEnrollment, newTeacher);
-        toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
 
         //Encontrar o professor antigo (i)
         for (int i = 0; i < nRegTeacher; i++){
@@ -330,6 +329,9 @@ void updateDiscipline(){
           toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
         }
       }
+      
+      toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
+      
       printf("Pressione qualquer tecla para voltar..."); 
     }
   }
