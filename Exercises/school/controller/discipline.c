@@ -278,59 +278,56 @@ void updateDiscipline(){
 
   Discipline disciplineSelected;
   Teacher *ptrTeacher;
-  int idSelected = -1, sizeArray = 1;
-  char *newTeacher, *oldTeacher;
   size_t nRegTeacher;
+  int idSelected = -1, sizeArray = 1;
+  char *newTeacher = (char*)malloc(MAX_ENR_LEN * sizeof(char));
+  char *oldTeacher = (char*)malloc(MAX_ENR_LEN * sizeof(char));
 
-  disciplineSelected = retrieveObjectDiscipline(&idSelected, &sizeArray);
+  //Abrir professor
+  ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
 
-  if(idSelected != -1){
-    disciplineSelected = insertUpdateDiscipline(disciplineSelected);
-    
-    //Guardando o professor novo e antigo em variáveis
-    newTeacher = retrieveEnrollmentTeacher();
-    strcpy(oldTeacher, disciplineSelected.teacherEnrollment);
+  if(ptrTeacher == NULL){
+    printf(MESSAGE_ERROR);
+  }else{
 
-    //Se o novo professor for diferente do professor atual
-    if (strcmp(newTeacher, oldTeacher) != 0){
-      printf("Professores diferentes. ");
-      strcpy(disciplineSelected.teacherEnrollment, newTeacher);
+    disciplineSelected = retrieveObjectDiscipline(&idSelected, &sizeArray);
+
+    if(idSelected != -1){
+      disciplineSelected = insertUpdateDiscipline(disciplineSelected);
       
-      //Abrir professor
-      ptrTeacher = toPointerTeacher(&nRegTeacher, sizeof(Teacher), TEACHER_PATH,"rb");
-      
-      //Encontrar o professor antigo (i)
-      for (int i = 0; i < nRegTeacher; i++){
-        if (strcmp(ptrTeacher[i].enrollment, oldTeacher) == 0){
-          /*Encontrar a disciplina dentro de professor. (j)
-          Quando encontrar, alterar o valor para \0 e reescrever o arquivo (k)*/
-          for (int j = 0; j < MAX_DISC; j++){
-            if (strcmp(disciplineSelected.code, ptrTeacher[i].disciplineCode[j]) == 0){
-              strcpy(ptrTeacher[i].disciplineCode[j], "\0");
-              remove(TEACHER_PATH);
-              for (int k = 0; k < nRegTeacher; k++){
-                toFileTeacher(&ptrTeacher[k], sizeof(Teacher), TEACHER_PATH,"ab", k);
-              }
-            } 
-          }
-        }else if (strcmp(ptrTeacher[i].enrollment, newTeacher) == 0){
-          /*Encontrar a disciplina dentro de professor. (j)
-          Quando encontrar, alterar o valor para \0 e reescrever o arquivo (k)*/
-          for (int j = 0; j < MAX_DISC; j++){
-            if (strcmp(disciplineSelected.code, ptrTeacher[i].disciplineCode[j]) == 0){
-              strcpy(ptrTeacher[i].disciplineCode[j], disciplineSelected.code);
-              remove(TEACHER_PATH);
-              for (int k = 0; k < nRegTeacher; k++){
-                toFileTeacher(&ptrTeacher[k], sizeof(Teacher), TEACHER_PATH,"ab", k);
-              }
-            } 
+      //Guardando o professor novo e antigo em variáveis
+      newTeacher = retrieveEnrollmentTeacher();
+      strcpy(oldTeacher, disciplineSelected.teacherEnrollment);
+
+      //Se o novo professor for diferente do professor atual
+      if (strcmp(newTeacher, oldTeacher) != 0){
+        //printf("Professores diferentes. ");
+        strcpy(disciplineSelected.teacherEnrollment, newTeacher);
+        toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
+
+        //Encontrar o professor antigo (i)
+        for (int i = 0; i < nRegTeacher; i++){
+          if (strcmp(ptrTeacher[i].enrollment, oldTeacher) == 0){
+            /*Encontrar a disciplina dentro de professor. (j)*/
+            for (int j = 0; strcmp(ptrTeacher[i].disciplineCode[j], "\0") != 0; j++){
+              if (strcmp(ptrTeacher[i].disciplineCode[j], disciplineSelected.code) == 0){
+                strcpy(ptrTeacher[i].disciplineCode[j], "\0");
+                toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
+              } 
+            }
+          }else if (strcmp(ptrTeacher[i].enrollment, newTeacher) == 0){
+            /*Encontrar a disciplina dentro de professor. (j)*/
+            for (int j = 0; strcmp(ptrTeacher[i].disciplineCode[j], "\0") != 0; j++){
+              if (strcmp(disciplineSelected.code, ptrTeacher[i].disciplineCode[j]) == 0){
+                strcpy(ptrTeacher[i].disciplineCode[j], disciplineSelected.code);
+                toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
+              } 
+            }
           }
         }
       }
+      printf("Pressione qualquer tecla para voltar..."); 
     }
-    toFileDiscipline(&disciplineSelected, sizeof(Discipline), DISCIPLINE_PATH,"rb+", idSelected);
-
-    printf("Pressione qualquer tecla para voltar..."); 
   }
 
   getchar();

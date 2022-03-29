@@ -148,7 +148,7 @@ void retrieveTeacherByGender(){
       verification = validateGender(gender);
 
       if(!verification){
-        printf("\nInforme gênero válido!!!");
+        printf("\nInforme gênero válido!");
         getchar();
       }
 
@@ -164,7 +164,7 @@ void retrieveTeacherByGender(){
     }
 
     if(count == 0){
-      printf("Nenhum registro encontrado!");
+      printf("Nenhum registro encontrado!\n");
     }
 
     free(ptrTeacher);
