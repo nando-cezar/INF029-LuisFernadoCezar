@@ -165,7 +165,6 @@ void retrieveTeacherByGender(){
 
     if(count == 0){
       printf("Nenhum registro encontrado!");
-      getchar();
     }
 
     free(ptrTeacher);

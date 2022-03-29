@@ -34,14 +34,14 @@ void logo(){
       printf ("  %d%%\r", i*2);
       fflush (stdout);
 
-      for (int j = 0; j < i; j++){
-        if (!j)
-        printf("  ");
+        for (int j = 0; j < i; j++){
+            if (!j)
+            printf("  ");
 
-        printf ("%c", 2);
-        sleep(0.75);
-      }
-   }
+            printf ("%c", 2);
+            sleep(0.75);
+        }
+    }
 
     system(CLEAR);
       
@@ -51,9 +51,9 @@ void header(){
 
     system(CLEAR);
 
-    printf ("***********************************************\n");
-    printf ("\t GERENCIAMENTO ESCOLAR\n");
-    printf ("***********************************************\n\n");
+    printf("***********************************************\n");
+    printf("\t ..:: SUAP | SISTEMA ACADEMICO! ::..\n");
+    printf("***********************************************\n\n");
 }
 
 void menu(){
@@ -63,7 +63,17 @@ void menu(){
     setlocale(LC_ALL, "Portuguese");
 
     do{
-        header();
+        system(CLEAR);
+        printf("  ssssssssss   uuu    uuu         a         pppppppppp\n");
+        printf("s:::sssss:::s  u:u    u:u        aaa        p::ppppp::pp\n");
+        printf("s:::s    ssss  u:u    u:u       a:a:a       p::p    p::pp\n");
+        printf(" s::::s        u:u    u:u      a:a a:a      p::pppppp:pp\n");
+        printf("    s::ss      u:u    u:u     a:a   a:a     p::pppppppp\n");
+        printf("       s::ss   u:u    u:u    a::aaaaa::a    p::p\n");
+        printf("ssss    s:::s  u:u    u:u   a::a     a::a   p::p\n");
+        printf("s::sssss:::s    u:uuuu:u   a::a       a::a  p::p\n");
+        printf(" sssssssss        uuuu    aaaa         aaaa pppp\n");
+        printf("\n\n\t ..:: SUAP | SISTEMA ACADEMICO! ::..\n\n");
         printf("1 - Estudante;\n");
         printf("2 - Professor;\n");
         printf("3 - Disciplina;\n");

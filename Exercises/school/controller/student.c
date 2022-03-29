@@ -61,7 +61,7 @@ void retrieveStudent(){
   getchar();
 }
 
-void retrieveStudentWithMoreThan3Disciplines(){
+void retrieveStudentWithLessThan3Disciplines(){
 
   size_t nRegStudent = 0;
   Student *ptrStudent;
@@ -197,7 +197,6 @@ void retrieveStudentByGender(){
 
     if(count == 0){
       printf("Nenhum registro encontrado!");
-      getchar();
     }
 
     free(ptrStudent);

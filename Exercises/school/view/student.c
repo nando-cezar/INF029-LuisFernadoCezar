@@ -240,7 +240,7 @@ void mainStudent(){
     switch(option){
       case 1:  createStudent();break;
       case 2:  retrieveStudent();break;
-      case 3:  retrieveStudentWithMoreThan3Disciplines();break;
+      case 3:  retrieveStudentWithLessThan3Disciplines();break;
       case 4:  retrieveStudentByGender();break;
       case 5:  retrieveStudentByName();break;
       case 6:  sortStudentByName();break;
