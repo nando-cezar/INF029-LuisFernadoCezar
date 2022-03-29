@@ -21,7 +21,7 @@ void printSummaryDiscipline(Discipline discipline, Teacher teacher){
 
   printf("\n");
   printf(
-    "Código: %s - Nome: %s - Prefessor: %s (%s)\n", 
+    "Código: %s - Nome: %s - Professor: %s (%s)\n", 
     discipline.code, 
     discipline.name, 
     teacher.name, 
@@ -76,10 +76,21 @@ Discipline insertCreateDiscipline(Discipline discipline){
   }while(!verificationDiscipline);
     
   //.name
-  printf("Inserir o nome da disciplina: ");
-  fgets(discipline.name, MAX_NAME_LEN, stdin);
-  removeBreakLine(discipline.name);
-  textToUpper(discipline.name);
+  do{
+
+    printf("Inserir o nome da disciplina: ");
+    fgets(discipline.name, MAX_NAME_LEN, stdin);
+    removeBreakLine(discipline.name);
+    textToUpper(discipline.name);
+
+    verification = validateName(discipline.name);
+
+    if(!verification)
+      printf("\nInforme nome válido!\n");
+    else
+      textToUpper(discipline.name);
+  
+  }while(!verification);         
 
   //.semester
   printf("Inserir o semestre: ");
@@ -88,10 +99,9 @@ Discipline insertCreateDiscipline(Discipline discipline){
 
   //.teacher
   printf("Selecione o professor desejado... \n");
-
   for (int i = 0; i < MAX_STUDENTS_DISC; i++)
     strcpy(discipline.studentEnrollment[i], "\0");
-
+    
   return discipline;
 }
 
@@ -113,9 +123,6 @@ Discipline insertUpdateDiscipline(Discipline discipline){
 
   //.teacher
   printf("Selecione o professor desejado... \n");
-
-  for (int i = 0; i < MAX_STUDENTS_DISC; i++)
-    strcpy(discipline.studentEnrollment[i], "\0");
 
   return discipline;
 }

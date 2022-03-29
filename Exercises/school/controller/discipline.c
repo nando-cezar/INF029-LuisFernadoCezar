@@ -314,7 +314,6 @@ void updateDiscipline(){
             for (int j = 0; j < MAX_DISC; j++){
               if (strcmp(ptrTeacher[i].disciplineCode[j], disciplineSelected.code) == 0){
                 strcpy(ptrTeacher[i].disciplineCode[j], "\0");
-                toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
                 break;
               } 
             }
@@ -323,11 +322,12 @@ void updateDiscipline(){
             for (int j = 0;  j < MAX_DISC; j++){
               if (strcmp(disciplineSelected.code, ptrTeacher[i].disciplineCode[j]) == 0){
                 strcpy(ptrTeacher[i].disciplineCode[j], disciplineSelected.code);
-                toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
                 break;
               } 
             }
           }
+
+          toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
         }
       }
       printf("Pressione qualquer tecla para voltar..."); 
