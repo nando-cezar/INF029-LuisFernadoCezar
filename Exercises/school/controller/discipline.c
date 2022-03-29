@@ -315,6 +315,7 @@ void updateDiscipline(){
               if (strcmp(ptrTeacher[i].disciplineCode[j], disciplineSelected.code) == 0){
                 strcpy(ptrTeacher[i].disciplineCode[j], "\0");
                 toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
+                break;
               } 
             }
           }else if (strcmp(ptrTeacher[i].enrollment, newTeacher) == 0){
@@ -323,6 +324,7 @@ void updateDiscipline(){
               if (strcmp(disciplineSelected.code, ptrTeacher[i].disciplineCode[j]) == 0){
                 strcpy(ptrTeacher[i].disciplineCode[j], disciplineSelected.code);
                 toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
+                break;
               } 
             }
           }
