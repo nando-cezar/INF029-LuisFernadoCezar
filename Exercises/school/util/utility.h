@@ -12,7 +12,7 @@
     #include <ctype.h>
     #include <time.h>
 
-    #define MAX_ENR_LEN 20
+    #define MAX_ENR_LEN 255
     #define MAX_NAME_LEN 255
     #define MAX_CPF_LEN 15
     #define MAX_STUDENTS_DISC 60 

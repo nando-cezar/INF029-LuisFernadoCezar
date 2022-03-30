@@ -7,7 +7,8 @@
         "string.h": "c",
         "menu.h": "c",
         "validation.h": "c",
-        "function.h": "c"
+        "function.h": "c",
+        "stdlib.h": "c"
     },
     "files.encoding": "utf8",
     "C_Cpp.errorSquiggles": "Disabled"

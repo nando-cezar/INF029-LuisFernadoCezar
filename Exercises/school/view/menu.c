@@ -51,9 +51,9 @@ void header(){
 
     system(CLEAR);
 
-    printf("***********************************************\n");
-    printf("\t ..:: SUAP | SISTEMA ACADEMICO! ::..\n");
-    printf("***********************************************\n\n");
+    printf("****************************************************\n");
+    printf("\t ..:: SUAP | SISTEMA ACADEMICO ::..\n");
+    printf("****************************************************\n\n");
 }
 
 void menu(){
@@ -73,7 +73,7 @@ void menu(){
         printf("ssss    s:::s  u:u    u:u   a::a     a::a   p::p\n");
         printf("s::sssss:::s    u:uuuu:u   a::a       a::a  p::p\n");
         printf(" sssssssss        uuuu    aaaa         aaaa pppp\n");
-        printf("\n\n\t ..:: SUAP | SISTEMA ACADEMICO! ::..\n\n");
+        printf("\n\n\t ..:: SUAP | SISTEMA ACADEMICO ::..\n\n");
         printf("1 - Estudante;\n");
         printf("2 - Professor;\n");
         printf("3 - Disciplina;\n");

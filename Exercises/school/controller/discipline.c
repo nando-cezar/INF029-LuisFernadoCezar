@@ -12,6 +12,7 @@ void createDiscipline(){
   size_t nRegTeacher;
   Discipline discipline;
   Teacher *ptrTeacher, dataTeacher;
+  char *teacherEnrollmentSelected = (char*)malloc(MAX_ENR_LEN * sizeof(char));
   char alternative;
   int verification, incrementDiscipline = 0;
 
@@ -33,16 +34,27 @@ void createDiscipline(){
 
         header();
         discipline = insertCreateDiscipline(discipline);
-        strcpy(discipline.teacherEnrollment, retrieveEnrollmentTeacher());
-        
+
+        teacherEnrollmentSelected = retrieveEnrollmentTeacher();
+        dataTeacher = retrieveDataTeacher(teacherEnrollmentSelected);
+
+        for(int n = 0; n < MAX_DISC; n++){
+          if(strcmp(dataTeacher.disciplineCode[n], "\0") != 0)
+            incrementDiscipline++;
+        }
+
+        if(incrementDiscipline >= MAX_DISC){
+          printf("Não a mais limite de disciplinas para o professor escolhido.");
+          free(ptrTeacher);
+          fclose(file);
+          getchar();
+          return;
+        }
+
+        strcpy(discipline.teacherEnrollment, teacherEnrollmentSelected);
+
         fwrite(&discipline, sizeof(Discipline), 1, file);
         fclose(file);
-
-        dataTeacher = retrieveDataTeacher(discipline.teacherEnrollment);
-        
-        for(int n = 0; strcmp(dataTeacher.disciplineCode[n], "\0") != 0; n++){
-          incrementDiscipline++;
-        }
 
         for(int i = 0; i < nRegTeacher; i++){
           if(strcmp(ptrTeacher[i].enrollment, discipline.teacherEnrollment) == 0){
@@ -88,8 +100,9 @@ void insertStudentInDiscipline(){
 
     disciplineSelected = retrieveObjectDiscipline(&idSelected, &sizeArray);
 
-    for(int i = 0; strcmp(disciplineSelected.studentEnrollment[i], "\0") != 0; i++){
-      incrementStudent++;   
+    for(int n = 0; n < MAX_STUDENTS_DISC; n++){
+      if(strcmp(disciplineSelected.studentEnrollment[n], "\0") != 0)
+        incrementStudent++;
     }
 
     do{
@@ -451,7 +464,7 @@ void deleteStudentInDiscipline(){
             if(strcmp(ptrStudent[i].disciplineCode[j], disciplineSelected.code) == 0){
               for(int k = j+1; k < MAX_DISC; ++k){
                 strcpy(ptrStudent[i].disciplineCode[k-1], ptrStudent[i].disciplineCode[k]);
-              }
+              } 
               toFileStudent(&ptrStudent[i], sizeof(Student), STUDENT_PATH,"rb+", i);
             }
           } 
