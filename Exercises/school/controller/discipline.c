@@ -329,8 +329,11 @@ void updateDiscipline(){
             /*Encontrar a disciplina dentro de professor. (j)*/
             for (int j = 0; j < MAX_DISC; j++){
               if (strcmp(ptrTeacher[i].disciplineCode[j], disciplineSelected.code) == 0){
-                for(int k = j+1; k < MAX_DISC; ++k){
-                  strcpy(ptrTeacher[i].disciplineCode[k-1], ptrTeacher[i].disciplineCode[k]);
+                for(int k = j; k <= MAX_DISC; k++){
+                  if(k == MAX_DISC)
+                   strcpy(ptrTeacher[i].disciplineCode[k], "\0");
+                  else  
+                    strcpy(ptrTeacher[i].disciplineCode[k], ptrTeacher[i].disciplineCode[k+1]);
                 }
                 break;
               } 
@@ -388,8 +391,11 @@ void deleteDiscipline(){
         if(strcmp(disciplineSelected.teacherEnrollment, ptrTeacher[i].enrollment) == 0){
           for(int j = 0; j < MAX_DISC; j++){
             if(strcmp(ptrTeacher[i].disciplineCode[j], disciplineSelected.code) == 0){
-              for(int k = j+1; k < MAX_DISC; ++k){
-                strcpy(ptrTeacher[i].disciplineCode[k-1], ptrTeacher[i].disciplineCode[k]);
+              for(int k = j; k <= MAX_DISC; k++){
+                if(k == MAX_DISC)
+                  strcpy(ptrTeacher[i].disciplineCode[k], "\0");
+                else  
+                  strcpy(ptrTeacher[i].disciplineCode[k], ptrTeacher[i].disciplineCode[k+1]);
               }
               toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
             }
