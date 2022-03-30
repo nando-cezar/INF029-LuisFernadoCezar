@@ -11,7 +11,7 @@ void createDiscipline(){
   FILE *file;
   size_t nRegTeacher;
   Discipline discipline;
-  Teacher *ptrTeacher;
+  Teacher *ptrTeacher, dataTeacher;
   char alternative;
   int verification, incrementDiscipline = 0;
 
@@ -37,11 +37,13 @@ void createDiscipline(){
         
         fwrite(&discipline, sizeof(Discipline), 1, file);
         fclose(file);
+
+        dataTeacher = retrieveDataTeacher(discipline.teacherEnrollment);
         
-        for(int n = 0; strcmp(retrieveDataTeacher(discipline.teacherEnrollment).disciplineCode[n], "\0") != 0; n++){
+        for(int n = 0; strcmp(dataTeacher.disciplineCode[n], "\0") != 0; n++){
           incrementDiscipline++;
         }
-      
+
         for(int i = 0; i < nRegTeacher; i++){
           if(strcmp(ptrTeacher[i].enrollment, discipline.teacherEnrollment) == 0){
             strcpy(ptrTeacher[i].disciplineCode[incrementDiscipline], discipline.code);
@@ -110,9 +112,11 @@ void insertStudentInDiscipline(){
       //*********************************
       dataStudent = retrieveDataStudent(studentEnrollment);
 
-      for(int n = 0; strcmp(dataStudent.disciplineCode[n], "\0") != 0; n++){
-        incrementDiscipline++;
+      for(int n = 0; n < MAX_DISC; n++){
+        if(strcmp(dataStudent.disciplineCode[n], "\0") != 0)
+          incrementDiscipline++;
       }
+      
       for(int i = 0; i < nRegStudent; i++){
         if(strcmp(ptrStudent[i].enrollment, studentEnrollment) == 0){
           strcpy(ptrStudent[i].disciplineCode[incrementDiscipline], disciplineSelected.code);
@@ -312,14 +316,16 @@ void updateDiscipline(){
             /*Encontrar a disciplina dentro de professor. (j)*/
             for (int j = 0; j < MAX_DISC; j++){
               if (strcmp(ptrTeacher[i].disciplineCode[j], disciplineSelected.code) == 0){
-                strcpy(ptrTeacher[i].disciplineCode[j], "\0");
+                for(int k = j+1; k < MAX_DISC; ++k){
+                  strcpy(ptrTeacher[i].disciplineCode[k-1], ptrTeacher[i].disciplineCode[k]);
+                }
                 break;
               } 
             }
           }else if (strcmp(ptrTeacher[i].enrollment, newTeacher) == 0){
             /*Encontrar a disciplina dentro de professor. (j)*/
             for (int j = 0;  j < MAX_DISC; j++){
-              if (strcmp(disciplineSelected.code, ptrTeacher[i].disciplineCode[j]) == 0){
+              if (strcmp(ptrTeacher[i].disciplineCode[j], "\0") == 0){
                 strcpy(ptrTeacher[i].disciplineCode[j], disciplineSelected.code);
                 break;
               } 
@@ -367,9 +373,11 @@ void deleteDiscipline(){
 
       for(int i = 0; i < nRegTeacher; i++){
         if(strcmp(disciplineSelected.teacherEnrollment, ptrTeacher[i].enrollment) == 0){
-          for(int j = 0; strcmp(ptrTeacher[i].disciplineCode[j], "\0") != 0; j++){
+          for(int j = 0; j < MAX_DISC; j++){
             if(strcmp(ptrTeacher[i].disciplineCode[j], disciplineSelected.code) == 0){
-              strcpy(ptrTeacher[i].disciplineCode[j], "\0");
+              for(int k = j+1; k < MAX_DISC; ++k){
+                strcpy(ptrTeacher[i].disciplineCode[k-1], ptrTeacher[i].disciplineCode[k]);
+              }
               toFileTeacher(&ptrTeacher[i], sizeof(Teacher), TEACHER_PATH,"rb+", i);
             }
           }
@@ -439,9 +447,11 @@ void deleteStudentInDiscipline(){
       //***************************
       for(int i = 0; i < nRegStudent; i++){
         if(strcmp(studentEnrollment, ptrStudent[i].enrollment) == 0){
-          for(int j = 0; strcmp(ptrStudent[i].disciplineCode[j], "\0") != 0; j++){
+          for(int j = 0; j < MAX_DISC; j++){
             if(strcmp(ptrStudent[i].disciplineCode[j], disciplineSelected.code) == 0){
-              strcpy(ptrStudent[i].disciplineCode[j], "\0");
+              for(int k = j+1; k < MAX_DISC; ++k){
+                strcpy(ptrStudent[i].disciplineCode[k-1], ptrStudent[i].disciplineCode[k]);
+              }
               toFileStudent(&ptrStudent[i], sizeof(Student), STUDENT_PATH,"rb+", i);
             }
           } 

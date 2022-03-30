@@ -1,6 +1,7 @@
 #include "../../util/utility.h"
 #include "../function/function.h"
 #include "../../model/student.h"
+#include "../../model/teacher.h"
 
 int isLarger(int numberOne, int numberTwo){
 
