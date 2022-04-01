@@ -12,6 +12,9 @@
     #include <ctype.h>
     #include <time.h>
 
+    #define MAX_DATE 11
+    #define BAR "//"
+
     #if defined(_WIN32) || defined(_WIN64)
         #define CLEAR "cls"
     #else
