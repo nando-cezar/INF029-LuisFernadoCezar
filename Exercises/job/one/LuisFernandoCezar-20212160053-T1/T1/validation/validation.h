@@ -3,7 +3,8 @@
     #define VALIDATION_H
 
     int validateCharOnlyNumber(char c);
-    int validateDate(char date[]);
+    int validateDate(char* date, long* dateFormated);
+    void convertStringInInteger(char* date, long* dateFormated);
 
 
 #endif

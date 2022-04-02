@@ -7,5 +7,6 @@
     void removeBreakLine(char *string);
     void removeSpace(char* string);
     void removeZero(char* string);
+    void compareDate(long* dateFormated);
     
 #endif

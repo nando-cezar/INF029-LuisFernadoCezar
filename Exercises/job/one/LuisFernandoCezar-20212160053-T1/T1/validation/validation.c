@@ -10,11 +10,9 @@ int validateCharOnlyNumber(char c){
     return 1;
 }
 
-int validateDate(char date[]){
+int validateDate(char* date,  long* dateFormated){
     
-    long dateFormated[3];
-    const char delimiter[2] = "/";
-    char *token = strtok(date, delimiter);
+    //long* dateFormated = calloc(3, sizeof(long));
 
     if (strstr(date, BAR) != NULL) return 0;
 
@@ -23,15 +21,7 @@ int validateDate(char date[]){
             return 0;
     }
 
-    for(int i = 0; token != NULL; i++){
-        dateFormated[i] = strtol(token, NULL, 10);
-        token = strtok(NULL, delimiter);
-    }
-
-    printf("Dia: %d\n", dateFormated[0]);
-    printf("Mes: %d\n", dateFormated[1]);
-    printf("Ano: %d\n", dateFormated[2]);
-    printf("->%d", !validateDay(dateFormated[0], dateFormated[1], dateFormated[2]));
+    convertStringInInteger(date, dateFormated);
 
     if(dateFormated[1] <= 0 || dateFormated[1] > 12 ) return 0;
     else if(dateFormated[0] <= 0 || dateFormated[0] > 31) return 0;
@@ -39,11 +29,21 @@ int validateDate(char date[]){
     else return 1;
 }
 
-int validateDay(int day, int month, int year){
+void convertStringInInteger(char* date, long* dateFormated){
 
-    printf("Dia: %d\n", day);
-    printf("Mes: %d\n", month);
-    printf("Ano: %d\n", year);
+    //long* dateFormated = calloc(3, sizeof(long));
+    const char delimiter[2] = "/";
+    char* token = strtok(date, delimiter);
+
+    for(int i = 0; token != NULL; i++){
+        dateFormated[i] = strtol(token, NULL, 10);
+        token = strtok(NULL, delimiter);
+    }
+
+    //return dateFormated;
+}
+
+int validateDay(int day, int month, int year){
 
     int isLeapYear;
 

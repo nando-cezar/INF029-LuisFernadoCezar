@@ -63,3 +63,17 @@ void removeZero(char* string){
   }
 
 }
+
+void compareDate(long* dateFormated){
+
+  time_t mytime;
+  mytime = time(NULL);
+  struct tm tm = *localtime(&mytime);
+
+  printf("Data: %d/%d/%d\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+
+  printf("--> %d\n", dateFormated[0] - tm.tm_mday);
+  printf("--> %d\n", dateFormated[1] - (tm.tm_mon + 1));
+  printf("--> %d\n", dateFormated[2] - (tm.tm_year + 1900));
+
+}

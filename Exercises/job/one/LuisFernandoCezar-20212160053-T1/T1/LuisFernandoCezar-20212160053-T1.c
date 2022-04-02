@@ -3,11 +3,12 @@
 #include "validation/validation.h"
 
 void question1();
+void question2();
 
 void main(){
 
     question1();
-
+    question2();
     
 }
 
@@ -28,13 +29,32 @@ void question1(){
     */
     
     char date[MAX_DATE];
+    long dateFormated[3];
 
     printf("Informe data no formato: ");
     fgets(date, MAX_DATE, stdin);
     removeBreakLine(date);
+    getchar();
 
-    if(validateDate(date))
-        printf("Valido");
+    if(validateDate(date, dateFormated))
+        printf("Válido!\n");
     else
-        printf("Nao é valido!");
+        printf("Não é válido!\n");
+}
+
+void question2(){
+
+    char date[MAX_DATE];
+    long dateFormated[3];
+
+    printf("Informe data no formato: ");
+    fgets(date, MAX_DATE, stdin);
+    removeBreakLine(date);
+    getchar();
+
+    if(validateDate(date, dateFormated)){
+        printf("Válido!\n");
+        compareDate(dateFormated);
+    }else
+        printf("Não é válido!\n");
 }
