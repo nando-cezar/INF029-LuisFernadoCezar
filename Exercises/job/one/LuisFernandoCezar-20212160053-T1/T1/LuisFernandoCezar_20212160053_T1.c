@@ -276,8 +276,7 @@ int q1(char data[]){
     4 -> datainicial > datafinal
     Caso o cálculo esteja correto, os atributos qtdDias, qtdMeses e qtdAnos devem ser preenchidos com os valores correspondentes.
  */
-DiasMesesAnos q2(char datainicial[], char datafinal[])
-{
+DiasMesesAnos q2(char datainicial[], char datafinal[]){
 
     DiasMesesAnos dma;
     DataQuebrada dtInicial = quebraData(datainicial);
@@ -332,8 +331,20 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
  */
 int q3(char *texto, char c, int isCaseSensitive)
 {
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0;
 
+    if(isCaseSensitive == 1){
+        
+        for(int i = 0; i < strlen(texto); i++){
+            if(texto[i] == c)
+                qtdOcorrencias++;
+        }
+    }else{
+        for(int i = 0; i < strlen(texto); i++){
+            if(toupper(texto[i]) == toupper(c))
+                qtdOcorrencias++;
+        }
+    }
     return qtdOcorrencias;
 }
 
