@@ -348,7 +348,7 @@ int q3(char *texto, char c, int isCaseSensitive)
     return qtdOcorrencias;
 }
 
-/*
+/* 
  Q4 = encontrar palavra em texto
  @objetivo
     Pesquisar todas as ocorrências de uma palavra em um texto
@@ -363,10 +363,10 @@ int q3(char *texto, char c, int isCaseSensitive)
         O retorno da função, n, nesse caso seria 1;
 
  */
-int q4(char *strTexto, char *strBusca, int posicoes[30])
-{
-    int qtdOcorrencias = -1;
+int q4(char *strTexto, char *strBusca, int posicoes[30]){
 
+    int qtdOcorrencias = 0;
+    
     return qtdOcorrencias;
 }
 
@@ -382,6 +382,38 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
+    int unidade = 0;
+    int dezena  = 0;
+    int centena = 0;
+    int milhar  = 0;
+
+    if (num > 9 && num <= 99){
+        
+        dezena = num / 10;
+        unidade = num % 10;
+        
+        num = unidade * 10 + dezena;
+
+    }else if (num > 99 && num <= 999){
+
+        centena = num / 100;
+        dezena = (num % 100) / 10;
+        unidade = (num % 100) % 10;
+        
+        num = (unidade * 100) + (dezena * 10) + centena;
+
+    }else if (num > 999 && num <= 9999){
+
+        milhar  = num / 1000;
+        centena = (num % 1000) / 100;
+        dezena  = ((num % 1000) % 100) / 10;
+        unidade = ((num % 1000) % 100) % 10;
+        
+        num = (unidade * 1000) + (dezena * 100) + (centena * 10) + milhar;
+        
+    }else{
+        return num;
+    }
 
     return num;
 }
