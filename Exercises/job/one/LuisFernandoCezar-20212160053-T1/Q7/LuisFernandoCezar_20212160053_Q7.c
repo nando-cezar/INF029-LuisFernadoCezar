@@ -4,38 +4,61 @@
 #include <locale.h> 
 #include <ctype.h>
 
-void initializeMatrix(char matrix[3][3]){
+#define SPACE 32
+#define LINE 3
+#define COLUMN 3
+#define _A 65
 
-    for(int i = 0; i < 3; i++){
-        for(int j = 0; j < 3; j++){
-            matrix[i][j] = 32;
+#if defined(_WIN32) || defined(_WIN64)
+        #define CLEAR "cls"
+    #else
+        #define CLEAR "clear"
+#endif
+
+void initializeMatrix(char matrix[LINE][COLUMN]){
+
+    for(int i = 0; i < LINE; i++){
+        for(int j = 0; j < COLUMN; j++){
+            matrix[i][j] = SPACE;
         }
     }
 
 }
 
-void presentationTable(char matrix[3][3]){
+void presentationTable(char matrix[LINE][COLUMN]){
 
-    system("cls");
+    system(CLEAR);
 
     printf("      %d    %d    %d\n", 1, 2, 3);
-    for(int i = 0; i < 3; i++){
-        printf("%c ", 65 + i);
+    for(int i = 0; i < LINE; i++){
+        printf("%c ", _A + i);
         printf("|");
-        for(int j = 0; j < 3; j++){
+        for(int j = 0; j < COLUMN; j++){
             printf("  %c  |", matrix[i][j]);
             if(j == 2) printf("\n");
         }
     }
 }
 
-int verifyValuesInMatrix(char matrix[3][3], int i, int j){
+int verifyValuesInMatrix(char matrix[LINE][COLUMN], int i, int j){
 
-    if(matrix[i][j] == 32) return 1;
+    if(matrix[i][j] == SPACE) return 1;
     else return 0;
 }
 
-int verifyResult(char matrix[3][3], int player){
+int haveSpaceInMatrix(char matrix[LINE][COLUMN]){
+
+    for(int i = 0; i < LINE; i++){
+        for(int j = 0; j < COLUMN; j++){
+            if(matrix[i][j] == SPACE){
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+int verifyResult(char matrix[LINE][COLUMN], int player){
 
     if(player == 1){
         if     (matrix[0][0] == 'X' && matrix[0][1] == 'X' && matrix[0][2] == 'X') return 1;
@@ -77,7 +100,7 @@ int inputValidate(char line, int column){
     else return 0;
 }
 
-int playerMenu(int player, char symbol, char matrix[3][3]){
+int playerMenu(int player, char symbol, char matrix[LINE][COLUMN]){
 
     
     char line; 
@@ -141,13 +164,16 @@ int playerMenu(int player, char symbol, char matrix[3][3]){
 
         if(verifyResult(matrix, player)){
             presentationTable(matrix);
-            printf("JOGADOR %d VENCEU!!!\n", player);
+            printf("JOGADOR %d VENCEU!\n", player);
             return 1;
-        }
 
-        if(count == 1){
+        }else if(count == 1){
             printf("O caminho informado já se encontra preenchido!");
             getchar();
+
+        }else if(!haveSpaceInMatrix(matrix)){
+            printf("EMPATE!\n");
+            return 1;
         }
     
     }while(count == 1);
@@ -159,8 +185,7 @@ void main(){
 
     setlocale(LC_ALL, "Portuguese");
     
-    char matrix[3][3];
-    int continua = 1;
+    char matrix[LINE][COLUMN];
 
     initializeMatrix(matrix);
 
