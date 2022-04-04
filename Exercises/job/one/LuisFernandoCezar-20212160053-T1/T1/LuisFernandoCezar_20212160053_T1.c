@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h> 
+#include <math.h>
 /*
 ## função utilizada para testes  ##
 
@@ -430,6 +431,22 @@ int q5(int num)
 
 int q6(int numerobase, int numerobusca)
 {
-    int qtdOcorrencias;
+    int qtdOcorrencias = 0;
+    int count = 0, auxiliary = numerobusca;
+
+    while(auxiliary > 0){
+        count++;
+        auxiliary /= 10;
+        
+    }
+    
+    while(numerobase > 0){
+        if((numerobase % (int)(pow(10, count) + 0.5)) == numerobusca){
+            qtdOcorrencias++;
+        }
+        numerobase /= 10;
+    }
+    //printf("--->>> %d | %d | %d \n", qtdOcorrencias, (int)(pow(10, count) + 0.5), count);
+
     return qtdOcorrencias;
 }
