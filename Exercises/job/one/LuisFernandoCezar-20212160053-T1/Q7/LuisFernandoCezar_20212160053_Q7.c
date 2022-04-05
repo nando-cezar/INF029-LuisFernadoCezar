@@ -29,7 +29,8 @@ void presentationTable(char matrix[LINE][COLUMN]){
 
     system(CLEAR);
 
-    printf("      %d    %d    %d\n", 1, 2, 3);
+    for(int i = 0; i < COLUMN; i++) printf("     %d", i+1);
+    printf("\n");
     for(int i = 0; i < LINE; i++){
         printf("%c ", _A + i);
         printf("|");
@@ -90,6 +91,22 @@ int verifyResult(char matrix[LINE][COLUMN], int player){
     
 }
 
+int setValuesMatrix(char matrix[LINE][COLUMN], char line, int column, char keyLine, int indexLine, char symbol){
+
+    int flag = 0;
+
+    if(line == keyLine){
+        for(int i = 0; i < COLUMN; i++){
+            if(column == i+1){
+                if(verifyValuesInMatrix(matrix, indexLine, i)) matrix[indexLine][i] = symbol;
+                else flag = 1;
+            }
+        }
+    }
+
+    return flag;
+}
+
 int inputValidate(char line, int column){
 
     if(
@@ -126,6 +143,8 @@ int playerMenu(int player, char symbol, char matrix[LINE][COLUMN]){
             }
 
         }while(!inputValidate(line, column));
+
+        
         
         if(line == 'a'){
             if(column == 1){
