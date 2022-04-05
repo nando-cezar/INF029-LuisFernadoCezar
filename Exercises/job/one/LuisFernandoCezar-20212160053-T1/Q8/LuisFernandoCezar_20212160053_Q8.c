@@ -25,10 +25,11 @@ void initializeMatrix(char matrix[LINE][COLUMN]){
 
 }
 
-void presentationTable(char matrix[LINE][COLUMN]){
+void presentationTable(char matrix[LINE][COLUMN], int player){
 
     system(CLEAR);
 
+    printf("\nTABELA JOGADOR %d\n\n", player);
     for(int i = 0; i < COLUMN; i++) printf("     %d", i+1);
     printf("\n");
     for(int i = 0; i < LINE; i++){
@@ -64,14 +65,30 @@ int verifyResult(char matrix[LINE][COLUMN], int player){
     return 1;
 }
 
-int setValuesMatrix(char matrix[LINE][COLUMN], char line, int column, char keyLine, int indexLine, char symbol){
+int setValuesMatrix(char matrix[LINE][COLUMN], char line, int column, char keyLine, int indexLine, char symbol, int boatType, int guidance){
 
     int flag = 0;
 
     if(line == keyLine){
         for(int i = 0; i < COLUMN; i++){
             if(column == i+1){
-                if(verifyValuesInMatrix(matrix, indexLine, i)) matrix[indexLine][i] = symbol;
+                if(verifyValuesInMatrix(matrix, indexLine, i)){
+                    matrix[indexLine][i] = symbol;
+                    switch(guidance){
+                        case 1: 
+                            for(int j = 1; j < boatType; j++) matrix[indexLine-j][i] = symbol;      
+                        break;
+                        case 2: 
+                            for(int j = 1; j < boatType; j++) matrix[indexLine+j][i] = symbol;
+                        break;
+                        case 3: 
+                            for(int j = 1; j < boatType; j++) matrix[indexLine][i+j] = symbol;
+                        break;
+                        default: 
+                            for(int j = 1; j < boatType; j++) matrix[indexLine][i-j] = symbol;
+                        break;
+                    }
+                } 
                 else flag = 1;
             }
         }
@@ -94,16 +111,13 @@ int playerMenu(int player, char matrix[LINE][COLUMN]){
     int quantity;
     int count = 0;
 
-    printf("\nJogador %d ", player);
-
-    printf("\nInforme a quantidade de barcos: ");
+    printf("\n\nInforme a quantidade de barcos: ");
     scanf("%d", &quantity);
     getchar();
 
     do{
-        quantity--;
 
-        presentationTable(matrix);
+        presentationTable(matrix, player);
         printf("\nInforme a localização dos barcos... \n\n");
         printf("\nSelecione posição: ");
         scanf(" %c %d", &line, &column);
@@ -115,16 +129,17 @@ int playerMenu(int player, char matrix[LINE][COLUMN]){
         scanf("%d", &guidance);
         getchar();
 
-        setValuesMatrix(matrix, line, column, 'A', 0, 'N');
-        setValuesMatrix(matrix, line, column, 'B', 1, 'N');
-        setValuesMatrix(matrix, line, column, 'C', 2, 'N');
-        setValuesMatrix(matrix, line, column, 'D', 3, 'N');
-        setValuesMatrix(matrix, line, column, 'E', 4, 'N');
-        setValuesMatrix(matrix, line, column, 'F', 5, 'N');
-        setValuesMatrix(matrix, line, column, 'G', 6, 'N');
-        setValuesMatrix(matrix, line, column, 'H', 7, 'N');
-        setValuesMatrix(matrix, line, column, 'I', 8, 'N');
-        setValuesMatrix(matrix, line, column, 'J', 9, 'N');
+        // setValuesMatrix monitorar se o campo já preenchido
+        setValuesMatrix(matrix, line, column, 'A', 0, 'N', boatType, guidance);
+        setValuesMatrix(matrix, line, column, 'B', 1, 'N', boatType, guidance);
+        setValuesMatrix(matrix, line, column, 'C', 2, 'N', boatType, guidance);
+        setValuesMatrix(matrix, line, column, 'D', 3, 'N', boatType, guidance);
+        setValuesMatrix(matrix, line, column, 'E', 4, 'N', boatType, guidance);
+        setValuesMatrix(matrix, line, column, 'F', 5, 'N', boatType, guidance);
+        setValuesMatrix(matrix, line, column, 'G', 6, 'N', boatType, guidance);
+        setValuesMatrix(matrix, line, column, 'H', 7, 'N', boatType, guidance);
+        setValuesMatrix(matrix, line, column, 'I', 8, 'N', boatType, guidance);
+        setValuesMatrix(matrix, line, column, 'J', 9, 'N', boatType, guidance);
             
 
         /*if(verifyResult(matrix, player)){
@@ -140,7 +155,7 @@ int playerMenu(int player, char matrix[LINE][COLUMN]){
             printf("EMPATE!\n");
             return 1;
         }*/
-
+        quantity--;
     }while(quantity > 0);
         
     return 0;
