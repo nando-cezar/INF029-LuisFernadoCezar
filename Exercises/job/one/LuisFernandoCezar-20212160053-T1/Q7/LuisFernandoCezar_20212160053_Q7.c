@@ -110,7 +110,7 @@ int setValuesMatrix(char matrix[LINE][COLUMN], char line, int column, char keyLi
 int inputValidate(char line, int column){
 
     if(
-        (line == 'a' || line == 'b' || line == 'c')
+        (line == 'A' || line == 'B' || line == 'C')
         && 
         (column == 1 || column == 2 || column == 3)
     ) return 1;
@@ -135,7 +135,7 @@ int playerMenu(int player, char symbol, char matrix[LINE][COLUMN]){
             scanf(" %c %d", &line, &column);
             getchar();
 
-            line = tolower(line);
+            line = toupper(line);
 
             if(!inputValidate(line, column)){
                 printf("Comando inválido!\n");
@@ -144,42 +144,9 @@ int playerMenu(int player, char symbol, char matrix[LINE][COLUMN]){
 
         }while(!inputValidate(line, column));
 
-        
-        
-        if(line == 'a'){
-            if(column == 1){
-                if(verifyValuesInMatrix(matrix, 0, 0)) matrix[0][0] = symbol;
-                else count = 1;
-            }else if(column == 2){
-                if(verifyValuesInMatrix(matrix, 0, 1)) matrix[0][1] = symbol;
-                else count = 1;
-            }else if(column == 3){
-                if(verifyValuesInMatrix(matrix, 0, 2)) matrix[0][2] = symbol;
-                else count = 1;
-            }
-        }else if(line == 'b'){
-            if(column == 1){
-                if(verifyValuesInMatrix(matrix, 1, 0)) matrix[1][0] = symbol;
-                else count = 1;
-            }else if(column == 2){
-                if(verifyValuesInMatrix(matrix, 1, 1)) matrix[1][1] = symbol;
-                else count = 1;
-            }else if(column == 3){
-                if(verifyValuesInMatrix(matrix, 1, 2)) matrix[1][2] = symbol;
-                else count = 1;
-            }
-        }else if(line == 'c'){
-            if(column == 1){
-                if(verifyValuesInMatrix(matrix, 2, 0)) matrix[2][0] = symbol;
-                else count = 1;
-            }else if(column == 2){
-                if(verifyValuesInMatrix(matrix, 2, 1)) matrix[2][1] = symbol;
-                else count = 1;
-            }else if(column == 3){
-                if(verifyValuesInMatrix(matrix, 2, 2)) matrix[2][2] = symbol;
-                else count = 1;
-            }
-        }
+        setValuesMatrix(matrix, line, column, 'A', 0, symbol);
+        setValuesMatrix(matrix, line, column, 'B', 1, symbol);
+        setValuesMatrix(matrix, line, column, 'C', 2, symbol);
 
         if(verifyResult(matrix, player)){
             presentationTable(matrix);

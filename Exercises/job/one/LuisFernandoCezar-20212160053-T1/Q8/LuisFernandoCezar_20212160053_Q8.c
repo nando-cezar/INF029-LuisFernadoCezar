@@ -115,16 +115,16 @@ int playerMenu(int player, char matrix[LINE][COLUMN]){
         scanf("%d", &guidance);
         getchar();
 
-        if(setValuesMatrix(matrix, line, column, 'A', 0, 'N')){}
-        else if(setValuesMatrix(matrix, line, column, 'B', 1, 'N')){} 
-        else if(setValuesMatrix(matrix, line, column, 'C', 2, 'N')){}
-        else if(setValuesMatrix(matrix, line, column, 'D', 3, 'N')){}
-        else if(setValuesMatrix(matrix, line, column, 'E', 4, 'N')){}
-        else if(setValuesMatrix(matrix, line, column, 'F', 5, 'N')){}
-        else if(setValuesMatrix(matrix, line, column, 'G', 6, 'N')){}
-        else if(setValuesMatrix(matrix, line, column, 'H', 7, 'N')){}
-        else if(setValuesMatrix(matrix, line, column, 'I', 8, 'N')){}
-        else if(setValuesMatrix(matrix, line, column, 'J', 9, 'N')){}
+        setValuesMatrix(matrix, line, column, 'A', 0, 'N');
+        setValuesMatrix(matrix, line, column, 'B', 1, 'N');
+        setValuesMatrix(matrix, line, column, 'C', 2, 'N');
+        setValuesMatrix(matrix, line, column, 'D', 3, 'N');
+        setValuesMatrix(matrix, line, column, 'E', 4, 'N');
+        setValuesMatrix(matrix, line, column, 'F', 5, 'N');
+        setValuesMatrix(matrix, line, column, 'G', 6, 'N');
+        setValuesMatrix(matrix, line, column, 'H', 7, 'N');
+        setValuesMatrix(matrix, line, column, 'I', 8, 'N');
+        setValuesMatrix(matrix, line, column, 'J', 9, 'N');
             
 
         /*if(verifyResult(matrix, player)){
