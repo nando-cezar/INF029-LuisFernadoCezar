@@ -8,6 +8,7 @@
 #define LINE 10
 #define COLUMN 10
 #define _A 65
+#define QUANTITYBOAT 2
 
 #if defined(_WIN32) || defined(_WIN64)
         #define CLEAR "cls"
@@ -124,13 +125,8 @@ void popularTables(int player, char matrix[LINE][COLUMN]){
     int column;
     int boatType;
     int guidance;
-    int quantity;
+    int quantity = QUANTITYBOAT;
     int count;
-
-    printf("\n\n.:: JOGADOR %d ::.", player);
-    printf("\nInforme a quantidade de barcos: ");
-    scanf("%d", &quantity);
-    getchar();
 
     do{     
 
@@ -138,6 +134,8 @@ void popularTables(int player, char matrix[LINE][COLUMN]){
             count = 0;
 
             presentationTable(matrix, player);
+            printf("\n\n.:: JOGADOR %d ::.", player);
+
             printf("\nInforme a localização dos barcos... \n\n");
             printf("\nSelecione posição: ");
             scanf(" %c %d", &line, &column);
@@ -186,7 +184,7 @@ void battleField(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE][C
         // setValuesMatrix monitorar se o campo já preenchido
         for(int i = 0, key = _A; i < LINE; i++, key++){
             if(line == key){
-                if(!verifyValuesInMatrix(enemyMatrix, i, column)) count1 = 1;
+                if(!verifyValuesInMatrix(enemyMatrix, i, column-1)) count1 = 1;
             }
             if(count1 == 1){
                 if(setValuesMatrix(cleanMatrix, line, column, key, i, 'O', 1, 1)) count2 = 1;
