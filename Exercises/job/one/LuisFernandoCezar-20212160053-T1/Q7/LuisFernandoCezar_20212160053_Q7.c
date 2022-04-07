@@ -144,9 +144,9 @@ int playerMenu(int player, char symbol, char matrix[LINE][COLUMN]){
 
         }while(!inputValidate(line, column));
 
-        setValuesMatrix(matrix, line, column, 'A', 0, symbol);
-        setValuesMatrix(matrix, line, column, 'B', 1, symbol);
-        setValuesMatrix(matrix, line, column, 'C', 2, symbol);
+        for(int i = 0, key = _A; i < COLUMN; i++, key++){
+            if(setValuesMatrix(matrix, line, column, key, i, symbol)) count = 1;
+        }
 
         if(verifyResult(matrix, player)){
             presentationTable(matrix);
