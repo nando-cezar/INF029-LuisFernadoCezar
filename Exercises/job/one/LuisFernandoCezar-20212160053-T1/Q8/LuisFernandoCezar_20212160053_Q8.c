@@ -66,9 +66,15 @@ int verifyValueInMatrix(char matrix[LINE][COLUMN], int c, int i, int j){
     else return 0;
 }
 
-int verifyResult(char matrix[LINE][COLUMN], int player){
+int verifyResult(char matrix[LINE][COLUMN]){
 
-    return 1;
+    for(int i = 0; i < LINE; i++){
+        for(int j = 0; j < COLUMN; j++){
+            if(verifyValueInMatrix(matrix, N_, i, j)) return 1;
+        }
+    }
+
+    return 0;
 }
 
 int setValuesMatrix(char matrix[LINE][COLUMN], char line, int column, char keyLine, int indexLine, char symbol, int boatType, int guidance){
@@ -137,7 +143,6 @@ void popularTables(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE]
             scanf("%d", &guidance);
             getchar();
 
-            // setValuesMatrix monitorar se o campo já preenchido
             for(int i = 0, key = A_; i < COLUMN; i++, key++){
                 if(setValuesMatrix(matrix, line, column, key, i, 'N', boatType, guidance)) count = 1;
             }
@@ -152,7 +157,7 @@ void popularTables(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE]
     }while(quantity > 0);
 }
 
-void battleField(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE][COLUMN], char enemyMatrix[LINE][COLUMN]){
+int battleField(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE][COLUMN], char enemyMatrix[LINE][COLUMN]){
 
     char line; 
     int column;
@@ -164,14 +169,15 @@ void battleField(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE][C
         count2 = 0;
 
         presentationComplexTable(player, matrix, cleanMatrix, 1);
-        printf("\n\n.:: JOGADOR %d ::.", player);
 
+        if(!verifyResult(enemyMatrix)) return 1;
+
+        printf("\n\n.:: JOGADOR %d ::.", player);
         printf("\nInforme a localização para atacar... \n\n");
         printf("\nSelecione posição: ");
         scanf(" %c %d", &line, &column);
         getchar();
 
-        // setValuesMatrix monitorar se o campo já preenchido
         for(int i = 0, key = A_; i < LINE; i++, key++){
             if(line == key){
                 if(verifyValueInMatrix(enemyMatrix, N_, i, column-1)) count1 = 1;
@@ -195,7 +201,11 @@ void battleField(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE][C
             printf("\nErrou, vez do seu inimigo!");
             getchar();
         }
+
     }while(count1 == 1 || count2 == 1);
+
+
+    return 0;
 }
 
 void main(){
@@ -224,8 +234,17 @@ void main(){
     // fight players
     while(1){
 
-        battleField(1, matrixOne, cleanMatrixOne, matrixTwo);
-        battleField(2, matrixTwo, cleanMatrixTwo, matrixOne);
+        if(battleField(1, matrixOne, cleanMatrixOne, matrixTwo)){
+            printf("\n\n\t\tJOGADOR %d VENCEU!!!", 1);
+            getchar();
+            break;
+        }
+            
+        if(battleField(2, matrixTwo, cleanMatrixTwo, matrixOne)){
+            printf("\n\n\t\tJOGADOR %d VENCEU!!!", 2);
+            getchar();
+            break;
+        }
         
     }
 
