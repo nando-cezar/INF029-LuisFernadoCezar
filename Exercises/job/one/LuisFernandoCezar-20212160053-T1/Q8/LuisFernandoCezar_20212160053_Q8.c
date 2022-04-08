@@ -4,10 +4,12 @@
 #include <locale.h> 
 #include <ctype.h>
 
-#define SPACE 32
+#define SPACE_ 32
+#define A_ 65
+#define N_ 78
+
 #define LINE 10
 #define COLUMN 10
-#define _A 65
 #define QUANTITYBOAT 2
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -20,60 +22,47 @@ void initializeMatrix(char matrix[LINE][COLUMN]){
 
     for(int i = 0; i < LINE; i++){
         for(int j = 0; j < COLUMN; j++){
-            matrix[i][j] = SPACE;
+            matrix[i][j] = SPACE_;
         }
     }
 
 }
 
-void presentationTable(char matrix[LINE][COLUMN], int player){
+void presentationComplexTable(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE][COLUMN], int complex){
 
     system(CLEAR);
 
-    printf("\nTABELA JOGADOR %d\n\n", player);
+    printf("\n\n\t\t----------------------------- TABELA JOGADOR %d\n\n", player);
     for(int i = 0; i < COLUMN; i++) printf("     %d", i+1);
     printf("\n");
     for(int i = 0; i < LINE; i++){
-        printf("%c ", _A + i);
+        printf("%c ", A_ + i);
         printf("|");
         for(int j = 0; j < COLUMN; j++){
             printf("  %c  |", matrix[i][j]);
             if(j == 9) printf("\n");
         }
     }
-}
 
-void presentationComplexTable(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE][COLUMN]){
-
-    system(CLEAR);
-
-    printf("\nTABELA JOGADOR %d\n\n", player);
-    for(int i = 0; i < COLUMN; i++) printf("     %d", i+1);
-    printf("\n");
-    for(int i = 0; i < LINE; i++){
-        printf("%c ", _A + i);
-        printf("|");
-        for(int j = 0; j < COLUMN; j++){
-            printf("  %c  |", matrix[i][j]);
-            if(j == 9) printf("\n");
+    if(complex == 1){
+        printf("\n\n\t\t------------------------------- TABELA RASCUNHO\n\n");
+        for(int i = 0; i < COLUMN; i++) printf("     %d", i+1);
+        printf("\n");
+        for(int i = 0; i < LINE; i++){
+            printf("%c ", A_ + i);
+            printf("|");
+            for(int j = 0; j < COLUMN; j++){
+                printf("  %c  |", cleanMatrix[i][j]);
+                if(j == 9) printf("\n");
+            }
         }
     }
-    printf("\n\n\t\t---------------------------------\n\n");
-    for(int i = 0; i < COLUMN; i++) printf("     %d", i+1);
-    printf("\n");
-    for(int i = 0; i < LINE; i++){
-        printf("%c ", _A + i);
-        printf("|");
-        for(int j = 0; j < COLUMN; j++){
-            printf("  %c  |", cleanMatrix[i][j]);
-            if(j == 9) printf("\n");
-        }
-    }
+    
 }
 
-int verifyValuesInMatrix(char matrix[LINE][COLUMN], int i, int j){
+int verifyValueInMatrix(char matrix[LINE][COLUMN], int c, int i, int j){
 
-    if(matrix[i][j] == SPACE) return 1;
+    if(matrix[i][j] == c) return 1;
     else return 0;
 }
 
@@ -89,7 +78,7 @@ int setValuesMatrix(char matrix[LINE][COLUMN], char line, int column, char keyLi
     if(line == keyLine){
         for(int i = 0; i < COLUMN; i++){
             if(column == i+1){
-                if(verifyValuesInMatrix(matrix, indexLine, i)){
+                if(verifyValueInMatrix(matrix, SPACE_, indexLine, i)){
                     matrix[indexLine][i] = symbol;
                     switch(guidance){
                         case 1: 
@@ -105,7 +94,8 @@ int setValuesMatrix(char matrix[LINE][COLUMN], char line, int column, char keyLi
                             for(int j = 1; j < boatType; j++) matrix[indexLine][i-j] = symbol;
                         break;
                     }
-                } 
+                }
+                else if(verifyValueInMatrix(matrix, N_, indexLine, i)) matrix[indexLine][i] = symbol;
                 else flag = 1;
             }
         }
@@ -119,7 +109,7 @@ int inputValidate(char line, int column){
     return 1;
 }
 
-void popularTables(int player, char matrix[LINE][COLUMN]){
+void popularTables(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE][COLUMN]){
 
     char line; 
     int column;
@@ -133,7 +123,7 @@ void popularTables(int player, char matrix[LINE][COLUMN]){
         do{
             count = 0;
 
-            presentationTable(matrix, player);
+            presentationComplexTable(player, matrix, cleanMatrix, 0);
             printf("\n\n.:: JOGADOR %d ::.", player);
 
             printf("\nInforme a localização dos barcos... \n\n");
@@ -148,7 +138,7 @@ void popularTables(int player, char matrix[LINE][COLUMN]){
             getchar();
 
             // setValuesMatrix monitorar se o campo já preenchido
-            for(int i = 0, key = _A; i < COLUMN; i++, key++){
+            for(int i = 0, key = A_; i < COLUMN; i++, key++){
                 if(setValuesMatrix(matrix, line, column, key, i, 'N', boatType, guidance)) count = 1;
             }
 
@@ -173,7 +163,7 @@ void battleField(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE][C
         count1 = 0;
         count2 = 0;
 
-        presentationComplexTable(player, matrix, cleanMatrix);
+        presentationComplexTable(player, matrix, cleanMatrix, 1);
         printf("\n\n.:: JOGADOR %d ::.", player);
 
         printf("\nInforme a localização para atacar... \n\n");
@@ -182,13 +172,15 @@ void battleField(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE][C
         getchar();
 
         // setValuesMatrix monitorar se o campo já preenchido
-        for(int i = 0, key = _A; i < LINE; i++, key++){
+        for(int i = 0, key = A_; i < LINE; i++, key++){
             if(line == key){
-                if(!verifyValuesInMatrix(enemyMatrix, i, column-1)) count1 = 1;
+                if(verifyValueInMatrix(enemyMatrix, N_, i, column-1)) count1 = 1;
             }
             if(count1 == 1){
+                if(setValuesMatrix(enemyMatrix, line, column, key, i, 'O', 1, 1)) count2 = 1;
                 if(setValuesMatrix(cleanMatrix, line, column, key, i, 'O', 1, 1)) count2 = 1;
             }else{
+                if(setValuesMatrix(enemyMatrix, line, column, key, i, 'X', 1, 1)) count2 = 1;
                 if(setValuesMatrix(cleanMatrix, line, column, key, i, 'X', 1, 1)) count2 = 1;
             }
         }
@@ -226,8 +218,8 @@ void main(){
     printf("\nDesta forma, o número mínimo de barco é: 5 barcos.");
 
     // popular tables
-    popularTables(1, matrixOne);
-    popularTables(2, matrixTwo);
+    popularTables(1, matrixOne, cleanMatrixOne);
+    popularTables(2, matrixTwo, cleanMatrixTwo);
 
     // fight players
     while(1){

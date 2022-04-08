@@ -9,7 +9,8 @@
         "validation.h": "c",
         "function.h": "c",
         "stdlib.h": "c",
-        "luisfernandocezar_20212160053_t1.h": "c"
+        "luisfernandocezar_20212160053_t1.h": "c",
+        "ctype.h": "c"
     },
     "files.encoding": "utf8",
     "C_Cpp.errorSquiggles": "Disabled"
