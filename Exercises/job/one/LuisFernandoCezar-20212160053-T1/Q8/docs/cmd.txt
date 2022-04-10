@@ -1,0 +1,5 @@
+cd .\Exercises\job\one\LuisFernandoCezar-20212160053-T1\Q8
+
+gcc LuisFernandoCezar_20212160053_Q8.c view/*.c controller/*.c validation/*.c -o Q8
+
+./Q8
