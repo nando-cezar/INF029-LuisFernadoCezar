@@ -41,12 +41,13 @@ void popularTables(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE]
     int boatType;
     int guidance;
     int quantity = QUANTITYBOAT;
-    int repeated;
+    int repeated, limited;
 
-    do{     
+    do{      
 
         do{
             repeated = 0;
+            limited = 0;
 
             presentationComplexTable(player, matrix, cleanMatrix, 0);
             printf("\n\n.:: JOGADOR %d ::.", player);
@@ -63,16 +64,25 @@ void popularTables(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE]
             getchar();
 
             column--;
-
-            if(verifyValueInMatrix(matrix, SPACE_, line, column, 1)) setValuesMatrix(matrix, line, column, N_, boatType, guidance);
-            else repeated = 1;
+            
+            if(verifyContainerMatrix(matrix, line, column, boatType, guidance))
+                limited = 1;
+            else{
+                if(verifyValueInMatrix(matrix, line, column, SPACE_, boatType, guidance, 1)) setValuesMatrix(matrix, line, column, N_, boatType, guidance);
+                else repeated = 1;
+            }
+            
 
             if(repeated == 1){
                 printf("\nO caminho informado já se encontra preenchido!");
                 getchar();
+            }else if(limited == 1){
+                printf("\nO caminho informado ultrapassa o limite do tabuleiro!");
+                getchar();
             }
             
-        }while(repeated == 1);
+            
+        }while(repeated == 1 ||  limited == 1);
 
         quantity--;
     }while(quantity > 0);
