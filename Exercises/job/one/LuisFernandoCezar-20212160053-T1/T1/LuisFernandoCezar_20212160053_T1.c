@@ -27,6 +27,7 @@
 #include <string.h>
 #include <ctype.h> 
 #include <math.h>
+#include <locale.h>
 /*
 ## função utilizada para testes  ##
 
@@ -366,7 +367,59 @@ int q3(char *texto, char c, int isCaseSensitive)
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30]){
 
+    setlocale(LC_ALL, "Portuguese");
+    /*
+        printf("O valor da variavel %c : %d\n",130, 10);
+        getchar();
+    */
     int qtdOcorrencias = 0;
+    int count = 0;
+    int x = 0;
+    int qtdAcento = 0;
+
+    printf("* %s\n", strTexto);
+    printf("* %s\n", strBusca);
+    getchar();
+
+    /*for (int i = 0; i > -127; i--){
+        printf("%c:%d   ", i, i);
+    }*/
+
+    for(int i = 0; i < strlen(strTexto); i++){
+        if(strTexto[i] < 0){
+            qtdAcento++;
+        }
+        //printf("ii: %d\n", i);
+        if(strTexto[i] == strBusca[0]){
+            //printf("- %c\n", strTexto[i]);
+            for(int j = 0; j < strlen(strBusca); j++){
+                //printf("--: %d", j+i);
+                //getchar();
+                if(strTexto[j+i] == strBusca[j]){
+                    count++;
+                }else{
+                    count = 0;
+                }
+            }
+        }
+        //printf("c: %d\n", count);
+        if(count == strlen(strBusca)){
+            qtdOcorrencias++;
+            posicoes[x] = i+1-(qtdAcento/2); x++;
+            //printf("ia: %d\n", i);
+            i += count-1;
+            posicoes[x] = i+1-(qtdAcento/2); x++;
+            //printf("id: %d\n", i);
+            count = 0;
+        }
+
+    }
+
+    /*printf("qtdOcorrencias: %d\n", qtdOcorrencias);
+    getchar();
+
+    printf("qtdAcento: %d\n", qtdAcento);
+    getchar();*/
     
     return qtdOcorrencias;
 }
