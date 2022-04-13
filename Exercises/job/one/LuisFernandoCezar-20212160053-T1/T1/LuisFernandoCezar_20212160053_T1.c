@@ -257,8 +257,6 @@ int q1(char data[]){
 
     DataQuebrada dataQuebrada = quebraData(data);
 
-    printf("--->>> %d\n", dataQuebrada.valido);
-
     if (dataQuebrada.valido) return 1;
     else return 0;
 
@@ -284,8 +282,6 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]){
     DataQuebrada dtInicial = quebraData(datainicial);
     DataQuebrada dtFinal = quebraData(datafinal);
 
-    printf("--->>> %d\n", dtInicial.valido);
-    printf("--->>> %d\n", dtFinal.valido);
     if (dtInicial.valido == 0){
         dma.retorno = 2;
         return dma;
@@ -367,34 +363,20 @@ int q3(char *texto, char c, int isCaseSensitive)
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30]){
 
-    setlocale(LC_ALL, "Portuguese");
-    /*
-        printf("O valor da variavel %c : %d\n",130, 10);
-        getchar();
-    */
     int qtdOcorrencias = 0;
     int count = 0;
     int x = 0;
     int qtdAcento = 0;
 
-    printf("* %s\n", strTexto);
-    printf("* %s\n", strBusca);
-    getchar();
-
-    /*for (int i = 0; i > -127; i--){
-        printf("%c:%d   ", i, i);
-    }*/
-
     for(int i = 0; i < strlen(strTexto); i++){
         if(strTexto[i] < 0){
             qtdAcento++;
         }
-        //printf("ii: %d\n", i);
+
         if(strTexto[i] == strBusca[0]){
-            //printf("- %c\n", strTexto[i]);
+
             for(int j = 0; j < strlen(strBusca); j++){
-                //printf("--: %d", j+i);
-                //getchar();
+
                 if(strTexto[j+i] == strBusca[j]){
                     count++;
                 }else{
@@ -402,24 +384,16 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]){
                 }
             }
         }
-        //printf("c: %d\n", count);
+
         if(count == strlen(strBusca)){
             qtdOcorrencias++;
             posicoes[x] = i+1-(qtdAcento/2); x++;
-            //printf("ia: %d\n", i);
             i += count-1;
             posicoes[x] = i+1-(qtdAcento/2); x++;
-            //printf("id: %d\n", i);
             count = 0;
         }
 
     }
-
-    /*printf("qtdOcorrencias: %d\n", qtdOcorrencias);
-    getchar();
-
-    printf("qtdAcento: %d\n", qtdAcento);
-    getchar();*/
     
     return qtdOcorrencias;
 }
@@ -436,40 +410,16 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]){
 
 int q5(int num)
 {
-    int unidade = 0;
-    int dezena  = 0;
-    int centena = 0;
-    int milhar  = 0;
 
-    if (num > 9 && num <= 99){
-        
-        dezena = num / 10;
-        unidade = num % 10;
-        
-        num = unidade * 10 + dezena;
+    int numInverso = 0, restoDivisao = 0; 
 
-    }else if (num > 99 && num <= 999){
+    while(num > 0){    
+        restoDivisao = num % 10;
+        numInverso = numInverso * 10 + restoDivisao;    
+        num /= 10;    
+    }   
 
-        centena = num / 100;
-        dezena = (num % 100) / 10;
-        unidade = (num % 100) % 10;
-        
-        num = (unidade * 100) + (dezena * 10) + centena;
-
-    }else if (num > 999 && num <= 9999){
-
-        milhar  = num / 1000;
-        centena = (num % 1000) / 100;
-        dezena  = ((num % 1000) % 100) / 10;
-        unidade = ((num % 1000) % 100) % 10;
-        
-        num = (unidade * 1000) + (dezena * 100) + (centena * 10) + milhar;
-        
-    }else{
-        return num;
-    }
-
-    return num;
+    return numInverso;
 }
 
 /*
@@ -499,7 +449,6 @@ int q6(int numerobase, int numerobusca)
         }
         numerobase /= 10;
     }
-    //printf("--->>> %d | %d | %d \n", qtdOcorrencias, (int)(pow(10, count) + 0.5), count);
 
     return qtdOcorrencias;
 }

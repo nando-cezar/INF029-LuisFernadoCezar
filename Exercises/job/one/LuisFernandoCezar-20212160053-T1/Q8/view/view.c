@@ -37,11 +37,10 @@ void presentationComplexTable(int player, char matrix[LINE][COLUMN], char cleanM
 void popularTables(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE][COLUMN]){
 
     char line; 
-    int column;
-    int boatType;
-    int guidance;
-    int quantity = QUANTITYBOAT;
+    char alternative;
+    int column, boatType, guidance, quantity = 1;
     int repeated, limited;
+    int flag = 0;
 
     do{      
 
@@ -52,16 +51,29 @@ void popularTables(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE]
             presentationComplexTable(player, matrix, cleanMatrix, 0);
             printf("\n\n.:: JOGADOR %d ::.", player);
 
-            printf("\nInforme a localização dos barcos... \n\n");
+            if(flag){
+                boatType = 2;
+                printf("\nSelecionando barco de tamanho %d...", boatType);
+            }else{
+                if(quantity == 1 || quantity == 2 || quantity == 3) boatType = 1;
+                else if(quantity == 4) boatType = 3;
+                else if(quantity == 5) boatType = 4;
+                printf("\nSelecionando barco de tamanho %d...", boatType);
+                getchar();
+            }
+
+            printf("\nInforme a localização do barco... \n\n");
             printf("\nSelecione posição: ");
             scanf(" %c %d", &line, &column);
             getchar();
-            printf("\nInforme tipo de barco (1. tamanho 1, 2. tamanho 2, 3. tamanho 3, 4. tamanho 4): ");
-            scanf("%d", &boatType);
-            getchar();
-            printf("\nInforme orientação (1. cima, 2. baixo, 3. direta, 4. esquerda): ");
-            scanf("%d", &guidance);
-            getchar();
+            
+            if(quantity == 1 || quantity == 2 || quantity == 3) guidance = 1;
+            else{
+                printf("\nInforme orientação (1. cima, 2. baixo, 3. direta, 4. esquerda): ");
+                scanf("%d", &guidance);
+                getchar();
+            }
+            
 
             column--;
             
@@ -84,8 +96,19 @@ void popularTables(int player, char matrix[LINE][COLUMN], char cleanMatrix[LINE]
             
         }while(repeated == 1 ||  limited == 1);
 
-        quantity--;
-    }while(quantity > 0);
+        if(quantity == 5){
+            printf("\nDeseja continuar alocando barcos (s/n)? ");
+            scanf(" %s", &alternative);
+            getchar();
+        }
+
+        if(alternative == 's'){
+            quantity--;
+            flag = 1;
+        } 
+
+        quantity++;
+    }while(quantity <= QUANTITYBOAT);
 }
 
 void instructions(){

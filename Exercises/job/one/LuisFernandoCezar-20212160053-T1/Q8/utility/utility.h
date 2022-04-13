@@ -15,7 +15,7 @@
 
     #define LINE 10
     #define COLUMN 10
-    #define QUANTITYBOAT 2
+    #define QUANTITYBOAT 5
 
     #if defined(_WIN32) || defined(_WIN64)
         #define CLEAR "cls"
