@@ -2,6 +2,7 @@
 #include "validation/validate.h"
 #include "controller/table.h"
 #include "view/view.h"
+#include "view/menu.h"
 
 void main(){
 
@@ -11,6 +12,8 @@ void main(){
 
     initializeMatrix(matrix);
 
+    logo();
+    
     while(1){
 
         if(playerMenu(1, 'X', matrix)) break;

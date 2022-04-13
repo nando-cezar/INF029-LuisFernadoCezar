@@ -1,6 +1,7 @@
 #include "utility/utility.h"
 #include "controller/table.h"
 #include "view/view.h"
+#include "view/menu.h"
 
 void main(){
 
@@ -16,6 +17,8 @@ void main(){
     initializeMatrix(cleanMatrixOne);
     initializeMatrix(cleanMatrixTwo);
     
+    logo();
+
     instructions();
 
     // popular tables

@@ -6,6 +6,7 @@
     #include <stdlib.h>
     #include <locale.h> 
     #include <ctype.h>
+    #include <unistd.h>
 
     #define SPACE_ 32
     #define A_ 65
