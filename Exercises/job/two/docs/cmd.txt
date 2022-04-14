@@ -1,0 +1,5 @@
+cd Exercises/job/two
+
+gcc main.c model/*.c -o main
+
+./main

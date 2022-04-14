@@ -1,4 +1,4 @@
-cd .\Exercises\job\one\LuisFernandoCezar-20212160053-T1\Q7
+cd Exercises/job/one/LuisFernandoCezar-20212160053-T1/Q7
 
 gcc LuisFernandoCezar_20212160053_Q7.c view/*.c controller/*.c validation/*.c -o Q7
 
