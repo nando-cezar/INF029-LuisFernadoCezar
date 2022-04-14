@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "linked.h"
+#include "../model/linked.h"
 
 
 List* list_create(void){ return NULL; }
