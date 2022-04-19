@@ -2,22 +2,21 @@
 
     #define LINKED_H
 
-    struct list {
+    typedef struct list {
         int info;
         struct list *next;
-    };
-    typedef struct list List;
+    } List;
 
-    List* list_create(void);
-    List* list_insert(List* l, int i);
-    void list_update(List** l, int i);
-    void list_retrieve(List* l);
-    void list_retrieveAll(List** l);
-    int list_empty(List* l);
-    List* list_delete(List* l, int v);
-    void list_release(List *l);
-    List* list_insert_sorted(List* l, int v);
-    
+    List    *listCreate(void);
+    List    *listInsert(List* l, int i);
+    void    listUpdate(List** l, int i);
+    void    listRetrieve(List* l);
+    void    listRetrieveAll(List** l);
+    int     listEmpty(List* l);
+    List    *listDelete(List* l, int v);
+    void    listRelease(List *l);
+    List    *listInsertSorted(List* l, int v);
+
 
 
 #endif

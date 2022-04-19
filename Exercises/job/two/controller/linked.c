@@ -4,9 +4,9 @@
 #include "../model/linked.h"
 
 
-List* list_create(void){ return NULL; }
+List* listCreate(void){ return NULL; }
 
-List* list_insert(List* l, int i){ 
+List* listInsert(List* l, int i){ 
 
     List* new = (List*) malloc(sizeof(List));
     new->info = i;
@@ -14,7 +14,7 @@ List* list_insert(List* l, int i){
     return new;
 }
 
-void list_update(List** l, int i){ 
+void listUpdate(List** l, int i){ 
 
     List* new = (List*) malloc(sizeof(List));
     new->info = i;
@@ -22,7 +22,7 @@ void list_update(List** l, int i){
     *l = new;
 }
 
-void list_retrieve(List* l){
+void listRetrieve(List* l){
 
     List* p;
 
@@ -30,20 +30,23 @@ void list_retrieve(List* l){
 
 }
 
-void list_retrieveAll(List** l){
+void listRetrieveAll(List** l){
 
     List* p;
 
-    for(int i = 0; i < SIZE; i++){  
-        for(p = l[i]; p != NULL; p = p->next) printf("index = %d | info = %d\n", i, p->info);
-    }
-        
+    for(int i = 0; i < SIZE; i++){
+        if(!listEmpty(l[i])){
+            printf("[ %02d ]", i);
+            for(p = l[i]; p != NULL; p = p->next) printf("| %02d |", p->info); 
+            printf("\n");
+        } 
 
+    }
 }
 
-int list_empty(List* l){ return (l == NULL); }
+int listEmpty(List* l){ return (l == NULL); }
 
-List* list_search(List* l, int v){
+List* listSearch(List* l, int v){
     List* p;
     for(p = l; p != NULL; p = p->next){
         if(p->info == v) return p;
@@ -51,7 +54,7 @@ List* list_search(List* l, int v){
     return NULL;
 }
 
-List* list_delete(List* l, int v){
+List* listDelete(List* l, int v){
 
     List* ant = NULL;
     List* p = l;
@@ -70,7 +73,7 @@ List* list_delete(List* l, int v){
     return l;
 }
 
-void list_release(List *l){
+void listRelease(List *l){
 
     List* p = l;
 
@@ -81,7 +84,7 @@ void list_release(List *l){
     }
 }
 
-List* list_insert_sorted(List* l, int v){
+List* listInsertSorted(List* l, int v){
 
     List* new;
     List* ant = NULL;
