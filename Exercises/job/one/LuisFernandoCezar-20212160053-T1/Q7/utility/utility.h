@@ -6,7 +6,8 @@
     #include <stdlib.h>
     #include <locale.h> 
     #include <ctype.h>
-
+    #include <unistd.h>
+    
     #define SPACE 32
     #define LINE 3
     #define COLUMN 3
