@@ -29,33 +29,56 @@ int haveSpaceInMatrix(char matrix[LINE][COLUMN]){
     return 0;
 }
 
+int verifyColumn(char matrix[LINE][COLUMN], char symbol){
+
+    for(int i = 0; i < 3; i++){
+        if(
+            matrix[0][i] == symbol &&
+            matrix[1][i] == symbol &&
+            matrix[2][i] == symbol
+        ){
+            return 1;
+        } 
+    }
+
+    return 0;
+}
+
+int verifyLine(char matrix[LINE][COLUMN], char symbol){
+
+    for(int i = 0; i < 3; i++){
+        if(
+            matrix[i][0] == symbol &&
+            matrix[i][1] == symbol &&
+            matrix[i][2] == symbol
+        ){
+            return 1;
+        } 
+    }
+
+    return 0;
+}
+
+int verifyDiagonal(char matrix[LINE][COLUMN], char symbol){
+    
+    if(matrix[0][0] == symbol && matrix[1][1] == symbol && matrix[2][2] == symbol) return 1;
+    else if(matrix[2][0] == symbol && matrix[1][1] == symbol && matrix[0][2] == symbol) return 1;
+    else return 0;
+}
+
 int verifyResult(char matrix[LINE][COLUMN], int player){
 
     if(player == 1){
-        if     (matrix[0][0] == 'X' && matrix[0][1] == 'X' && matrix[0][2] == 'X') return 1;
-        else if(matrix[1][0] == 'X' && matrix[1][1] == 'X' && matrix[1][2] == 'X') return 1;
-        else if(matrix[2][0] == 'X' && matrix[2][1] == 'X' && matrix[2][2] == 'X') return 1;
-
-        else if(matrix[0][0] == 'X' && matrix[1][0] == 'X' && matrix[2][0] == 'X') return 1;
-        else if(matrix[0][1] == 'X' && matrix[1][1] == 'X' && matrix[2][1] == 'X') return 1;
-        else if(matrix[0][2] == 'X' && matrix[1][2] == 'X' && matrix[2][2] == 'X') return 1;
-
-        else if(matrix[0][0] == 'X' && matrix[1][1] == 'X' && matrix[2][2] == 'X') return 1;
-        else if(matrix[2][0] == 'X' && matrix[1][1] == 'X' && matrix[0][2] == 'X') return 1;
+        if(verifyColumn(matrix, 'X')) return 1;
+        else if(verifyLine(matrix, 'X')) return 1; 
+        else if(verifyDiagonal(matrix, 'X')) return 1;
         else return 0;
     
     }else if(player == 2){
 
-        if     (matrix[0][0] == 'O' && matrix[0][1] == 'O' && matrix[0][2] == 'O') return 1;
-        else if(matrix[1][0] == 'O' && matrix[1][1] == 'O' && matrix[1][2] == 'O') return 1;
-        else if(matrix[2][0] == 'O' && matrix[2][1] == 'O' && matrix[2][2] == 'O') return 1;
-
-        else if(matrix[0][0] == 'O' && matrix[1][0] == 'O' && matrix[2][0] == 'O') return 1;
-        else if(matrix[0][1] == 'O' && matrix[1][1] == 'O' && matrix[2][1] == 'O') return 1;
-        else if(matrix[0][2] == 'O' && matrix[1][2] == 'O' && matrix[2][2] == 'O') return 1;
-
-        else if(matrix[0][0] == 'O' && matrix[1][1] == 'O' && matrix[2][2] == 'O') return 1;
-        else if(matrix[2][0] == 'O' && matrix[1][1] == 'O' && matrix[0][2] == 'O') return 1;
+        if(verifyColumn(matrix, 'O')) return 1;
+        else if(verifyLine(matrix, 'O')) return 1; 
+        else if(verifyDiagonal(matrix, 'O')) return 1;
         else return 0;
     }
     

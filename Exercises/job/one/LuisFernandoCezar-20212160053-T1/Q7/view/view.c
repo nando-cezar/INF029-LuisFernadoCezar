@@ -32,7 +32,7 @@ int playerMenu(int player, char symbol, char matrix[LINE][COLUMN]){
 
         do{
             printf("\nInstruções: Informe linha e coluna simultaneamente!");
-            printf("\nJogador %d: ", player);
+            printf("\n\nJogador %d: ", player);
             scanf(" %c %d", &line, &column);
             getchar();
 
@@ -51,7 +51,7 @@ int playerMenu(int player, char symbol, char matrix[LINE][COLUMN]){
 
         if(verifyResult(matrix, player)){
             presentationTable(matrix);
-            printf("JOGADOR %d VENCEU!\n", player);
+            printf("\nJOGADOR %d VENCEU!\n", player);
             return 1;
 
         }else if(count == 1){
@@ -59,7 +59,7 @@ int playerMenu(int player, char symbol, char matrix[LINE][COLUMN]){
             getchar();
 
         }else if(!haveSpaceInMatrix(matrix)){
-            printf("EMPATE!\n");
+            printf("\nEMPATE!\n");
             return 1;
         }
     
