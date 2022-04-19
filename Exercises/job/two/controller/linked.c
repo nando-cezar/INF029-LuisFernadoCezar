@@ -3,7 +3,6 @@
 #include "../utility/utility.h"
 #include "../model/linked.h"
 
-
 List* listCreate(void){ return NULL; }
 
 List* listInsert(List* l, int i){ 
@@ -36,11 +35,10 @@ void listRetrieveAll(List** l){
 
     for(int i = 0; i < SIZE; i++){
         if(!listEmpty(l[i])){
-            printf("[ %02d ]", i);
+            printf("( %02d )", i);
             for(p = l[i]; p != NULL; p = p->next) printf("| %02d |", p->info); 
             printf("\n");
         } 
-
     }
 }
 
@@ -126,5 +124,4 @@ void listSorted(List** l){
     }
     
     listRetrieveAll(s);
-    getchar();
 }

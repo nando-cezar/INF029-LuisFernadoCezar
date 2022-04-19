@@ -1,5 +1,5 @@
 cd Exercises/job/two
 
-gcc main.c view/*.c controller/*.c -o main
+gcc main.c view/*.c controller/*.c service/*.c -o main
 
 ./main

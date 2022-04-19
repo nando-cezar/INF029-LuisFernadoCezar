@@ -1,12 +1,7 @@
 #include "../utility/utility.h"
+#include "../model/service.h"
 #include "../model/linked.h"
 #include "menu.h"
-
-void insertElement(List* structural[SIZE]);
-void retrieveElements(List* structural[SIZE]);
-void sortElements(List* structural[SIZE]);
-void deleteElement(List* structural[SIZE]);
-void bubbleSort(List* structural[SIZE]);
 
 void header(){
 
@@ -56,76 +51,6 @@ void menu(){
                 break;
         }
     }while(option != 7);
-
-}
-
-void insertElement(List* structural[SIZE]){
-
-    int position;
-    int value;
-    int size;
-    
-    printf("\nInforme qual posição deseja inserir: ");
-    scanf("%d", &position);
-    getchar();
-
-    /*
-    if(listEmpty(structural[position])){
-        printf("\nInforme tamanho da estrutura auxiliar: ");
-        scanf("%d", &size);
-        getchar();
-
-        for(int i = 0; i < size; i++)
-            structural[position] = listInsert(structural[position], '\0');
-    }
-    retrieveElements(structural);
-    */
-
-    printf("\nInforme valor: ");
-    scanf("%d", &value);
-    getchar();
-
-    structural[position] = listInsert(structural[position], value);
-
-    retrieveElements(structural);
-    getchar();
-}
-
-void retrieveElements(List* structural[SIZE]){
-    listRetrieveAll(structural);
-}
-
-void sortElementsInStructure(){
-
-}
-
-void sortElements(List* structural[SIZE]){
-    listSorted(structural);
-    getchar();
-}
-
-void deleteElement(List* structural[SIZE]){
-
-    int position;
-    int value;
-
-    listRetrieveAll(structural);
-
-    printf("\nInforme qual posição deseja excluir: ");
-    scanf("%d", &position);
-    getchar();
-
-    printf("\nInforme valor: ");
-    scanf("%d", &value);
-    getchar();
-
-    structural[position] = listDelete(structural[position], value);
-
-    retrieveElements(structural);
-    getchar();
-}
-
-void resizeStructure(){
 
 }
 
