@@ -3,7 +3,10 @@
 #include "menu.h"
 
 void insertElement(List* structural[SIZE]);
+void retrieveElements(List* structural[SIZE]);
+void sortElements(List* structural[SIZE]);
 void deleteElement(List* structural[SIZE]);
+void bubbleSort(List* structural[SIZE]);
 
 void header(){
 
@@ -38,9 +41,9 @@ void menu(){
 
         switch (option){
             case 1: insertElement(structural); break;    
-            case 2: //retrieveElements(structural); break;    
+            case 2: retrieveElements(structural); break;    
             case 3: //sortElementsInStructure(structural); break;
-            case 4: //sortElements(structural); break;
+            case 4: sortElements(structural); break;
             case 5: deleteElement(structural); break;
             case 6: //resizeStructure(structural); break;
             case 7:
@@ -60,29 +63,45 @@ void insertElement(List* structural[SIZE]){
 
     int position;
     int value;
+    int size;
     
     printf("\nInforme qual posição deseja inserir: ");
     scanf("%d", &position);
     getchar();
+
+    /*
+    if(listEmpty(structural[position])){
+        printf("\nInforme tamanho da estrutura auxiliar: ");
+        scanf("%d", &size);
+        getchar();
+
+        for(int i = 0; i < size; i++)
+            structural[position] = listInsert(structural[position], '\0');
+    }
+    retrieveElements(structural);
+    */
 
     printf("\nInforme valor: ");
     scanf("%d", &value);
     getchar();
 
     structural[position] = listInsert(structural[position], value);
-    
+
+    retrieveElements(structural);
+    getchar();
 }
 
-void retrieveElements(){
-
+void retrieveElements(List* structural[SIZE]){
+    listRetrieveAll(structural);
 }
 
 void sortElementsInStructure(){
 
 }
 
-void sortElements(){
-
+void sortElements(List* structural[SIZE]){
+    listSorted(structural);
+    getchar();
 }
 
 void deleteElement(List* structural[SIZE]){
@@ -102,10 +121,12 @@ void deleteElement(List* structural[SIZE]){
 
     structural[position] = listDelete(structural[position], value);
 
-    listRetrieveAll(structural);
+    retrieveElements(structural);
     getchar();
 }
 
 void resizeStructure(){
 
 }
+
+

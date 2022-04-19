@@ -110,3 +110,21 @@ List* listInsertSorted(List* l, int v){
     }
     return l;
 }
+
+void listSorted(List** l){
+
+    List* p;
+    List* s[SIZE];
+
+    for(int i = 0; i < SIZE; i++) s[i] = listCreate();
+    
+    for(int i = 0; i < SIZE; i++){
+        if(!listEmpty(l[i])){
+            for(p = l[i]; p != NULL; p = p->next) 
+                s[i] = listInsertSorted(s[i], p->info);
+        } 
+    }
+    
+    listRetrieveAll(s);
+    getchar();
+}
