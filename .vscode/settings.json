@@ -12,7 +12,8 @@
         "luisfernandocezar_20212160053_t1.h": "c",
         "ctype.h": "c",
         "locale.h": "c",
-        "view.h": "c"
+        "view.h": "c",
+        "stdio.h": "c"
     },
     "files.encoding": "utf8",
     "C_Cpp.errorSquiggles": "Disabled"

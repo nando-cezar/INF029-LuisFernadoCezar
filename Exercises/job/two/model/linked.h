@@ -12,6 +12,7 @@
     List* list_insert(List* l, int i);
     void list_update(List** l, int i);
     void list_retrieve(List* l);
+    void list_retrieveAll(List** l);
     int list_empty(List* l);
     List* list_delete(List* l, int v);
     void list_release(List *l);

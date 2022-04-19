@@ -92,7 +92,7 @@ void testQ2()
     printf("%d\n", dma.qtdDias == 0);
     printf("%d\n", dma.qtdMeses == 0);
     printf("%d\n", dma.qtdAnos == 1);
-    printf("---------------\n");
+
     //teste 2 - retornos
     qtdDias = -1;
     qtdMeses = -1;
@@ -112,7 +112,7 @@ void testQ2()
     strcpy(datafinal, "01/06/2015");
     dma = q2(datainicial, datafinal);
     printf("%d\n", dma.retorno == 4);
-    printf("---------------\n");
+
     //teste 3
     qtdDias = -1;
     qtdMeses = -1;

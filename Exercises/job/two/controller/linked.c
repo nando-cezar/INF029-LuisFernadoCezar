@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../utility/utility.h"
 #include "../model/linked.h"
 
 
@@ -26,6 +27,17 @@ void list_retrieve(List* l){
     List* p;
 
     for(p = l; p != NULL; p = p->next) printf("info = %d\n", p->info);
+
+}
+
+void list_retrieveAll(List** l){
+
+    List* p;
+
+    for(int i = 0; i < SIZE; i++){  
+        for(p = l[i]; p != NULL; p = p->next) printf("index = %d | info = %d\n", i, p->info);
+    }
+        
 
 }
 

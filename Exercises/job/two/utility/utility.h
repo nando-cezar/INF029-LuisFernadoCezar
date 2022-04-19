@@ -8,6 +8,10 @@
     #include <ctype.h>
     #include <unistd.h>
 
+    #define SIZE 10
+    
+    #define SPACE_ 32
+
     #if defined(_WIN32) || defined(_WIN64)
         #define CLEAR "cls"
     #else
