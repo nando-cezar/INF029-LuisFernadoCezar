@@ -71,14 +71,16 @@ List* listDelete(List* l, int v){
     return l;
 }
 
-void listRelease(List *l){
+void listRelease(List** l){
 
-    List* p = l;
+    List** p = l;
+    int i = 0;
 
-    while(p != NULL){
-        List* t = p->next;
-        free(p);
-        p = t;
+    while(p[i] != NULL){
+        List* t = p[i]->next;
+        free(p[i]);
+        p[i] = t;
+        i++;
     }
 }
 
@@ -124,4 +126,5 @@ void listSorted(List** l){
     }
     
     listRetrieveAll(s);
+    listRelease(s);
 }

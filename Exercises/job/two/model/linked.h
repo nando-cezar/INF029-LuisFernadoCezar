@@ -14,7 +14,7 @@
     void    listRetrieveAll(List** l);
     int     listEmpty(List* l);
     List    *listDelete(List* l, int v);
-    void    listRelease(List* l);
+    void    listRelease(List** l);
     List    *listInsertSorted(List* l, int v);
     void    listSorted(List** l);
 
