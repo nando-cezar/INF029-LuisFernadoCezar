@@ -13,6 +13,28 @@ List* listInsert(List* l, int i){
     return new;
 }
 
+void listInsertEnd(List** l, int v){
+    
+    List* p;
+    List* new = malloc(sizeof(List));
+
+    if(new){
+        new->info = v;
+        new->next = NULL;
+
+        if(*l == NULL)
+            *l = new;
+        else{
+            p = *l;
+            while(p->next) 
+                p = p->next;
+            p->next = new;
+        }
+    }
+    else
+        printf("Erro ao alocar memoria!\n");
+}
+
 List* listUpdate(List* l, int i){ 
 
     List* new = (List*) malloc(sizeof(List));
@@ -76,11 +98,12 @@ List* listDelete(List* l, int v){
 
 List* listReallocateValue(List* l, int v){
 
+    List* p;
     List* new = (List*) malloc(sizeof(List));
 
     new = l;
     new = listDelete(new, v);
-    new = listInsert(new, 0);
+    listInsertEnd(&new, 0);
        
     return new;
 }
@@ -98,7 +121,7 @@ void listRelease(List** l){
     }
 }
 
-List* listInsertSorted(List* l, int v){
+List* listInsertSortedAsc(List* l, int v){
 
     List* new;
     List* ant = NULL;
@@ -125,7 +148,34 @@ List* listInsertSorted(List* l, int v){
     return l;
 }
 
-void listSorted(List** l){
+List* listInsertSortedDesc(List* l, int v){
+
+    List* new;
+    List* ant = NULL;
+    List* p = l;
+
+
+    while(p != NULL && p->info > v){
+        ant = p;
+        p = p->next;
+    }
+
+    new = (List*) malloc(sizeof(List));
+    new->info = v;
+
+    if(ant == NULL){
+
+        new->next = l;
+        l = new;
+
+    }else{
+        new->next = ant->next;
+        ant->next = new;
+    }
+    return l;
+}
+
+void listSortedAsc(List** l){
 
     List* p;
     List* s[SIZE];
@@ -135,7 +185,7 @@ void listSorted(List** l){
     for(int i = 0; i < SIZE; i++){
         if(!listEmpty(l[i])){
             for(p = l[i]; p != NULL; p = p->next) 
-                s[i] = listInsertSorted(s[i], p->info);
+                s[i] = listInsertSortedAsc(s[i], p->info);
         } 
     }
     

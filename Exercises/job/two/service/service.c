@@ -39,7 +39,7 @@ void sortElementsInStructure(){
 }
 
 void sortElements(List* structural[SIZE]){
-    listSorted(structural);
+    listSortedAsc(structural);
     getchar(); getchar();
 }
 

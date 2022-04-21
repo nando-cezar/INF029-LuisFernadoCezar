@@ -16,8 +16,9 @@
     List    *listDelete(List* l, int v);
     List    *listReallocateValue(List* l, int v);
     void    listRelease(List** l);
-    List    *listInsertSorted(List* l, int v);
-    void    listSorted(List** l);
+    List    *listInsertSortedAsc(List* l, int v);
+    List    *listInsertSortedDesc(List* l, int v);
+    void    listSortedAsc(List** l);
     
 
 
