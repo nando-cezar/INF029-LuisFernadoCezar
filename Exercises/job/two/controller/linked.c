@@ -13,7 +13,7 @@ List* listInsert(List* l, int i){
     return new;
 }
 
-void listInsertEnd(List** l, int v){
+List* listInsertEnd(List* l, int v){
     
     List* p;
     List* new = malloc(sizeof(List));
@@ -22,10 +22,10 @@ void listInsertEnd(List** l, int v){
         new->info = v;
         new->next = NULL;
 
-        if(*l == NULL)
-            *l = new;
+        if(l == NULL)
+            l = new;
         else{
-            p = *l;
+            p = l;
             while(p->next) 
                 p = p->next;
             p->next = new;
@@ -33,6 +33,8 @@ void listInsertEnd(List** l, int v){
     }
     else
         printf("Erro ao alocar memoria!\n");
+
+    return l;
 }
 
 List* listUpdate(List* l, int i){ 
@@ -103,7 +105,7 @@ List* listReallocateValue(List* l, int v){
 
     new = l;
     new = listDelete(new, v);
-    listInsertEnd(&new, 0);
+    new = listInsertEnd(new, 0);
        
     return new;
 }

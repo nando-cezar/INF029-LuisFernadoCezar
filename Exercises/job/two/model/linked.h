@@ -9,6 +9,7 @@
 
     List    *listCreate(void);
     List    *listInsert(List* l, int i);
+    List    *listInsertEnd(List* l, int v);
     List    *listUpdate(List* l, int i);
     void    listRetrieve(List* l);
     void    listRetrieveAll(List** l);

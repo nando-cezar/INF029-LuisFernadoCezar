@@ -61,7 +61,6 @@ void deleteElement(List* structural[SIZE]){
     structural[position] = listReallocateValue(structural[position], value);
 
     retrieveElements(structural);
-    getchar();
 }
 
 void resizeStructure(){
