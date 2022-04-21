@@ -304,7 +304,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]){
         //printf("----> %d/%d/%d\n", dma.qtdDias, dma.qtdMeses, dma.qtdAnos);
         if (dma.qtdMeses < 0){
             dma.qtdAnos--;
-            dma.qtdMeses = 12 + dtFinal.iMes;
+            dma.qtdMeses += 12;
         }
 
         if (dma.qtdDias < 0){

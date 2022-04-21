@@ -223,6 +223,14 @@ void testQ2()
     printf("%d\n", dma.qtdDias == 0);
     printf("%d\n", dma.qtdMeses == 0);
     printf("%d\n", dma.qtdAnos == 3);
+
+    strcpy(datainicial, "01/04/1970");
+    strcpy(datafinal, "01/02/2022");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 0);
+    printf("%d\n", dma.qtdMeses == 10);
+    printf("%d\n", dma.qtdAnos == 51);
 }
 
 void testQ3()
