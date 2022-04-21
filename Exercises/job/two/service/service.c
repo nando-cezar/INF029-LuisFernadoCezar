@@ -14,14 +14,18 @@ void insertElement(List* structural[SIZE]){
     if(!listEmpty(structural[position])){
         printf("\nInforme valor: ");
         scanf("%d", &value);
-        getchar();
+        getchar(); 
+
+        structural[position] = listUpdate(structural[position], value);
     }else{
         printf("\nInforme tamanho da estrutura auxiliar: ");
         scanf("%d", &size);
         getchar();
+
+        for(int i = 0; i < size; i++) 
+            structural[position] = listInsert(structural[position], 0);
     }
 
-    structural[position] = listInsert(structural[position], value);
     getchar();
 }
 
@@ -54,7 +58,7 @@ void deleteElement(List* structural[SIZE]){
     scanf("%d", &value);
     getchar();
 
-    structural[position] = listDelete(structural[position], value);
+    structural[position] = listReallocateValue(structural[position], value);
 
     retrieveElements(structural);
     getchar();

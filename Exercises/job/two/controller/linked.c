@@ -13,12 +13,15 @@ List* listInsert(List* l, int i){
     return new;
 }
 
-void listUpdate(List** l, int i){ 
+List* listUpdate(List* l, int i){ 
 
     List* new = (List*) malloc(sizeof(List));
-    new->info = i;
-    new->next = *l;
-    *l = new;
+
+    new = l;
+    new = listDelete(new, 0);
+    new = listInsert(new, i);
+
+    return new;
 }
 
 void listRetrieve(List* l){
@@ -69,6 +72,17 @@ List* listDelete(List* l, int v){
 
     free(p);
     return l;
+}
+
+List* listReallocateValue(List* l, int v){
+
+    List* new = (List*) malloc(sizeof(List));
+
+    new = l;
+    new = listDelete(new, v);
+    new = listInsert(new, 0);
+       
+    return new;
 }
 
 void listRelease(List** l){
