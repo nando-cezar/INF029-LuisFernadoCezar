@@ -13,7 +13,7 @@
 // Última atualização: 19/08/2016 - 12/12/2018
 
 // #################################################
-
+ 
 #include <stdio.h>
 #include <string.h>
 
@@ -33,12 +33,12 @@ int main()
 {
     //testSomar();
     //testFatorial();
-    testQ1();
+    //testQ1();
     testQ2();
-    testQ3();
-    testQ4();
-    testQ5();
-    testQ6();
+    //testQ3();
+    //testQ4();
+    //testQ5();
+    //testQ6();
 }
 
 void testSomar()
@@ -124,7 +124,105 @@ void testQ2()
     printf("%d\n", dma.retorno == 1);
     printf("%d\n", dma.qtdDias == 1);
     printf("%d\n", dma.qtdMeses == 1);
+    printf("%d\n", dma.qtdAnos == 0); 
+
+////
+    strcpy(datainicial, "06/06/2017");
+    strcpy(datafinal, "07/07/2017");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 1);
+    printf("%d\n", dma.qtdMeses == 1);
     printf("%d\n", dma.qtdAnos == 0);
+
+    strcpy(datainicial, "06/06/2017");
+    strcpy(datafinal, "05/07/2018");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 29);
+    printf("%d\n", dma.qtdMeses == 0);
+    printf("%d\n", dma.qtdAnos == 1);
+
+
+    strcpy(datainicial, "26/07/2017");
+    strcpy(datafinal, "25/08/2017");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 30);
+    printf("%d\n", dma.qtdMeses == 0);
+    printf("%d\n", dma.qtdAnos == 0);
+
+    strcpy(datainicial, "26/06/2017");
+    strcpy(datafinal, "26/07/2017");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 0);
+    printf("%d\n", dma.qtdMeses == 1);
+    printf("%d\n", dma.qtdAnos == 0);
+
+    strcpy(datainicial, "27/02/2016");
+    strcpy(datafinal, "03/03/2017");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 4);
+    printf("%d\n", dma.qtdMeses == 0);
+    printf("%d\n", dma.qtdAnos == 1);
+
+    strcpy(datainicial, "27/02/2015");
+    strcpy(datafinal, "03/03/2016");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 5);
+    printf("%d\n", dma.qtdMeses == 0);
+    printf("%d\n", dma.qtdAnos == 1);
+   
+    strcpy(datainicial, "28/01/2016");
+    strcpy(datafinal, "29/02/2016");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 1);
+    printf("%d\n", dma.qtdMeses == 1);
+    printf("%d\n", dma.qtdAnos == 0);
+
+    strcpy(datainicial, "28/02/2016");
+    strcpy(datafinal, "28/02/2017");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 0);
+    printf("%d\n", dma.qtdMeses == 0);
+    printf("%d\n", dma.qtdAnos == 1); 
+ 
+    strcpy(datainicial, "29/02/2016");
+    strcpy(datafinal, "28/02/2017");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 0);
+    printf("%d\n", dma.qtdMeses == 0);
+    printf("%d\n", dma.qtdAnos == 1);
+
+    strcpy(datainicial, "29/02/2016");
+    strcpy(datafinal, "28/02/2020");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 30);
+    printf("%d\n", dma.qtdMeses == 11);
+    printf("%d\n", dma.qtdAnos == 3);
+
+    strcpy(datainicial, "29/02/2016");
+    strcpy(datafinal, "29/02/2020");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 0);
+    printf("%d\n", dma.qtdMeses == 0);
+    printf("%d\n", dma.qtdAnos == 4);
+
+    strcpy(datainicial, "29/02/2016");
+    strcpy(datafinal, "28/02/2019");
+    dma = q2(datainicial, datafinal);
+    printf("%d\n", dma.retorno == 1);
+    printf("%d\n", dma.qtdDias == 0);
+    printf("%d\n", dma.qtdMeses == 0);
+    printf("%d\n", dma.qtdAnos == 3);
 }
 
 void testQ3()

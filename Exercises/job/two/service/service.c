@@ -11,9 +11,15 @@ void insertElement(List* structural[SIZE]){
     scanf("%d", &position);
     getchar();
 
-    printf("\nInforme valor: ");
-    scanf("%d", &value);
-    getchar();
+    if(!listEmpty(structural[position])){
+        printf("\nInforme valor: ");
+        scanf("%d", &value);
+        getchar();
+    }else{
+        printf("\nInforme tamanho da estrutura auxiliar: ");
+        scanf("%d", &size);
+        getchar();
+    }
 
     structural[position] = listInsert(structural[position], value);
     getchar();

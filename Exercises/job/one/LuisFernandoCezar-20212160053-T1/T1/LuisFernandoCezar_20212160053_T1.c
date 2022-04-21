@@ -230,14 +230,14 @@ int QuantidadeDeDiasMesAnterior(int mes, int ano){
         mes == 10||
         mes == 12
     ){
-        return 30;
+        return 31;
          
-    }else if(mes == 3 && anoBissexto(ano)){
+    }else if(mes == 2 && anoBissexto(ano)){
         return 29;          
-    }else if(mes == 3){
+    }else if(mes == 2){
         return 28;
     }else{
-        return 31;
+        return 30;
     }
 }
 /*
@@ -301,14 +301,21 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]){
         dma.qtdMeses = dtFinal.iMes - dtInicial.iMes;
         dma.qtdAnos = dtFinal.iAno - dtInicial.iAno;
         
+        //printf("----> %d/%d/%d\n", dma.qtdDias, dma.qtdMeses, dma.qtdAnos);
         if (dma.qtdMeses < 0){
             dma.qtdAnos--;
             dma.qtdMeses = 12 + dtFinal.iMes;
         }
+
         if (dma.qtdDias < 0){
-            dma.qtdMeses--;
-            dma.qtdDias = QuantidadeDeDiasMesAnterior(dtFinal.iMes, dtFinal.iAno) - dtInicial.iDia + dtFinal.iDia;
-        }
+            if(dma.qtdMeses == 0){
+                dma.qtdAnos--;
+                dma.qtdMeses = 11;
+            }else
+                dma.qtdMeses--;
+            dma.qtdDias = QuantidadeDeDiasMesAnterior(dtFinal.iMes-1, dtFinal.iAno) - dtInicial.iDia + dtFinal.iDia;
+        }      
+        //printf("----> %d/%d/%d\n", dma.qtdDias, dma.qtdMeses, dma.qtdAnos);
         //se tudo der certo
         dma.retorno = 1;
         return dma;
