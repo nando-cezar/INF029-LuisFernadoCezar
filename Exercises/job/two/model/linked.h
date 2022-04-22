@@ -7,18 +7,18 @@
         struct list *next;
     } List;
 
-    List    *listCreate(void);
-    List    *listInsert(List* l, int i);
-    List    *listInsertEnd(List* l, int v);
-    List    *listUpdate(List* l, int i);
-    void    listRetrieve(List* l);
-    void    listRetrieveAll(List** l);
-    int     listEmpty(List* l);
-    List    *listDelete(List* l, int v);
-    List    *listReallocateValue(List* l, int v);
-    void    listRelease(List** l);
-    List    *listInsertSortedAsc(List* l, int v);
-    List    *listInsertSortedDesc(List* l, int v);
-    void    listSortedAsc(List** l);
+    List    *listCreate(void);                      //Use External
+    List    *listInsert(List* l, int i);            //Use External
+    List    *listInsertEnd(List* l, int v);         //Use External
+    List    *listUpdate(List* l, int i);            //Use External
+    void    listRetrieve(List* l);                  //Use NULL
+    void    listRetrieveAll(List** l);              //Use External
+    int     listEmpty(List* l);                     //Use Internal linked
+    List    *listDelete(List* l, int v);            //Use Internal linked
+    List    *listReallocateValue(List* l, int v);   //Use External
+    void    listRelease(List** l);                  //Use Internal linked
+    List    *listInsertSortedAsc(List* l, int v);   //Use Internal linked
+    List    *listInsertSortedDesc(List* l, int v);  //Use NULL
+    void    listSortedAsc(List** l);                //Use External
     
 #endif

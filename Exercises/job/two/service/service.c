@@ -35,7 +35,7 @@ void retrieveElements(List* structural[SIZE]){
     getchar(); getchar();
 }
 
-void sortElementsInStructure(){
+void sortElementsInStructure(List* structural[SIZE]){
 
 }
 
@@ -52,11 +52,11 @@ void deleteElement(List* structural[SIZE]){
     listRetrieveAll(structural);
 
     printf("\nInforme qual posição deseja excluir: ");
-    scanf("%d", &position);
+    scanf("%d%*i", &position);
     getchar();
 
     printf("\nInforme valor: ");
-    scanf("%d", &value);
+    scanf("%d%*i", &value);
     getchar();
 
     structural[position] = listReallocateValue(structural[position], value);
@@ -70,11 +70,11 @@ void resizeStructure(List* structural[SIZE]){
     int size;
 
     printf("\nInforme qual posição deseja inserir: ");
-    scanf("%d", &position);
+    scanf("%d%*i", &position);
     getchar();
 
     printf("\nInforme tamanho da estrutura auxiliar: ");
-    scanf("%d", &size);
+    scanf("%d%*i", &size);
     getchar();
 
     resizing(structural, position, size, 0);

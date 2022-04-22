@@ -7,6 +7,7 @@
 
     void insertElement(List* structural[SIZE]);
     void retrieveElements(List* structural[SIZE]);
+    void sortElementsInStructure(List* structural[SIZE]);
     void sortElements(List* structural[SIZE]);
     void deleteElement(List* structural[SIZE]);
     void resizeStructure(List* structural[SIZE]);

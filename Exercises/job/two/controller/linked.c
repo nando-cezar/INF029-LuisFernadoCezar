@@ -64,7 +64,7 @@ void listRetrieveAll(List** l){
         if(!listEmpty(l[i])){
             printf("( %02d )", i);
             for(p = l[i]; p != NULL; p = p->next) printf("| %02d |", p->info); 
-            printf("\n");
+            printf("\n"); 
         } 
     }
 }
@@ -185,10 +185,10 @@ void listSortedAsc(List** l){
     for(int i = 0; i < SIZE; i++) s[i] = listCreate();
     
     for(int i = 0; i < SIZE; i++){
-        if(!listEmpty(l[i])){
-            for(p = l[i]; p != NULL; p = p->next) 
-                s[i] = listInsertSortedAsc(s[i], p->info);
-        } 
+        if(!listEmpty(l[i]))
+            for(p = l[i]; p != NULL; p = p->next)
+                if(p->info != 0)
+                    s[i] = listInsertSortedAsc(s[i], p->info);
     }
     
     listRetrieveAll(s);
