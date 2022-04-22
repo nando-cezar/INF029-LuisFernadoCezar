@@ -1,6 +1,8 @@
 #include "../utility/utility.h"
 #include "../model/linked.h"
 
+void resizing(List* structural[SIZE], int position, int size, int flag);
+
 void insertElement(List* structural[SIZE]){
 
     int position;
@@ -22,8 +24,7 @@ void insertElement(List* structural[SIZE]){
         scanf("%d", &size);
         getchar();
 
-        for(int i = 0; i < size; i++) 
-            structural[position] = listInsert(structural[position], 0);
+        resizing(structural, position, size, 1);
     }
 
     getchar();
@@ -63,8 +64,31 @@ void deleteElement(List* structural[SIZE]){
     retrieveElements(structural);
 }
 
-void resizeStructure(){
+void resizeStructure(List* structural[SIZE]){
 
+    int position;
+    int size;
+
+    printf("\nInforme qual posição deseja inserir: ");
+    scanf("%d", &position);
+    getchar();
+
+    printf("\nInforme tamanho da estrutura auxiliar: ");
+    scanf("%d", &size);
+    getchar();
+
+    resizing(structural, position, size, 0);
+
+}
+
+void resizing(List* structural[SIZE], int position, int size, int flag){
+    
+    if(flag)
+        for(int i = 0; i < size; i++) 
+            structural[position] = listInsert(structural[position], 0);
+    else
+        for(int i = 0; i < size; i++) 
+            structural[position] = listInsertEnd(structural[position], 0);
 }
 
 

@@ -40,7 +40,7 @@ void menu(){
             case 3: //sortElementsInStructure(structural); break;
             case 4: sortElements(structural); break;
             case 5: deleteElement(structural); break;
-            case 6: //resizeStructure(structural); break;
+            case 6: resizeStructure(structural); break;
             case 7:
                 printf("Acesso finalizado!");
                 getchar();
