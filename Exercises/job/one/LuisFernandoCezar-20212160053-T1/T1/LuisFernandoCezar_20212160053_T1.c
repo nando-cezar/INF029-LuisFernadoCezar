@@ -438,23 +438,52 @@ int q5(int num)
  @saida
     Quantidade de vezes que número de busca ocorre em número base
  */
+int digitos(int number){
+
+    int qtdDigito = 0;
+
+    while(number > 0){
+        qtdDigito++;
+        number /= 10;
+        
+    }
+    return qtdDigito;
+}
+
+int grandeza(int number){
+    
+    int qtdDigitoBusca = 0;
+
+    qtdDigitoBusca = digitos(number);
+
+    return (int)(pow(10, qtdDigitoBusca) + 0.5);
+}
+
+int identificarIgualdade(int number){
+
+    int qtdDigito = 0;
+
+    while(number > 0){       
+        if(number / 10 == number % 10) qtdDigito++;
+        
+        number /= 10;    
+    }
+    return qtdDigito;
+}
 
 int q6(int numerobase, int numerobusca)
 {
     int qtdOcorrencias = 0;
-    int count = 0, auxiliary = numerobusca;
-
-    while(auxiliary > 0){
-        count++;
-        auxiliary /= 10;
-        
-    }
+    int gdBusca = grandeza(numerobusca);
     
     while(numerobase > 0){
-        if((numerobase % (int)(pow(10, count) + 0.5)) == numerobusca){
+
+        if((numerobase % gdBusca) == numerobusca){
             qtdOcorrencias++;
         }
-        numerobase /= 10;
+
+        if(identificarIgualdade(numerobusca)+1 == digitos(numerobusca)) numerobase /= gdBusca;
+        else numerobase /= 10;
     }
 
     return qtdOcorrencias;
