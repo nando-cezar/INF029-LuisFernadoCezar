@@ -4,7 +4,9 @@
 	PrimeiroUltimoNomeMatricula.h para
 	seus dados
 - compilar 
-	- gcc LuisFernandoCezar_20212160053_T1.c corretor.c -o T1
+	- cd Exercises/job/one/LuisFernandoCezar-20212160053-T1/T1
+	1 - gcc LuisFernandoCezar_20212160053_T1.c novoCorretor.c -o T1 -lm 
+	2 - gcc LuisFernandoCezar_20212160053_T1.c corretor.c -o T1 -lm
 	- lembrar de substituir o comando acima pelo novo nome
 - rodar
 	- ./T1
