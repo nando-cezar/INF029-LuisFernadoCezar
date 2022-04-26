@@ -1,4 +1,4 @@
-<h1> Porjetos desenvolvidos utilizando a linguagem C </h1>
+<h1> Projetos desenvolvidos utilizando a linguagem C </h1>
 <p> Sejam bem-vindos ao projeto de LAB <strong> INF029 </strong> oferecido pelo Instituto Federal da Bahia/strong></a>.<br>
 
 <h2>🎯 Objetivo do Projeto</h2>
