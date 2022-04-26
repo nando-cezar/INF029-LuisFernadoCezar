@@ -1,5 +1,5 @@
 <h1> Projetos desenvolvidos utilizando a linguagem C </h1>
-<p> Sejam bem-vindos ao projeto de LAB <strong> INF029 </strong> oferecido pelo Instituto Federal da Bahia/strong></a>.<br>
+<p> Sejam bem-vindos ao projeto de LAB <strong> INF029 </strong> oferecido pelo <strong>Instituto Federal da Bahia</strong></a>.<br>
 
 <h2>🎯 Objetivo do Projeto</h2>
 <p>Ao final deste projeto, o Dev irá conhecer os principais conceitos de struct, ponteiros, enum, vetores, matrizes e arquivo usando o <strong>Linguagem C</strong>. 
