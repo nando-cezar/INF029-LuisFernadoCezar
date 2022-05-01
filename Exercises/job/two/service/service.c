@@ -12,7 +12,7 @@ void insertElement(List* structural[SIZE]){
     printf("\nInforme qual posição deseja inserir: ");
     scanf("%d", &position);
     getchar();
-
+ 
     if(!listEmpty(structural[position])){
         printf("\nInforme valor: ");
         scanf("%d", &value);
