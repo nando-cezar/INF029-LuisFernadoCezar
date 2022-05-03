@@ -19,11 +19,16 @@ int main()
 {
     inicializar();
     testeInserirSemNada();
+    printf("---\n");
     testeCriarEstrutura();
+    printf("---\n");
     testeInserirComEstrutura();
+    printf("---\n");
     testeExcluir();
+    printf("---\n");
     testeExcluirNumeroEspecifico();
-    //testeListar();
+    printf("---\n");
+    testeListar();
     //testeRetornarTodosNumeros();
     //testeMudarTamanhoEstrutura();
     //testeListaEncadeada();
@@ -112,25 +117,22 @@ void testeListar()
     printf("%d\n", inserirNumeroEmEstrutura(2, -9) == SUCESSO);
 
     int vet[2];
-
+ 
     printf("%d\n", getDadosEstruturaAuxiliar(1, vet) == SEM_ESTRUTURA_AUXILIAR);
     printf("%d\n", getDadosEstruturaAuxiliar(11, vet) == POSICAO_INVALIDA);
     printf("%d\n", getDadosEstruturaAuxiliar(2, vet) == SUCESSO);
-
     printf("%d\n", vet[0] == 7);
-    printf("%d\n", vet[1] == -9);
-
+    printf("%d\n", vet[1] == -9);//verificar função excluir final
     printf("%d\n", getDadosOrdenadosEstruturaAuxiliar(1, vet) == SEM_ESTRUTURA_AUXILIAR);
     printf("%d\n", getDadosOrdenadosEstruturaAuxiliar(11, vet) == POSICAO_INVALIDA);
     printf("%d\n", getDadosOrdenadosEstruturaAuxiliar(2, vet) == SUCESSO);
 
     printf("%d\n", vet[0] == -9);
     printf("%d\n", vet[1] == 7);
-
     printf("%d\n", getDadosEstruturaAuxiliar(2, vet) == SUCESSO);
 
     printf("%d\n", vet[0] == 7);
-    printf("%d\n", vet[1] == -9);
+    printf("%d\n", vet[1] == -9);//
 
     printf("%d\n", excluirNumeroDoFinaldaEstrutura(2) == SUCESSO);
     printf("%d\n", excluirNumeroDoFinaldaEstrutura(2) == SUCESSO);

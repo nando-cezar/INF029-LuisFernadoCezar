@@ -13,14 +13,15 @@ int ehPosicaoValida(int posicao);
 int temEspaco(No* vetorPrincipal);
 
 No* inserirFinalLista(No* vetorPrincipal, int valor);
+int inserirSortAscLista(No* vetorPrincipal, int v);
 No* inserirLista(No* vetorPrincipal, int valor);
 No* pesquisaLista(No* vetorPrincipal, int valor);
 No* atualizarLista(No* vetorPrincipal, int valor);
 No* deletarLista(No* vetorPrincipal, int valor);
-No* deletarUltimoElementoLista(No* vetorPrincipal);
 int vaziaEstruturaAuxiliar(No* vetorPrincipal);
 void recuperarLista(int posicao);
 No* realocarValorLista(No* vetorPrincipal, int valor);
+No* ordenarAscLista(No* vetorPrincipal);
 
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
@@ -257,7 +258,33 @@ Retorno (int)
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
 
-    int retorno = 0;
+    int retorno = SUCESSO;
+
+    if(ehPosicaoValida(posicao) == POSICAO_INVALIDA){
+        //printf("POSICAO_INVALIDA\n");
+        retorno = POSICAO_INVALIDA;
+    }else if(!existeEstruturaAuxiliar(vetorPrincipal[posicao])){
+        //printf("SEM_ESTRUTURA_AUXILIAR\n");
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+    }else{
+        int count1 = 0;
+        int count2 = 0;
+        int aux = 0;
+
+        for(No* p = vetorPrincipal[posicao]; p != NULL; p = p->prox){
+            vetorAux[count1] = p->conteudo;
+            if(vetorAux[count1] != 0) count2++;
+            count1++;
+        }
+        
+        for(int i = 0; i < count2; i++){
+            if(vetorAux[i+1] != 0){
+                aux = vetorAux[i];
+                vetorAux[i] = vetorAux[i+1];
+                vetorAux[i+1] = aux;
+            }
+        }
+    }
 
     return retorno;
 }
@@ -274,9 +301,24 @@ Rertono (int)
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
 
-    int retorno = 0;
+    int retorno = SUCESSO;
+    int count = 0;
+    No* p;
+    No* q = NULL;
+    if(ehPosicaoValida(posicao) == POSICAO_INVALIDA){
+        //printf("POSICAO_INVALIDA\n");
+        retorno = POSICAO_INVALIDA;
+    }else if(!existeEstruturaAuxiliar(vetorPrincipal[posicao])){
+        //printf("SEM_ESTRUTURA_AUXILIAR\n");
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+    }else{
+        
+        for(p = vetorPrincipal[posicao]; p != NULL; p = p->prox){
+            vetorAux[count] = inserirSortAscLista(p, p->conteudo);
+            count++;
+        }
+    }
 
-    
     return retorno;
 }
 
@@ -395,10 +437,33 @@ No* realocarValorLista(No* vetorPrincipal, int valor){
     return novo;
 }
 
-No* deletarUltimoElementoLista(No* vetorPrincipal){
+int inserirSortAscLista(No* vetorPrincipal, int v){
 
-    
+    No* novo;
+    No* ant = NULL;
+    No* p = vetorPrincipal;
+
+
+    while(p != NULL && p->conteudo < v){
+        ant = p;
+        p = p->prox;
+    }
+
+    novo = (No*) malloc(sizeof(No));
+    novo->conteudo = v;
+
+    if(ant == NULL){
+
+        novo->prox = vetorPrincipal;
+        vetorPrincipal = novo;
+
+    }else{
+        novo->prox = ant->prox;
+        ant->prox = novo;
+    }
+    return vetorPrincipal->conteudo;
 }
+
 
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
 {
