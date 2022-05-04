@@ -83,7 +83,7 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
 
     if (ehPosicaoValida(posicao) == POSICAO_INVALIDA){
         retorno = POSICAO_INVALIDA;
-        printf("POSICAO_INVALIDA\n");
+        //printf("POSICAO_INVALIDA\n");
       }else
     {
         // testar se existe a estrutura auxiliar
@@ -93,20 +93,20 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
             {
                 //insere
                 vetorPrincipal[posicao] = atualizarLista(vetorPrincipal[posicao], valor);
-                recuperarLista(posicao);
+                //recuperarLista(posicao);
                 retorno = SUCESSO;
-                printf("SUCESSO\n");
+                //printf("SUCESSO\n");
             }
             else
             {
                 retorno = SEM_ESPACO;
-                printf("SEM_ESPACO\n");
+                //printf("SEM_ESPACO\n");
             }
         }
         else
         {
             retorno = SEM_ESTRUTURA_AUXILIAR;
-            printf("SEM_ESTRUTURA_AUXILIAR\n");
+            //printf("SEM_ESTRUTURA_AUXILIAR\n");
         }
     }
 
@@ -219,6 +219,7 @@ int temEspaco(No* vetorPrincipal){
 
     for(p = vetorPrincipal; p != NULL; p = p->prox){
         if(p->conteudo == 0) count1++;
+        printf(">>>%d\n", p->conteudo);
     } 
 
     if(count1 > 0) retorno = 1;
