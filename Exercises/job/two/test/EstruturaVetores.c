@@ -81,9 +81,10 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
     //int temEspaco = 0;
     int posicao_invalida = 0;
 
-    if (ehPosicaoValida(posicao) == POSICAO_INVALIDA)
+    if (ehPosicaoValida(posicao) == POSICAO_INVALIDA){
         retorno = POSICAO_INVALIDA;
-    else
+        printf("POSICAO_INVALIDA\n");
+      }else
     {
         // testar se existe a estrutura auxiliar
         if(existeEstruturaAuxiliar(vetorPrincipal[posicao]))
@@ -92,17 +93,20 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
             {
                 //insere
                 vetorPrincipal[posicao] = atualizarLista(vetorPrincipal[posicao], valor);
-                //recuperarLista(posicao);
+                recuperarLista(posicao);
                 retorno = SUCESSO;
+                printf("SUCESSO\n");
             }
             else
             {
                 retorno = SEM_ESPACO;
+                printf("SEM_ESPACO\n");
             }
         }
         else
         {
             retorno = SEM_ESTRUTURA_AUXILIAR;
+            printf("SEM_ESTRUTURA_AUXILIAR\n");
         }
     }
 
@@ -124,7 +128,8 @@ Rertono (int)
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
     int retorno = SUCESSO;
-
+    No* p = NULL;
+    int valor = 0;
     if(ehPosicaoValida(posicao) == POSICAO_INVALIDA){
         //printf("POSICAO_INVALIDA\n");
         retorno = POSICAO_INVALIDA;
@@ -137,13 +142,17 @@ int excluirNumeroDoFinaldaEstrutura(int posicao)
     }else{
         //printf("SUCESSO\n");
         int count = 0;
-        for(No* p = vetorPrincipal[posicao]; p != NULL; p = p->prox){
-            count++;
+        for(p = vetorPrincipal[posicao]; p != NULL; p = p->prox){
+            
             if(p->conteudo == 0){
                 break;
             }
+            count++;
+            valor = p->conteudo;
+            //printf(">> %d \n", p->conteudo);
         }
-        realocarValorLista(vetorPrincipal[posicao], --count);
+        
+        realocarValorLista(vetorPrincipal[posicao], valor);
     }
     
     
@@ -182,6 +191,8 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
     }else{
         //printf("SUCESSO\n");
         realocarValorLista(vetorPrincipal[posicao], valor);
+        //recuperarLista(posicao);
+        //getchar();
     }
     
     return retorno;
@@ -202,17 +213,15 @@ int existeEstruturaAuxiliar(No* vetorPrincipal){
 
 // verifica se a estrutra tem espaço disponivel
 int temEspaco(No* vetorPrincipal){
-    No* p;
+    No* p = NULL;
     int count1 = 0;
-    int count2 = 0;
     int retorno = 0;
 
     for(p = vetorPrincipal; p != NULL; p = p->prox){
-        count1++;
-        if(p->conteudo != 0) count2++;
+        if(p->conteudo == 0) count1++;
     } 
 
-    if(count1 != count2) retorno = 1;
+    if(count1 > 0) retorno = 1;
 
     //printf("Espaco: %d %d\n", count1, count2);
     return retorno;
@@ -220,7 +229,8 @@ int temEspaco(No* vetorPrincipal){
 
 // verifica se a estrutra tem espaço disponivel
 int vaziaEstruturaAuxiliar(No* vetorPrincipal){
-    No* p;
+    
+    No* p = NULL;
     int count1 = 0;
     int count2 = 0;
     int retorno = 0;
@@ -230,7 +240,7 @@ int vaziaEstruturaAuxiliar(No* vetorPrincipal){
         if(p->conteudo == 0) count2++;
     } 
     
-    if(count1-count2 == count2) retorno = 1;
+    if(count1 == count2) retorno = 1;
 
     //printf("Espaco: %d %d\n", count1-count2, count2);
     return retorno;
@@ -285,7 +295,10 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
             }
         }
     }
-
+    //recuperarLista(2);
+    //printf("TESTE---");
+    //getchar();
+  
     return retorno;
 }
 
@@ -427,7 +440,6 @@ No* deletarLista(No* vetorPrincipal, int valor){
 
 No* realocarValorLista(No* vetorPrincipal, int valor){
 
-    No* p;
     No* novo = (No*) malloc(sizeof(No));
 
     novo = vetorPrincipal;
