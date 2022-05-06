@@ -82,9 +82,10 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
     //int temEspaco = 0;
     int posicao_invalida = 0;
 
-    if (ehPosicaoValida(posicao) == POSICAO_INVALIDA)
+    if (ehPosicaoValida(posicao) == POSICAO_INVALIDA){
         retorno = POSICAO_INVALIDA;
-    else
+        //printf("POSICAO_INVALIDA\n");
+      }else
     {
         // testar se existe a estrutura auxiliar
         if(existeEstruturaAuxiliar(posicao))
@@ -94,15 +95,18 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
                 //insere
                 vetorPrincipal[posicao] = atualizarLista(posicao, valor);
                 retorno = SUCESSO;
+                //printf("SUCESSO\n");
             }
             else
             {
                 retorno = SEM_ESPACO;
+                //printf("SEM_ESPACO\n");
             }
         }
         else
         {
             retorno = SEM_ESTRUTURA_AUXILIAR;
+            //printf("SEM_ESTRUTURA_AUXILIAR\n");
         }
     }
 
@@ -124,7 +128,8 @@ int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
     No* p = NULL;
     int retorno = SUCESSO;
-
+    No* p = NULL;
+    int valor = 0;
     if(ehPosicaoValida(posicao) == POSICAO_INVALIDA){
         //printf("POSICAO_INVALIDA\n");
         retorno = POSICAO_INVALIDA;
@@ -138,10 +143,23 @@ int excluirNumeroDoFinaldaEstrutura(int posicao)
         //printf("SUCESSO\n");
         int count = 0;
         for(p = vetorPrincipal[posicao]; p != NULL; p = p->prox){
+<<<<<<< HEAD
             if(p->conteudo == 0) break;
             else count = p->conteudo;
         }
         realocarValorLista(posicao, count);
+=======
+            
+            if(p->conteudo == 0){
+                break;
+            }
+            count++;
+            valor = p->conteudo;
+            //printf(">> %d \n", p->conteudo);
+        }
+        
+        realocarValorLista(vetorPrincipal[posicao], valor);
+>>>>>>> b9204c4e4d0faee43865629c477ece38880f67de
     }
     
     return retorno;
@@ -178,7 +196,13 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
         retorno = NUMERO_INEXISTENTE;
     }else{
         //printf("SUCESSO\n");
+<<<<<<< HEAD
         realocarValorLista(posicao, valor);
+=======
+        realocarValorLista(vetorPrincipal[posicao], valor);
+        //recuperarLista(posicao);
+        //getchar();
+>>>>>>> b9204c4e4d0faee43865629c477ece38880f67de
     }
     
     return retorno;
@@ -198,25 +222,39 @@ int existeEstruturaAuxiliar(int posicao){
 }
 
 // verifica se a estrutra tem espaço disponivel
+<<<<<<< HEAD
 int temEspaco(int posicao){
+=======
+int temEspaco(No* vetorPrincipal){
+>>>>>>> b9204c4e4d0faee43865629c477ece38880f67de
     No* p = NULL;
     int count1 = 0;
-    int count2 = 0;
     int retorno = 0;
 
+<<<<<<< HEAD
     for(p = vetorPrincipal[posicao]; p != NULL; p = p->prox){
         count1++;
         if(p->conteudo != 0) count2++;
+=======
+    for(p = vetorPrincipal; p != NULL; p = p->prox){
+        if(p->conteudo == 0) count1++;
+        printf(">>>%d\n", p->conteudo);
+>>>>>>> b9204c4e4d0faee43865629c477ece38880f67de
     } 
 
-    if(count1 != count2) retorno = 1;
+    if(count1 > 0) retorno = 1;
 
     //printf("Espaco: %d %d\n", count1, count2);
     return retorno;
 }
 
 // verifica se a estrutra tem espaço disponivel
+<<<<<<< HEAD
 int vaziaEstruturaAuxiliar(int posicao){
+=======
+int vaziaEstruturaAuxiliar(No* vetorPrincipal){
+    
+>>>>>>> b9204c4e4d0faee43865629c477ece38880f67de
     No* p = NULL;
     int count1 = 0;
     int count2 = 0;
@@ -286,7 +324,10 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
             }
         }
     }
-
+    //recuperarLista(2);
+    //printf("TESTE---");
+    //getchar();
+  
     return retorno;
 }
 
@@ -517,6 +558,7 @@ No* inverterLista(int posicao)
         prox = temp;
     }
 
+<<<<<<< HEAD
     n->prox = NULL;
     n = p;
     return n;
@@ -525,6 +567,8 @@ No* inverterLista(int posicao)
 No* realocarValorLista(int posicao, int valor){
 
     No* p = NULL;
+=======
+>>>>>>> b9204c4e4d0faee43865629c477ece38880f67de
     No* novo = (No*) malloc(sizeof(No));
 
     novo = vetorPrincipal[posicao];
