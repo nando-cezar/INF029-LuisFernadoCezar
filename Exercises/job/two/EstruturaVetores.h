@@ -9,11 +9,21 @@ enum { TODAS_ESTRUTURAS_AUXILIARES_VAZIAS = -11, NOVO_TAMANHO_INVALIDO, NUMERO_I
        ESTRUTURA_AUXILIAR_VAZIA, TAMANHO_INVALIDO, SEM_ESPACO_DE_MEMORIA, POSICAO_INVALIDA,
        JA_TEM_ESTRUTURA_AUXILIAR, SEM_ESTRUTURA_AUXILIAR, SEM_ESPACO, SUCESSO };
 
+
+typedef struct lista {
+    int conteudo;
+    int inicializada;
+    struct lista *prox;
+} Lista;
+
+
 typedef struct reg {
     int conteudo;
     struct reg *prox;
 } No;
 
+
+void inicializar();
 int criarEstruturaAuxiliar(int posicao, int tamanho);
 int inserirNumeroEmEstrutura(int posicao, int valor);
 int excluirNumeroDoFinaldaEstrutura(int posicao);
@@ -22,14 +32,29 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]);
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]);
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]);
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]);
-int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho);
 int getQuantidadeElementosEstruturaAuxiliar(int posicao);
+int getTamanhoDaEstruturaAuxilia(int posicao);
+int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho);
+void finalizar();
+
 No *montarListaEncadeadaComCabecote();
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]);
+No* no_insere(No* l , int i);
 void destruirListaEncadeadaComCabecote(No **inicio);
+void lista_libera(Lista **l);
 
-void inicializar();
-void finalizar();
-void dobrar(int *x);
+int estruturaExistente(int posicao);
+int espacoExistente(int posicao);
+int temConteudo(Lista* l);
+Lista* lista_cria(Lista* l);
+Lista* lista_retira(Lista* l,int v); 
+void lista_insercaoDeElementos(Lista *l, int numero);
+void lista_retiraFinalElemento(Lista* l);
+void ordenar(int vetor[], size_t tamanho);
+int existeNumero(Lista* l, int v);
+void realocamento(Lista* l);
+
+
+
 
 #endif  // TRABALHO2_ESTRUTURAVETORES_H
