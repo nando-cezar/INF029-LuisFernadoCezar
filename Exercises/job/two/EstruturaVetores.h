@@ -12,7 +12,7 @@ enum { TODAS_ESTRUTURAS_AUXILIARES_VAZIAS = -11, NOVO_TAMANHO_INVALIDO, NUMERO_I
 
 typedef struct lista {
     int conteudo;
-    int inicializada;
+    int verificada;
     struct lista *prox;
 } Lista;
 
@@ -53,6 +53,7 @@ void lista_retiraFinalElemento(Lista* l);
 void ordenar(int vetor[], size_t tamanho);
 int existeNumero(Lista* l, int v);
 void realocamento(Lista* l);
+int posicaoValida(int posicao);
 
 
 

@@ -22,7 +22,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho){
     posicao--;
     int retorno = 0;
     
-    if(posicao<0 || posicao>=TAM){     
+    if(posicaoValida(posicao)){     
         retorno = POSICAO_INVALIDA;
     }else if(tamanho < 1){
         retorno = TAMANHO_INVALIDO;
@@ -58,7 +58,7 @@ int inserirNumeroEmEstrutura(int posicao, int valor){
     int retorno = 0;
     posicao--;
 
-    if(posicao<0 || posicao>= TAM){
+    if(posicaoValida(posicao)){
           retorno = POSICAO_INVALIDA;
     }else{
         // testar se existe a estrutura auxiliar
@@ -89,12 +89,11 @@ Rertono (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-
 int excluirNumeroDoFinaldaEstrutura(int posicao){
     posicao--;
     int retorno = 0;
 
-    if(posicao<0 || posicao>=TAM){
+    if(posicaoValida(posicao)){
         retorno = POSICAO_INVALIDA;
     }else if(estruturaExistente(posicao)){
         
@@ -105,7 +104,7 @@ int excluirNumeroDoFinaldaEstrutura(int posicao){
             Lista* x;
             while (l != NULL){  
                 x = l ->prox;              
-                if(l->prox ==NULL || x->inicializada == 0){
+                if(l->prox ==NULL || x->verificada == 0){
                     vetorPrincipal[posicao] = lista_retira(vetorPrincipal[posicao],l->conteudo);
                     l =NULL;
                 }else{
@@ -142,7 +141,7 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor){
     posicao--;
     int retorno = 0;
 
-    if(posicao<0 || posicao>=TAM){
+    if(posicaoValida(posicao)){
         retorno = POSICAO_INVALIDA;
     }else if(!estruturaExistente(posicao)){
         retorno = SEM_ESTRUTURA_AUXILIAR;
@@ -176,7 +175,7 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]){
     posicao--;
     int retorno = 0, incremento =0;
 
-    if(posicao<0 || posicao>=TAM){
+    if(posicaoValida(posicao)){
         retorno = POSICAO_INVALIDA;
     }else if(!estruturaExistente(posicao)){
         retorno = SEM_ESTRUTURA_AUXILIAR;
@@ -184,7 +183,7 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]){
         Lista * aux = vetorPrincipal[posicao];
 
         while(aux !=NULL){
-            if(aux->inicializada == 1){
+            if(aux->verificada == 1){
                 vetorAux[incremento] = aux->conteudo;
                 incremento++;
             }
@@ -233,7 +232,7 @@ int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]){
 
         if(estruturaExistente(i)){
             while(aux !=NULL){
-                if(aux->inicializada){
+                if(aux->verificada){
                     vetorAux[incremento] = aux->conteudo;
                     incremento++;
                 }
@@ -265,7 +264,7 @@ int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]){
     if(retorno == SUCESSO){
        
         for(int i = 0 ; i<TAM;i++){
-           if(vetorPrincipal[i] != NULL && vetorPrincipal[i]->inicializada){
+           if(vetorPrincipal[i] != NULL && vetorPrincipal[i]->verificada){
                tamanho+=getQuantidadeElementosEstruturaAuxiliar(i+1);
            }
         }
@@ -289,7 +288,7 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho){
     posicao--;
     novoTamanho = getTamanhoDaEstruturaAuxilia(posicao) + novoTamanho;
    
-    if(posicao <0 || posicao>=TAM){
+    if(posicaoValida(posicao)){
         retorno = POSICAO_INVALIDA;
     }else if(novoTamanho<1){
         retorno = NOVO_TAMANHO_INVALIDO;
@@ -310,7 +309,7 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho){
         }else{
 
             while(aux!= NULL){
-                if(aux ->inicializada){
+                if(aux ->verificada){
                     validade = inserirNumeroEmEstrutura(posicao +1,aux ->conteudo);
 
                     if(validade!=SUCESSO){
@@ -343,7 +342,7 @@ int getQuantidadeElementosEstruturaAuxiliar(int posicao){
     int retorno = 0, quantidade = 0;
     posicao --;
 
-    if(posicao<0 || posicao>TAM){
+    if(posicaoValida(posicao)){
         retorno = POSICAO_INVALIDA;
     }else if(!estruturaExistente(posicao)){
         retorno =SEM_ESTRUTURA_AUXILIAR;
@@ -352,7 +351,7 @@ int getQuantidadeElementosEstruturaAuxiliar(int posicao){
 
         while(l!=NULL){
 
-            if(l->inicializada){
+            if(l->verificada){
                 quantidade++;
             }
             l = l->prox;
@@ -375,7 +374,7 @@ No *montarListaEncadeadaComCabecote(){
     int tamanho = 0, validade;
  
     for(int i = 0 ; i<TAM;i++){
-        if(vetorPrincipal[i] != NULL && vetorPrincipal[i]->inicializada){
+        if(vetorPrincipal[i] != NULL && vetorPrincipal[i]->verificada){
             tamanho+=getQuantidadeElementosEstruturaAuxiliar(i+1);
         }
     }
@@ -459,7 +458,7 @@ void lista_libera(Lista** l){
 
 int estruturaExistente(int posicao){return vetorPrincipal[posicao]!= NULL;}
 
-int temConteudo(Lista *l){return l->inicializada == 1;};
+int temConteudo(Lista *l){return l->verificada == 1;};
 
 int espacoExistente(int posicao){
     int retorno = 0;
@@ -467,7 +466,7 @@ int espacoExistente(int posicao){
     Lista* l = vetorPrincipal[posicao];
   
     while(l != NULL){
-        if(l->inicializada == 0){
+        if(l->verificada == 0){
             retorno =1;
             break;
         }
@@ -478,7 +477,7 @@ int espacoExistente(int posicao){
 
 Lista* lista_cria(Lista *l){
     Lista* novo = (Lista*) malloc(sizeof(Lista));
-    novo ->inicializada = 0;
+    novo ->verificada = 0;
     novo ->prox = l;
     return novo;
 }
@@ -486,9 +485,9 @@ Lista* lista_cria(Lista *l){
 void lista_insercaoDeElementos(Lista *l, int numero){
     
     while(l != NULL){
-        if(l->inicializada == 0){
+        if(l->verificada == 0){
             l ->conteudo = numero;
-            l -> inicializada =1;
+            l -> verificada =1;
             break;
         }
 
@@ -499,7 +498,7 @@ void lista_insercaoDeElementos(Lista *l, int numero){
 void lista_retiraFinalElemento(Lista* l){
     while (l != NULL){
         printf("a");
-        if((l->inicializada == 1 && l->prox->inicializada ==0) || (l->prox ==NULL)){
+        if((l->verificada == 1 && l->prox->verificada ==0) || (l->prox ==NULL)){
             l = lista_retira(l,l->conteudo);
             break;
         }
@@ -555,7 +554,7 @@ void realocamento(Lista* l){
         p = p->prox;
     }
 
-    novo ->inicializada = 0;
+    novo ->verificada = 0;
     novo ->prox = NULL;
 
     ant->prox = novo;
@@ -585,5 +584,7 @@ int getTamanhoDaEstruturaAuxilia(int posicao){
     return quantidade;
 }
 
-
+int posicaoValida(int posicao){
+    return (posicao < 0 || posicao >= TAM);
+}
 
