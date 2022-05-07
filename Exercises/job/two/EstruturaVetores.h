@@ -37,23 +37,23 @@ int getTamanhoDaEstruturaAuxilia(int posicao);
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho);
 void finalizar();
 
-No *montarListaEncadeadaComCabecote();
+No* montarListaEncadeadaComCabecote();
+No* insereNo(No* l , int i);
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]);
-No* no_insere(No* l , int i);
 void destruirListaEncadeadaComCabecote(No **inicio);
-void lista_libera(Lista **l);
+void liberaLista(Lista **l);
 
+Lista* criaLista(int posicao);
+Lista* retiraLista(Lista* l,int v); 
+int contemNumero(Lista* l, int v);
 int estruturaExistente(int posicao);
 int espacoExistente(int posicao);
-int temConteudo(Lista* l);
-Lista* lista_cria(Lista* l);
-Lista* lista_retira(Lista* l,int v); 
-void lista_insercaoDeElementos(Lista *l, int numero);
-void lista_retiraFinalElemento(Lista* l);
-void ordenar(int vetor[], size_t tamanho);
-int existeNumero(Lista* l, int v);
-void realocamento(Lista* l);
+int conteudoExistente(int posicao);
 int posicaoValida(int posicao);
+void insercaoElementosLista(Lista *l, int numero);
+void retiraListaFinalElemento(Lista* l);
+void realocamento(Lista* l);
+void ordenar(int vetor[], size_t tamanho);
 
 
 

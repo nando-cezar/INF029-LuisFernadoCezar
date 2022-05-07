@@ -31,7 +31,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho){
     }else{
 
         for(int i = 0; i<tamanho ;i++){
-            vetorPrincipal[posicao] = lista_cria(vetorPrincipal[posicao]);
+            vetorPrincipal[posicao] = criaLista(posicao);
         }
 
         if(vetorPrincipal[posicao] == NULL){
@@ -66,7 +66,7 @@ int inserirNumeroEmEstrutura(int posicao, int valor){
            
             if (espacoExistente(posicao)){
                 //insere
-                lista_insercaoDeElementos(vetorPrincipal[posicao], valor);
+                insercaoElementosLista(vetorPrincipal[posicao], valor);
                 retorno = SUCESSO;
             }else{
                 retorno = SEM_ESPACO;
@@ -97,7 +97,7 @@ int excluirNumeroDoFinaldaEstrutura(int posicao){
         retorno = POSICAO_INVALIDA;
     }else if(estruturaExistente(posicao)){
         
-        if (!temConteudo(vetorPrincipal[posicao])){
+        if (!conteudoExistente(posicao)){
             retorno = ESTRUTURA_AUXILIAR_VAZIA;
         }else{
             Lista* l = vetorPrincipal[posicao];
@@ -105,7 +105,7 @@ int excluirNumeroDoFinaldaEstrutura(int posicao){
             while (l != NULL){  
                 x = l ->prox;              
                 if(l->prox ==NULL || x->verificada == 0){
-                    vetorPrincipal[posicao] = lista_retira(vetorPrincipal[posicao],l->conteudo);
+                    vetorPrincipal[posicao] = retiraLista(vetorPrincipal[posicao],l->conteudo);
                     l =NULL;
                 }else{
                     l = l -> prox;       
@@ -146,11 +146,11 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor){
     }else if(!estruturaExistente(posicao)){
         retorno = SEM_ESTRUTURA_AUXILIAR;
     }else{
-         if (!temConteudo(vetorPrincipal[posicao])){
+         if (!conteudoExistente(posicao)){
             retorno = ESTRUTURA_AUXILIAR_VAZIA;
         }else{
-            if(existeNumero(vetorPrincipal[posicao],valor)){
-                vetorPrincipal[posicao] = lista_retira(vetorPrincipal[posicao],valor);
+            if(contemNumero(vetorPrincipal[posicao],valor)){
+                vetorPrincipal[posicao] = retiraLista(vetorPrincipal[posicao],valor);
                 realocamento(vetorPrincipal[posicao]);
                 retorno = SUCESSO;
             }else{
@@ -300,7 +300,7 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho){
         vetorPrincipal[posicao] = NULL;
 
         for(int i = 0; i<novoTamanho ;i++){
-            vetorPrincipal[posicao] = lista_cria(vetorPrincipal[posicao]);
+            vetorPrincipal[posicao] = criaLista(posicao);
         }
 
         if(vetorPrincipal[posicao] == NULL){
@@ -384,7 +384,7 @@ No *montarListaEncadeadaComCabecote(){
     validade = getDadosDeTodasEstruturasAuxiliares(vetor);
 
     for(int i = tamanho-1 ; i>=0 ; i--){
-        lista = no_insere(lista,vetor[i]);
+        lista = insereNo(lista,vetor[i]);
     }
 
     return lista;
@@ -425,7 +425,7 @@ void destruirListaEncadeadaComCabecote(No **inicio){
 
 
 
-No* no_insere(No* no , int i){
+No* insereNo(No* no , int i){
 
     No* novo = (No*) malloc (sizeof(No));
     novo->conteudo = i;
@@ -442,11 +442,11 @@ void inicializar(){
 
 void finalizar(){
     for(int i = 0 ; i<TAM ;i++){
-        lista_libera(&vetorPrincipal[i]);
+        liberaLista(&vetorPrincipal[i]);
     }
 }
 
-void lista_libera(Lista** l){
+void liberaLista(Lista** l){
     Lista* p = *l;
     while (p!= NULL){
         Lista* t = p ->prox;
@@ -458,7 +458,7 @@ void lista_libera(Lista** l){
 
 int estruturaExistente(int posicao){return vetorPrincipal[posicao]!= NULL;}
 
-int temConteudo(Lista *l){return l->verificada == 1;};
+int conteudoExistente(int posicao){return vetorPrincipal[posicao]->verificada == 1;};
 
 int espacoExistente(int posicao){
     int retorno = 0;
@@ -475,14 +475,14 @@ int espacoExistente(int posicao){
     return retorno;
 }
 
-Lista* lista_cria(Lista *l){
+Lista* criaLista(int posicao){
     Lista* novo = (Lista*) malloc(sizeof(Lista));
     novo ->verificada = 0;
-    novo ->prox = l;
+    novo ->prox = vetorPrincipal[posicao];
     return novo;
 }
 
-void lista_insercaoDeElementos(Lista *l, int numero){
+void insercaoElementosLista(Lista *l, int numero){
     
     while(l != NULL){
         if(l->verificada == 0){
@@ -495,18 +495,18 @@ void lista_insercaoDeElementos(Lista *l, int numero){
     }
 }
 
-void lista_retiraFinalElemento(Lista* l){
+void retiraListaFinalElemento(Lista* l){
     while (l != NULL){
         printf("a");
         if((l->verificada == 1 && l->prox->verificada ==0) || (l->prox ==NULL)){
-            l = lista_retira(l,l->conteudo);
+            l = retiraLista(l,l->conteudo);
             break;
         }
         l = l->prox;
     }
 }
 
-int existeNumero(Lista* l, int v){
+int contemNumero(Lista* l, int v){
     Lista* ant = NULL; 
     Lista* p = l;
 
@@ -520,7 +520,7 @@ int existeNumero(Lista* l, int v){
     else return 1;
 }
 
-Lista* lista_retira(Lista* l,int v){
+Lista* retiraLista(Lista* l,int v){
     Lista* ant = NULL; 
     Lista* p = l;
 
