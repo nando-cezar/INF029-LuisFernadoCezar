@@ -44,7 +44,7 @@ void destruirListaEncadeadaComCabecote(No **inicio);
 void liberaLista(Lista **l);
 
 Lista* criaLista(int posicao);
-Lista* retiraLista(Lista* l,int v); 
+Lista* retiraLista(int posicao,int v); 
 int contemNumero(int posicao, int v);
 int estruturaExistente(int posicao);
 int espacoExistente(int posicao);
@@ -53,9 +53,6 @@ int posicaoInvalida(int posicao);
 void inserirElementoLista(Lista *l, int numero);
 void retiraListaFinalElemento(Lista* l);
 void realocarLista(int posicao);
-void ordenar(int vetor[], size_t tamanho);
-
-
-
+void ordenar(int vetor[], int tamanho);
 
 #endif  // TRABALHO2_ESTRUTURAVETORES_H

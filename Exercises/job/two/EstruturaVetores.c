@@ -105,7 +105,7 @@ int excluirNumeroDoFinaldaEstrutura(int posicao){
             while (l != NULL){  
                 x = l ->prox;              
                 if(l->prox == NULL || x->verificada == 0){
-                    vetorPrincipal[posicao] = retiraLista(vetorPrincipal[posicao],l->conteudo);
+                    vetorPrincipal[posicao] = retiraLista(posicao, l->conteudo);
                     l = NULL;
                 }else{
                     l = l -> prox;       
@@ -150,8 +150,8 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor){
             retorno = ESTRUTURA_AUXILIAR_VAZIA;
         }else{
             if(contemNumero(posicao, valor)){
-                vetorPrincipal[posicao] = retiraLista(vetorPrincipal[posicao], valor);
-                realocarLista(vetorPrincipal[posicao]);
+                vetorPrincipal[posicao] = retiraLista(posicao, valor);
+                realocarLista(posicao);
                 retorno = SUCESSO;
             }else{
                 retorno = NUMERO_INEXISTENTE;
@@ -205,7 +205,7 @@ Rertono (int)
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]){
     
     int retorno = 0;
-    int tamanho =0;
+    int tamanho = 0;
     retorno= getDadosEstruturaAuxiliar(posicao, vetorAux);
 
     if(retorno == SUCESSO){
@@ -495,16 +495,16 @@ void inserirElementoLista(Lista *l, int numero){
     }
 }
 
-void retiraListaFinalElemento(Lista* l){
+/*void retiraListaFinalElemento(Lista* l){
     while (l != NULL){
         printf("a");
-        if((l->verificada == 1 && l->prox->verificada ==0) || (l->prox ==NULL)){
-            l = retiraLista(l,l->conteudo);
+        if((l->verificada == 1 && l->prox->verificada == 0) || (l->prox ==NULL)){
+            l = retiraLista(l, l->conteudo);
             break;
         }
         l = l->prox;
     }
-}
+}*/
 
 int contemNumero(int posicao, int v){
     Lista* ant = NULL; 
@@ -520,9 +520,9 @@ int contemNumero(int posicao, int v){
     else return 1;
 }
 
-Lista* retiraLista(Lista* l,int v){
+Lista* retiraLista(int posicao, int v){
     Lista* ant = NULL; 
-    Lista* p = l;
+    Lista* p = vetorPrincipal[posicao];
 
 
     while(p!= NULL && p ->conteudo != v){
@@ -533,13 +533,13 @@ Lista* retiraLista(Lista* l,int v){
     if(p==NULL) return 0;
 
     if(ant == NULL){
-        l = p->prox;
+        vetorPrincipal[posicao] = p->prox;
     }else{
         ant ->prox = p->prox;
     }
 
     free(p);
-    return l;
+    return vetorPrincipal[posicao];
 }
 
 void realocarLista(int posicao){
@@ -560,7 +560,7 @@ void realocarLista(int posicao){
     ant->prox = novo;
 }
 
-void ordenar(int vetor[], size_t tamanho) {
+void ordenar(int vetor[], int tamanho) {
     for (int i = 0; i < tamanho - 1; ++i) {
         for (int j = i + 1; j < tamanho; ++j) {
             if (vetor[i] > vetor[j]) {
