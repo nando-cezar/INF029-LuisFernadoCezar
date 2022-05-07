@@ -45,14 +45,14 @@ void liberaLista(Lista **l);
 
 Lista* criaLista(int posicao);
 Lista* retiraLista(Lista* l,int v); 
-int contemNumero(Lista* l, int v);
+int contemNumero(int posicao, int v);
 int estruturaExistente(int posicao);
 int espacoExistente(int posicao);
-int conteudoExistente(int posicao);
-int posicaoValida(int posicao);
-void insercaoElementosLista(Lista *l, int numero);
+int estruturaAuxiliarPreenchida(int posicao);
+int posicaoInvalida(int posicao);
+void inserirElementoLista(Lista *l, int numero);
 void retiraListaFinalElemento(Lista* l);
-void realocamento(Lista* l);
+void realocarLista(int posicao);
 void ordenar(int vetor[], size_t tamanho);
 
 

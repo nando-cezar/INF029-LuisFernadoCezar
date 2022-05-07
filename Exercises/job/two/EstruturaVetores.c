@@ -22,7 +22,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho){
     posicao--;
     int retorno = 0;
     
-    if(posicaoValida(posicao)){     
+    if(posicaoInvalida(posicao)){     
         retorno = POSICAO_INVALIDA;
     }else if(tamanho < 1){
         retorno = TAMANHO_INVALIDO;
@@ -30,7 +30,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho){
         retorno = JA_TEM_ESTRUTURA_AUXILIAR; 
     }else{
 
-        for(int i = 0; i<tamanho ;i++){
+        for(int i = 0; i < tamanho; i++){
             vetorPrincipal[posicao] = criaLista(posicao);
         }
 
@@ -58,15 +58,15 @@ int inserirNumeroEmEstrutura(int posicao, int valor){
     int retorno = 0;
     posicao--;
 
-    if(posicaoValida(posicao)){
-          retorno = POSICAO_INVALIDA;
+    if(posicaoInvalida(posicao)){
+        retorno = POSICAO_INVALIDA;
     }else{
-        // testar se existe a estrutura auxiliar
+
         if (estruturaExistente(posicao)){
            
             if (espacoExistente(posicao)){
-                //insere
-                insercaoElementosLista(vetorPrincipal[posicao], valor);
+
+                inserirElementoLista(vetorPrincipal[posicao], valor);
                 retorno = SUCESSO;
             }else{
                 retorno = SEM_ESPACO;
@@ -93,27 +93,27 @@ int excluirNumeroDoFinaldaEstrutura(int posicao){
     posicao--;
     int retorno = 0;
 
-    if(posicaoValida(posicao)){
+    if(posicaoInvalida(posicao)){
         retorno = POSICAO_INVALIDA;
     }else if(estruturaExistente(posicao)){
         
-        if (!conteudoExistente(posicao)){
+        if (!estruturaAuxiliarPreenchida(posicao)){
             retorno = ESTRUTURA_AUXILIAR_VAZIA;
         }else{
             Lista* l = vetorPrincipal[posicao];
             Lista* x;
             while (l != NULL){  
                 x = l ->prox;              
-                if(l->prox ==NULL || x->verificada == 0){
+                if(l->prox == NULL || x->verificada == 0){
                     vetorPrincipal[posicao] = retiraLista(vetorPrincipal[posicao],l->conteudo);
-                    l =NULL;
+                    l = NULL;
                 }else{
                     l = l -> prox;       
                 }
                 
             }
 
-            realocamento(vetorPrincipal[posicao]);
+            realocarLista(posicao);
             retorno = SUCESSO;
         }
 
@@ -141,17 +141,17 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor){
     posicao--;
     int retorno = 0;
 
-    if(posicaoValida(posicao)){
+    if(posicaoInvalida(posicao)){
         retorno = POSICAO_INVALIDA;
     }else if(!estruturaExistente(posicao)){
         retorno = SEM_ESTRUTURA_AUXILIAR;
     }else{
-         if (!conteudoExistente(posicao)){
+         if (!estruturaAuxiliarPreenchida(posicao)){
             retorno = ESTRUTURA_AUXILIAR_VAZIA;
         }else{
-            if(contemNumero(vetorPrincipal[posicao],valor)){
-                vetorPrincipal[posicao] = retiraLista(vetorPrincipal[posicao],valor);
-                realocamento(vetorPrincipal[posicao]);
+            if(contemNumero(posicao, valor)){
+                vetorPrincipal[posicao] = retiraLista(vetorPrincipal[posicao], valor);
+                realocarLista(vetorPrincipal[posicao]);
                 retorno = SUCESSO;
             }else{
                 retorno = NUMERO_INEXISTENTE;
@@ -175,7 +175,7 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]){
     posicao--;
     int retorno = 0, incremento =0;
 
-    if(posicaoValida(posicao)){
+    if(posicaoInvalida(posicao)){
         retorno = POSICAO_INVALIDA;
     }else if(!estruturaExistente(posicao)){
         retorno = SEM_ESTRUTURA_AUXILIAR;
@@ -288,7 +288,7 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho){
     posicao--;
     novoTamanho = getTamanhoDaEstruturaAuxilia(posicao) + novoTamanho;
    
-    if(posicaoValida(posicao)){
+    if(posicaoInvalida(posicao)){
         retorno = POSICAO_INVALIDA;
     }else if(novoTamanho<1){
         retorno = NOVO_TAMANHO_INVALIDO;
@@ -342,7 +342,7 @@ int getQuantidadeElementosEstruturaAuxiliar(int posicao){
     int retorno = 0, quantidade = 0;
     posicao --;
 
-    if(posicaoValida(posicao)){
+    if(posicaoInvalida(posicao)){
         retorno = POSICAO_INVALIDA;
     }else if(!estruturaExistente(posicao)){
         retorno =SEM_ESTRUTURA_AUXILIAR;
@@ -458,7 +458,7 @@ void liberaLista(Lista** l){
 
 int estruturaExistente(int posicao){return vetorPrincipal[posicao]!= NULL;}
 
-int conteudoExistente(int posicao){return vetorPrincipal[posicao]->verificada == 1;};
+int estruturaAuxiliarPreenchida(int posicao){return vetorPrincipal[posicao]->verificada == 1;};
 
 int espacoExistente(int posicao){
     int retorno = 0;
@@ -482,7 +482,7 @@ Lista* criaLista(int posicao){
     return novo;
 }
 
-void insercaoElementosLista(Lista *l, int numero){
+void inserirElementoLista(Lista *l, int numero){
     
     while(l != NULL){
         if(l->verificada == 0){
@@ -506,17 +506,17 @@ void retiraListaFinalElemento(Lista* l){
     }
 }
 
-int contemNumero(Lista* l, int v){
+int contemNumero(int posicao, int v){
     Lista* ant = NULL; 
-    Lista* p = l;
+    Lista* p = vetorPrincipal[posicao];
 
 
-    while(p!= NULL && p ->conteudo != v){
+    while(p != NULL && p ->conteudo != v){
         ant = p;
         p = p ->prox;
     }
 
-    if(p==NULL) return 0;
+    if(p == NULL) return 0;
     else return 1;
 }
 
@@ -542,10 +542,10 @@ Lista* retiraLista(Lista* l,int v){
     return l;
 }
 
-void realocamento(Lista* l){
+void realocarLista(int posicao){
     
     Lista* ant = NULL;
-    Lista* p = l;
+    Lista* p = vetorPrincipal[posicao];
     Lista* novo = (Lista*) malloc(sizeof(Lista));
     
 
@@ -584,7 +584,7 @@ int getTamanhoDaEstruturaAuxilia(int posicao){
     return quantidade;
 }
 
-int posicaoValida(int posicao){
+int posicaoInvalida(int posicao){
     return (posicao < 0 || posicao >= TAM);
 }
 
