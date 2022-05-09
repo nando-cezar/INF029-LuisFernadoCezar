@@ -146,7 +146,7 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor){
     }else if(!estruturaExistente(posicao)){
         retorno = SEM_ESTRUTURA_AUXILIAR;
     }else{
-         if (!estruturaAuxiliarPreenchida(posicao)){
+        if (!estruturaAuxiliarPreenchida(posicao)){
             retorno = ESTRUTURA_AUXILIAR_VAZIA;
         }else{
             if(contemNumero(posicao, valor)){
@@ -173,14 +173,14 @@ Retorno (int)
 */
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]){
     posicao--;
-    int retorno = 0, incremento =0;
+    int retorno = 0, incremento = 0;
 
     if(posicaoInvalida(posicao)){
         retorno = POSICAO_INVALIDA;
     }else if(!estruturaExistente(posicao)){
         retorno = SEM_ESTRUTURA_AUXILIAR;
     }else{
-        Lista * aux = vetorPrincipal[posicao];
+        Lista* aux = vetorPrincipal[posicao];
 
         while(aux !=NULL){
             if(aux->verificada == 1){
@@ -225,7 +225,8 @@ Rertono (int)
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]){
-    int retorno = 0,incremento = 0;
+    
+    int retorno = 0, incremento = 0;
 
     for(int i = 0 ; i< TAM; i++){
         Lista* aux = vetorPrincipal[i];
@@ -521,16 +522,16 @@ int contemNumero(int posicao, int v){
 }
 
 Lista* retiraLista(int posicao, int v){
+
     Lista* ant = NULL; 
     Lista* p = vetorPrincipal[posicao];
 
-
-    while(p!= NULL && p ->conteudo != v){
+    while(p != NULL && p->conteudo != v){
         ant = p;
         p = p ->prox;
     }
 
-    if(p==NULL) return 0;
+    if(p == NULL) return 0;
 
     if(ant == NULL){
         vetorPrincipal[posicao] = p->prox;
