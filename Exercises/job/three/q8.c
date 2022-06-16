@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int multRec(int a, int b) {
-	if(a == 0 || b == 0) {
+int fatDuplo(int n) {
+	if(n == 1) {
+		return 1;
+	}
+	if(n % 2 == 0) {
 		return 0;
 	}
-	if(b == 1) {
-		return a;
-	}
-	return a + multRec(a, b - 1);
+	return n * fatDuplo(n - 2);
 }
 
 int main(){
 
-    multRec(4, 5);
+    fatDuplo(5);
 
     return 0;
 }

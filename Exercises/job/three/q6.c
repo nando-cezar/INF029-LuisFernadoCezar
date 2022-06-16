@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-int potenciakn(int k, int n) {
+int soma1aN(int n) {
 	if(n == 1) {
-		return k;
+		return 1;
 	}
-	return k * potenciakn(k, n - 1);
+	return n + soma1aN(n - 1);
 }
 
 int main(){
 
-    potenciakn(3, 9);
+    soma1aN(3);
 
     return 0;
 }

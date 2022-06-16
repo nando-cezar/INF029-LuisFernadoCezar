@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-int maxDivCom(int a, int b) {
-	if( b == 0) {
-		return a;
+int potenciakn(int k, int n) {
+	if(n == 1) {
+		return k;
 	}
-	maxDivCom(b, a % b);
+	return k * potenciakn(k, n - 1);
 }
 
 int main(){
 
-    maxDivCom(30, 9);
+    potenciakn(3, 9);
 
     return 0;
 }

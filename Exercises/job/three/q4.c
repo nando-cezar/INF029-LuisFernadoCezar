@@ -1,16 +1,15 @@
 #include <stdio.h>
 
-int somaVetor(int vet[], int n) {
-	if(n == 1) {
-		return vet[0];
+int maxDivCom(int a, int b) {
+	if( b == 0) {
+		return a;
 	}
-	return vet[n - 1] + somaVetor(vet, n - 1);
+	maxDivCom(b, a % b);
 }
 
 int main(){
 
-    int v = {1,2,3,4,3,7,4,9,3,5,1}
-    somaVetor(v, 3);
+    maxDivCom(30, 9);
 
     return 0;
 }

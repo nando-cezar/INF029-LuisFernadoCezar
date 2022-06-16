@@ -1,15 +1,18 @@
 #include <stdio.h>
 
-int soma1aN(int n) {
-	if(n == 1) {
-		return 1;
+int multRec(int a, int b) {
+	if(a == 0 || b == 0) {
+		return 0;
 	}
-	return n + soma1aN(n - 1);
+	if(b == 1) {
+		return a;
+	}
+	return a + multRec(a, b - 1);
 }
 
 int main(){
 
-    soma1aN(3);
+    multRec(4, 5);
 
     return 0;
 }

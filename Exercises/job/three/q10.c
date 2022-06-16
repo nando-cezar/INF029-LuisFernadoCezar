@@ -1,18 +1,22 @@
 #include <stdio.h>
 
-int fatDuplo(int n) {
-	if(n == 1) {
+int superFat(int n) {
+	if(n == 0 || n == 1) {
 		return 1;
 	}
-	if(n % 2 == 0) {
-		return 0;
+	int interna(int n) {
+		if(n == 0 || n == 1) {
+			return 1;
+		}
+		return n * interna(n - 1);
 	}
-	return n * fatDuplo(n - 2);
+	return interna(n) * superFat(n - 1);
+
 }
 
 int main(){
 
-    fatDuplo(5);
+    superFat(5);
 
     return 0;
 }
