@@ -9,7 +9,7 @@ int potenciakn(int k, int n) {
 
 int main(){
 
-    potenciakn(3, 9);
+    printf("%d ", potenciakn(3, 9));
 
     return 0;
 }

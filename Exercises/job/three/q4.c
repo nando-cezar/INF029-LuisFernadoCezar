@@ -9,7 +9,7 @@ int maxDivCom(int a, int b) {
 
 int main(){
 
-    maxDivCom(30, 9);
+    printf("%d ", maxDivCom(30, 9));
 
     return 0;
 }

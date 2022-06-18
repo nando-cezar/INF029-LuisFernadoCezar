@@ -12,7 +12,7 @@ int fatQuadruplo(int n) {
 
 int main(){
 
-    fatQuadruplo(5);
+    printf("%d ", fatQuadruplo(5));
 
     return 0;
 }

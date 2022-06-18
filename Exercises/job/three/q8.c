@@ -12,7 +12,7 @@ int fatDuplo(int n) {
 
 int main(){
 
-    fatDuplo(5);
+    printf("%d ", fatDuplo(5));
 
     return 0;
 }

@@ -9,7 +9,7 @@ int soma1aN(int n) {
 
 int main(){
 
-    soma1aN(3);
+    printf("%d ", soma1aN(3));
 
     return 0;
 }

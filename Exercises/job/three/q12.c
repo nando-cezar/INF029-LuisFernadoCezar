@@ -13,7 +13,7 @@ int tetranacci(int n) {
 
 int main(){
 
-    tetranacci(5);
+    printf("%d ", tetranacci(5));
 
     return 0;
 }

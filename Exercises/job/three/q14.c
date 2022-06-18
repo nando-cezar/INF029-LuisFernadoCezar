@@ -12,7 +12,7 @@ int pell(int n) {
 
 int main(){
 
-    pell(5);
+    printf("%d ", pell(5));
 
     return 0;
 }

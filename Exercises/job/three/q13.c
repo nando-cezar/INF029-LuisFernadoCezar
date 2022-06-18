@@ -9,7 +9,7 @@ int padovan(int n) {
 
 int main(){
 
-    padovan(5);
+    printf("%d ", padovan(5));
 
     return 0;
 }

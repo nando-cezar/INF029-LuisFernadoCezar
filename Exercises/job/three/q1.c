@@ -9,7 +9,7 @@ int fatorial(int n) {
 
 int main(){
 
-    fatorial(5);
+    printf("%d ", fatorial(5));
 
     return 0;
 }

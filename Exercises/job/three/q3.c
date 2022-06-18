@@ -16,7 +16,7 @@ int inverteSig(int n) {
 
 int main(){
 
-    inverteSig(532);
+    printf("%d ", inverteSig(532));
 
     return 0;
 }

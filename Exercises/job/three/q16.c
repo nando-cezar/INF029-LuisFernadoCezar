@@ -8,7 +8,7 @@ int converteParaBinario(int n){
 
 int main(){
 
-    converteParaBinario(3);
+    printf("%d ", converteParaBinario(3));
 
     return 0;
 }

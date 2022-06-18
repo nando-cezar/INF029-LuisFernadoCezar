@@ -13,7 +13,7 @@ int tribonacci(int n) {
 
 int main(){
 
-    superFat(5);
+    printf("%d ", superFat(5));
 
     return 0;
 }

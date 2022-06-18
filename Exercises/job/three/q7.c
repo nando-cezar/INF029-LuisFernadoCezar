@@ -12,7 +12,7 @@ int multRec(int a, int b) {
 
 int main(){
 
-    multRec(4, 5);
+    printf("%d ", multRec(4, 5));
 
     return 0;
 }

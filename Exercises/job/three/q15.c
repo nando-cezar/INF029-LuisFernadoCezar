@@ -9,7 +9,7 @@ int catalan(int n) {
 
 int main(){
 
-    catalan(3);
+    printf("%d ", catalan(3));
 
     return 0;
 }
