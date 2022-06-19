@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "questions.h"
 
 int soma1aN(int n) {
 	if(n == 1) {

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "questions.h"
 
 int superFat(int n) {
 	if(n == 0 || n == 1) {

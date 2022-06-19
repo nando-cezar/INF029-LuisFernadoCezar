@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "questions.h"
 
 int fatDuplo(int n) {
 	if(n == 1) {

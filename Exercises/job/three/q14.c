@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "questions.h"
 
 int pell(int n) {
 	if(n == 0) {

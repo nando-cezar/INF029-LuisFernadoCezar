@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "questions.h"
 
 int multRec(int a, int b) {
 	if(a == 0 || b == 0) {

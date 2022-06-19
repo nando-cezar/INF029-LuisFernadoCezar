@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "questions.h"
 
 int fatQuadruplo(int n) {
 	int interna(int n, int k) {

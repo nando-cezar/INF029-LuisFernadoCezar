@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "questions.h"
 
 int fatorial(int n) {
 	if(n < 2) {

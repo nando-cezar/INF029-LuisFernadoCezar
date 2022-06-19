@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "questions.h"
 
 int tribonacci(int n) {
 	if(n == 0 || n == 1) {
@@ -13,7 +14,7 @@ int tribonacci(int n) {
 
 int main(){
 
-    printf("%d ", superFat(5));
+    printf("%d ", tribonacci(5));
 
     return 0;
 }
