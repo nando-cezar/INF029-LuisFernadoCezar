@@ -1,8 +1,8 @@
 #ifndef QUESTIONS_H // include guard
 
     #define QUESTIONS_H
-
-   int fatorial(int n);
+ 
+   int fatorial(int n);             
    int fibonacci(int n);
    int inverteSig(int n);
    int maxDivCom(int a, int b);
