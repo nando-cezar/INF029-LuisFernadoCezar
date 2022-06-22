@@ -10,10 +10,3 @@ int multRec(int a, int b) {
 	}
 	return a + multRec(a, b - 1);
 }
-
-int main(){
-
-    printf("%d ", multRec(4, 5));
-
-    return 0;
-}

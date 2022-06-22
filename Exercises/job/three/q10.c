@@ -14,10 +14,3 @@ int superFat(int n) {
 	return interna(n) * superFat(n - 1);
 
 }
-
-int main(){
-
-    printf("%d ", superFat(5));
-
-    return 0;
-}

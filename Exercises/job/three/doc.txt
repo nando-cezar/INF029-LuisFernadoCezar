@@ -1,0 +1,5 @@
+cd .\Exercises\job\three\
+
+gcc *.c  -o main
+
+./main

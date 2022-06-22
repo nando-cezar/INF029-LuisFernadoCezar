@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 #include "questions.h"
 
 int inverte(int n) {
@@ -14,11 +16,3 @@ int inverteSig(int n) {
 	}
 	return inverte(n);
 }
-
-int main(){
-
-    printf("%d ", inverteSig(532));
-
-    return 0;
-}
-

@@ -7,10 +7,3 @@ int soma1aN(int n) {
 	}
 	return n + soma1aN(n - 1);
 }
-
-int main(){
-
-    printf("%d ", soma1aN(3));
-
-    return 0;
-}

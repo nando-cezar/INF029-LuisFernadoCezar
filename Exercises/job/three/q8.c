@@ -10,10 +10,3 @@ int fatDuplo(int n) {
 	}
 	return n * fatDuplo(n - 2);
 }
-
-int main(){
-
-    printf("%d ", fatDuplo(5));
-
-    return 0;
-}

@@ -7,10 +7,3 @@ int fatorial(int n) {
 	}
 	return n * fatorial(n - 1);
 }
-
-int main(){
-
-    printf("%d ", fatorial(5));
-
-    return 0;
-}

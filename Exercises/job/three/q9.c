@@ -10,10 +10,3 @@ int fatQuadruplo(int n) {
 	}
 	return interna(2 * n, n + 1);
 }
-
-int main(){
-
-    printf("%d ", fatQuadruplo(5));
-
-    return 0;
-}

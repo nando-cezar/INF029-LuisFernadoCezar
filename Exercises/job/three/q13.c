@@ -7,10 +7,3 @@ int padovan(int n) {
 	}
 	return padovan(n - 2) + padovan(n - 3);
 }
-
-int main(){
-
-    printf("%d ", padovan(5));
-
-    return 0;
-}

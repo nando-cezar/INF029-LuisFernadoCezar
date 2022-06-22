@@ -11,10 +11,3 @@ int tribonacci(int n) {
 	}
 	return tribonacci(n - 1) + tribonacci(n - 2) + tribonacci(n - 3);
 }
-
-int main(){
-
-    printf("%d ", tribonacci(5));
-
-    return 0;
-}

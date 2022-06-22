@@ -7,10 +7,3 @@ int potenciakn(int k, int n) {
 	}
 	return k * potenciakn(k, n - 1);
 }
-
-int main(){
-
-    printf("%d ", potenciakn(3, 9));
-
-    return 0;
-}

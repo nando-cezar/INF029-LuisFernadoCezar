@@ -6,10 +6,3 @@ int converteParaBinario(int n){
         return n;
     return ( 10 * converteParaBinario( n / 2 ) ) + n % 2;
 }
-
-int main(){
-
-    printf("%d ", converteParaBinario(3));
-
-    return 0;
-}

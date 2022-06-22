@@ -10,10 +10,3 @@ int pell(int n) {
 	}
 	return 2 * pell(n - 1) + pell(n - 2);
 }
-
-int main(){
-
-    printf("%d ", pell(5));
-
-    return 0;
-}

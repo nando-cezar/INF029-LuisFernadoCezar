@@ -7,10 +7,3 @@ int maxDivCom(int a, int b) {
 	}
 	maxDivCom(b, a % b);
 }
-
-int main(){
-
-    printf("%d ", maxDivCom(30, 9));
-
-    return 0;
-}
