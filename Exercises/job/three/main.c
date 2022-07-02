@@ -15,7 +15,7 @@ int main(){
     int option;
 
     do{
-        printf("BEM-VINDO, selecione a questão desejada (1 a 16): ");
+        printf("BEM-VINDO (digite 0 pra sair), selecione a questão desejada (1 a 16): ");
         scanf("%d", &option);
         getchar();
 
